@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,11 +18,17 @@ import com.example.myapplication.model.Drink;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecyclerAdapter.DriverItemViewHolder> {
+    private IClickAddToCartListener iClickAddToCartListener;
 
+    public interface IClickAddToCartListener {
+        void onClickAddToCart(ImageView imageView, Drink drink);
+    }
+
+    public void setData(IClickAddToCartListener iClickAddToCartListener) {
+        this.iClickAddToCartListener = iClickAddToCartListener;
+
+    }
 
     public ItemRecyclerAdapter(@NonNull FirebaseRecyclerOptions<Drink> options) {
         super(options);
@@ -29,17 +36,25 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
 
     @Override
     protected void onBindViewHolder(@NonNull DriverItemViewHolder holder, int position, @NonNull Drink model) {
-            holder.name.setText(model.getName());
-            holder.price.setText(model.getPrice());
+        holder.name.setText(model.getName());
+        holder.price.setText(model.getPrice());
         Glide.with(holder.image.getContext()).load(model.getImage()).into(holder.image);
 
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppCompatActivity activity=(AppCompatActivity)view.getContext();
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.framelayoutac,new DetailsFragment(model.getName(),model.getPrice(),model.getImage()))
+                        .replace(R.id.framlayoutman, new DetailsFragment(model.getName(), model.getPrice(), model.getImage()))
                         .addToBackStack(null).commit();
+            }
+        });
+        holder.cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!model.isAddToCart()) {
+                    iClickAddToCartListener.onClickAddToCart(holder.cart, model);
+                }
             }
         });
     }
@@ -54,14 +69,18 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
     public class DriverItemViewHolder extends RecyclerView.ViewHolder {
         private TextView price;
         private TextView name;
-        private ImageView image;
+        private ImageView image, cart;
+
 
         public DriverItemViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.cart = itemView.findViewById(R.id.imgcart);
             this.price = itemView.findViewById(R.id.txtPrice);
             this.name = itemView.findViewById(R.id.txtName);
             this.image = itemView.findViewById(R.id.imageview);
         }
+
+
     }
 }
 

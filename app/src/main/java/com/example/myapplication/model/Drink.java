@@ -2,6 +2,9 @@ package com.example.myapplication.model;
 
 public class Drink {
     private String key,name,image,price;
+    private boolean isAddToCart;
+
+
 
     public String getKey() {
         return key;
@@ -34,7 +37,13 @@ public class Drink {
     public void setPrice(String price) {
         this.price = price;
     }
+    public boolean isAddToCart() {
+        return isAddToCart;
+    }
 
+    public void setAddToCart(boolean addToCart) {
+        isAddToCart = addToCart;
+    }
     public Drink(){
 
     }

@@ -70,10 +70,10 @@ public class DetailsFragment extends Fragment {
             return  view;
         }
 
-        public void onBackPressed()
-        {
-            AppCompatActivity activity=(AppCompatActivity)getContext();
-            activity.getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutac,new HomeFragMent()).addToBackStack(null).commit();
-
-        }
+//        public void onBackPressed()
+//        {
+//            AppCompatActivity activity=(AppCompatActivity)getContext();
+//            activity.getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutac,new HomeFragMent()).addToBackStack(null).commit();
+//
+//        }
     }

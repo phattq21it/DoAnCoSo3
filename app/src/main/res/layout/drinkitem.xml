@@ -14,24 +14,35 @@
         android:gravity="center"
         android:padding="16dp"
         android:orientation="vertical">
+
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:id="@+id/imageview"/>
+            android:layout_gravity="end"
+            android:id="@+id/imgcart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_shopping_cart_24"/>
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:id="@+id/imageview"
+            android:src="@drawable/common_google_signin_btn_icon_dark"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:id="@+id/txtPrice"/>
+            android:id="@+id/txtPrice"
+            android:text="Gia"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txtName"
            android:layout_gravity="start"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:text="Ten"/>
+
 
 
     </LinearLayout>

@@ -6,10 +6,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.myapplication.fragment.HomeFragMent;
-import com.example.myapplication.fragment.NotificationFragment;
-import com.example.myapplication.fragment.SettingFragment;
+import com.example.myapplication.fragment.AccountFragment;
+import com.example.myapplication.fragment.CartFragment;
 
-public class ViewPagerAdapter extends FragmentStateAdapter {
+    public class ViewPagerAdapter extends FragmentStateAdapter {
 
 
     public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
@@ -23,9 +23,9 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
             case 0:
             return new HomeFragMent();
             case 1:
-                return new SettingFragment();
+                return new CartFragment();
             case 2  :
-                return new NotificationFragment();
+                return new AccountFragment();
             default: return new HomeFragMent();
         }
 

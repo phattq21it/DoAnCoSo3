@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:background="@color/white"
-    android:gravity="center">
-
-    <ScrollView
+    android:background="#F8BF6B"
+    android:gravity="center"
+    android:orientation="vertical">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="ScrollViewCount">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <com.mancj.materialsearchbar.MaterialSearchBar
+            android:id="@+id/searchBar"
+            style="@style/MaterialSearchBarLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:mt_hint="Custom hint"
+            app:mt_maxSuggestionsCount="10"
+            app:mt_speechMode="true"
+            android:layout_margin="10dp"/>
 
+    </LinearLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/search"
             android:orientation="vertical">
 
-            <com.mancj.materialsearchbar.MaterialSearchBar
-                android:id="@+id/searchBar"
-                style="@style/MaterialSearchBarLight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:mt_hint="Custom hint"
-                app:mt_maxSuggestionsCount="10"
-                app:mt_speechMode="true" />
+
 
             <com.smarteist.autoimageslider.SliderView
                 android:id="@+id/imageSlider"
@@ -44,12 +48,13 @@
                 app:sliderIndicatorRadius="2dp"
                 app:sliderIndicatorSelectedColor="#5A5A5A"
                 app:sliderIndicatorUnselectedColor="#FFF"
-                app:sliderScrollTimeInSec="1"
-                app:sliderStartAutoCycle="true" />
+                app:sliderScrollTimeInSec="5"
+                app:sliderStartAutoCycle="true"
+                android:layout_margin="10dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -64,8 +69,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_drink"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:padding="8dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -78,14 +84,17 @@
                     android:text="Sản phẩm giảm giá"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_drink2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="8dp" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_drink2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp" />
 
         </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>
