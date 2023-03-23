@@ -7,22 +7,7 @@
     android:background="#F8BF6B"
     android:gravity="center"
     android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <com.mancj.materialsearchbar.MaterialSearchBar
-            android:id="@+id/searchBar"
-            style="@style/MaterialSearchBarLight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:mt_hint="Custom hint"
-            app:mt_maxSuggestionsCount="10"
-            app:mt_speechMode="true"
-            android:layout_margin="10dp"/>
-
-    </LinearLayout>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

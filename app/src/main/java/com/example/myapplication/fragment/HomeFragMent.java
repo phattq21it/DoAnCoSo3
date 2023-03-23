@@ -1,15 +1,29 @@
 package com.example.myapplication.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +35,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.model.Drink;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -37,6 +52,8 @@ public class HomeFragMent extends Fragment {
     private String mParam2;
     RecyclerView recview;
     private MainActivity mainActivity;
+    private MenuItem menuItem;
+    private SearchView searchView;
 
 
     int[] images={R.drawable.one,
@@ -63,6 +80,7 @@ public class HomeFragMent extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
@@ -70,6 +88,40 @@ public class HomeFragMent extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menusearch,menu);
+        menuItem=menu.findItem(R.id.search_view);
+        searchView= (SearchView) MenuItemCompat.getActionView(menuItem);
+
+        searchView.setIconified(true);
+
+        SearchManager searchManager= (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                Bundle bundle= new Bundle();
+                bundle.putString("df2",query);
+                getParentFragmentManager().setFragmentResult("datasearch",bundle);
+                hideKeyboard(mainActivity);
+                replaceFragment(new ResultSearchFragment());
+                Log.d(query,query);
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @SuppressLint("MissingInflatedId")
@@ -108,14 +160,26 @@ public class HomeFragMent extends Fragment {
 
         //setlistener
         itemRecycleAdapter.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClickAddToCart(ImageView imageView, Drink drink) {
                 mainActivity.setCountProductInCart(mainActivity.getmCountProduct()+1);
+//                if(imageView.)
+                imageView.setEnabled(false);
+                imageView.setColorFilter(ContextCompat.getColor(view.getContext(),R.color.DimGray), PorterDuff.Mode.SRC_IN);
             }
         });
 
         return view;
 
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        View view = activity.findViewById(android.R.id.content);
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
     @Override
     public void onStart() {
@@ -127,5 +191,14 @@ public class HomeFragMent extends Fragment {
         super.onStop();
         itemRecycleAdapter.stopListening();
     }
+    private void replaceFragment(Fragment fragment) {
+
+        mainActivity= (MainActivity) getActivity();
+        FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.framlayoutman, fragment);
+        fragmentTransaction.commit();
+    }
+
 
 }

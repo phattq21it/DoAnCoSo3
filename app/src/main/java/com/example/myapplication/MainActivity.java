@@ -21,6 +21,7 @@ import com.example.myapplication.Adapter.ViewPagerAdapter;
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.example.myapplication.fragment.AccountFragment;
 import com.example.myapplication.fragment.CartFragment;
+import com.example.myapplication.fragment.CategoriesFragment;
 import com.example.myapplication.fragment.HomeFragMent;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,13 +51,15 @@ public class MainActivity extends AppCompatActivity {
         frameLayout = findViewById(R.id.framlayoutman);
 // Create items
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.home_nav, R.drawable.ic_baseline_home_24, R.color.teal_200);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.cart_nav, R.drawable.ic_baseline_shopping_cart_24, R.color.teal_200);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.account_nav, R.drawable.ic_baseline_account_circle_24, R.color.teal_200);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.categories_nav, R.drawable.ic_baseline_category_24, R.color.teal_200);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.cart_nav, R.drawable.ic_baseline_shopping_cart_24, R.color.teal_200);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.account_nav, R.drawable.ic_baseline_account_circle_24, R.color.teal_200);
 
 // Add items
         ahBottomNavigation.addItem(item1);
         ahBottomNavigation.addItem(item2);
         ahBottomNavigation.addItem(item3);
+        ahBottomNavigation.addItem(item4);
 
 
         replaceFragment(new HomeFragMent());
@@ -72,9 +75,13 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 1:
                         Log.d(String.valueOf(position),String.valueOf(position));
-                        replaceFragment(new CartFragment());
+                        replaceFragment(new CategoriesFragment());
                         break;
                     case 2:
+                        Log.d(String.valueOf(position),String.valueOf(position));
+                        replaceFragment(new CartFragment());
+                        break;
+                    case 3:
                         Log.d(String.valueOf(position),String.valueOf(position));
                         replaceFragment(new AccountFragment());
                         break;
@@ -129,8 +136,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void replaceFragment(Fragment fragment) {
-
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.framlayoutman, fragment);
@@ -143,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 .setBackgroundColor(ContextCompat.getColor(MainActivity.this, com.nex3z.notificationbadge.R.color.red))
                 .setTextColor(ContextCompat.getColor(MainActivity.this, com.nex3z.notificationbadge.R.color.white))
                 .build();
-        ahBottomNavigation.setNotification(notification, 1);
+        ahBottomNavigation.setNotification(notification, 2);
     }
 
     public int getmCountProduct() {
