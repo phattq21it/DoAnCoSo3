@@ -26,7 +26,6 @@ import com.example.myapplication.fragment.HomeFragMent;
 
 public class MainActivity extends AppCompatActivity {
     private int mCountProduct;
-    ActivityMainBinding binding;
     ZoomOutPageTransformer zoomOutPageTransformer = new ZoomOutPageTransformer();
     private ViewPagerAdapter viewPagerAdapter;
     FrameLayout frameLayout;
