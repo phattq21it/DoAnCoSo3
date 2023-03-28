@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,28 +15,37 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class WelcomeActivity extends AppCompatActivity {
     LinearLayout signuplayout,signinlayout;
     TextView signin,signup;
     Button btnsignin,btnsignup;
-    EditText edtmailsu,edtpasssu,edtcfpasssu,edtmailsi,edtpasssi;
+    EditText edtmailsu,edtpasssu,edtcfpasssu,edtPassword,edtPhone;
     FirebaseAuth auth;
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+
         auth = FirebaseAuth.getInstance();
-        edtmailsi = findViewById(R.id.eMail);
-        edtpasssi = findViewById(R.id.passwords);
+        edtPassword = findViewById(R.id.edtPassword);
+        edtPhone = findViewById(R.id.edtPhone);
         edtmailsu = findViewById(R.id.eMails);
         edtpasssu = findViewById(R.id.passwordss);
         edtcfpasssu = findViewById(R.id.passwords01);
@@ -46,6 +56,10 @@ public class WelcomeActivity extends AppCompatActivity {
         signin = findViewById(R.id.tvlogin);
         btnsignin = findViewById(R.id.btnsignIn);
         btnsignup = findViewById(R.id.btnsignup);
+
+        // init Firebase
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        final DatabaseReference users = db.getReference("User");
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +78,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 signin.setBackground(getResources().getDrawable(R.drawable.switch_trcks));
                 signin.setTextColor(getResources().getColor(R.color.textColor));
-//
+
 
                 signup.setBackground(getResources().getDrawable(R.drawable.switch_tumbs));
                 signup.setTextColor(getResources().getColor(R.color.pinkColor));
@@ -77,44 +91,59 @@ public class WelcomeActivity extends AppCompatActivity {
         btnsignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
-                startActivity(i);
-            }
-        });
-        btnsignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                signupmethod();
-            }
-
-
-        });
-    }
-
-        private void signupmethod() {
-            String email= edtmailsu.getText().toString();
-            String pass= edtpasssu.getText().toString();
-            String cfpass=edtcfpasssu.getText().toString();
-
-            if(TextUtils.isEmpty(email)){
-                Toast.makeText(WelcomeActivity.this, "Email is empty", Toast.LENGTH_SHORT).show();
-            }
-            if(TextUtils.isEmpty(pass)){
-                Toast.makeText(WelcomeActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
-            }
-            if(TextUtils.isEmpty(cfpass)){
-                Toast.makeText(WelcomeActivity.this, "Confirm Password is empty", Toast.LENGTH_SHORT).show();
-            }
-            auth.createUserWithEmailAndPassword(email,pass)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                if(validateData()){
+                    ProgressDialog mDialog  = new ProgressDialog(WelcomeActivity.this);
+                    mDialog.setMessage("Đang xử lí");
+                    mDialog.show();
+                    final String localPhone = edtPhone.getText().toString();
+                    final String localPassword = edtPassword.getText().toString();
+                    users.addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(WelcomeActivity.this, "Register Successfull", Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(WelcomeActivity.this, "Error: "+task.getException(), Toast.LENGTH_SHORT).show();
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.child(edtPhone.getText().toString()).exists()) {
+                                mDialog.dismiss();
+                                User user = snapshot.child(edtPhone.getText().toString()).getValue(User.class);
+                                user.setPhone(localPhone);
+
+                                if (user.getPassword().equals(edtPassword.getText().toString())) {
+
+                                    if(Boolean.parseBoolean(user.getIsAdmin())){
+                                        Toast.makeText(WelcomeActivity.this, "Giao dien server", Toast.LENGTH_SHORT).show();
+                                        // Tại đây thêm giao diện server
+                                    }
+                                    else {
+                                        Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
+                                        startActivity(i);
+                                    }
+
+                                } else {
+                                    Toast.makeText(WelcomeActivity.this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                mDialog.dismiss();
+                                Toast.makeText(WelcomeActivity.this, "User không tồn tại", Toast.LENGTH_SHORT).show();
                             }
                         }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
                     });
+                }
+
+               }
+            private boolean validateData() {
+                if(edtPhone.getText().toString().isEmpty()){
+                    edtPhone.setError("Vui lòng nhập số điện thoại");
+                    return false;
+                }
+                if(edtPassword.getText().toString().isEmpty()){
+                    edtPassword.setError("Vui lòng nhập mật khẩu");
+                    return false;
+                }
+                return true;
+            }
+        });
     }
-}
+        }

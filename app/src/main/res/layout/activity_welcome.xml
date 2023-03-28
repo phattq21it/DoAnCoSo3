@@ -86,7 +86,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email or User name"
+                android:hint="Nhập số điện thoại"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
@@ -99,7 +99,7 @@
 
                 <EditText
                     android:inputType="textPersonName|textEmailAddress"
-                    android:id="@+id/eMail"
+                    android:id="@+id/edtPhone"
                     android:ems="10"
                     android:textSize="13sp"
                     android:textColor="@color/black"
@@ -124,7 +124,7 @@
 
                 <EditText
                     android:inputType="textPassword"
-                    android:id="@+id/passwords"
+                    android:id="@+id/edtPassword"
                     android:ems="10"
                     android:textSize="13sp"
                     android:textColor="@color/black"
@@ -142,6 +142,7 @@
                 android:textStyle="normal"
                 android:padding="10dp"/>
             <Button
+
                 android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
