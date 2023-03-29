@@ -171,7 +171,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email or User name"
+                android:hint="Phone Number"
                 android:textColorHint="@color/purple_200"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -183,8 +183,33 @@
 
 
                 <EditText
-                    android:inputType="textPersonName|textEmailAddress"
-                    android:id="@+id/eMails"
+                    android:id="@+id/edt_su_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType=""
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:textColorHint="@color/purple_200"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                app:shapeAppearanceOverlay="@style/Button4"
+                app:boxStrokeColor="#4E4A4A"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="password_toggle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+
+                <EditText
+                    android:inputType="textPassword"
+                    android:id="@+id/edt_su_name"
                     android:ems="10"
                     android:textSize="13sp"
                     android:textColor="@color/black"
@@ -209,32 +234,7 @@
 
                 <EditText
                     android:inputType="textPassword"
-                    android:id="@+id/passwordss"
-                    android:ems="10"
-                    android:textSize="13sp"
-                    android:textColor="@color/black"
-                    android:textStyle="normal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Cofirm Password"
-                android:textColorHint="@color/purple_200"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                app:shapeAppearanceOverlay="@style/Button4"
-                app:boxStrokeColor="#4E4A4A"
-                app:boxStrokeWidth="1dp"
-                app:endIconMode="password_toggle"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-
-
-                <EditText
-                    android:inputType="textPassword"
-                    android:id="@+id/passwords01"
+                    android:id="@+id/edt_su_pass"
                     android:ems="10"
                     android:textSize="13sp"
                     android:textColor="@color/black"

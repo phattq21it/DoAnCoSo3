@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,12 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.adminapp.AdminActivity;
 import com.example.myapplication.model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,10 +24,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class WelcomeActivity extends AppCompatActivity {
-    LinearLayout signuplayout,signinlayout;
-    TextView signin,signup;
-    Button btnsignin,btnsignup;
-    EditText edtmailsu,edtpasssu,edtcfpasssu,edtPassword,edtPhone;
+    LinearLayout signuplayout, signinlayout;
+    TextView signin, signup;
+    Button btnsignin, btnsignup;
+    EditText edtphonesu, edtpasssu, edtnamesu, edtPassword, edtPhone;
     FirebaseAuth auth;
 
 
@@ -46,9 +41,9 @@ public class WelcomeActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         edtPassword = findViewById(R.id.edtPassword);
         edtPhone = findViewById(R.id.edtPhone);
-        edtmailsu = findViewById(R.id.eMails);
-        edtpasssu = findViewById(R.id.passwordss);
-        edtcfpasssu = findViewById(R.id.passwords01);
+        edtphonesu = findViewById(R.id.edt_su_phone);
+        edtnamesu = findViewById(R.id.edt_su_name);
+        edtpasssu = findViewById(R.id.edt_su_pass);
 
         signuplayout = findViewById(R.id.sigup_layout);
         signinlayout = findViewById(R.id.login_layout);
@@ -73,6 +68,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 signinlayout.setVisibility(View.GONE);
             }
         });
+
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,11 +84,54 @@ public class WelcomeActivity extends AppCompatActivity {
 
             }
         });
+        btnsignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ProgressDialog mDialog = new ProgressDialog(WelcomeActivity.this);
+                mDialog.setMessage("Đang xử lí");
+                mDialog.show();
+
+                users.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.child(edtphonesu.getText().toString()).exists()) {
+                            mDialog.dismiss();
+                            Toast.makeText(WelcomeActivity.this, "Phone number already register", Toast.LENGTH_SHORT).show();
+                        }else{
+                            mDialog.dismiss();
+                            User user = new User(edtnamesu.getText().toString(), edtpasssu.getText().toString());
+                            users.child(edtphonesu.getText().toString()).setValue(user);
+                            Toast.makeText(WelcomeActivity.this, "Sign up successfully", Toast.LENGTH_SHORT).show();
+                            signin.setBackground(getResources().getDrawable(R.drawable.switch_trcks));
+                            signin.setTextColor(getResources().getColor(R.color.textColor));
+
+
+                            signup.setBackground(getResources().getDrawable(R.drawable.switch_tumbs));
+                            signup.setTextColor(getResources().getColor(R.color.pinkColor));
+                            signuplayout.setVisibility(View.GONE);
+                            signinlayout.setVisibility(View.VISIBLE);
+                            Intent i= new Intent(WelcomeActivity.this,WelcomeActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
         btnsignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateData()){
-                    ProgressDialog mDialog  = new ProgressDialog(WelcomeActivity.this);
+//                Intent i= new Intent(WelcomeActivity.this, AdminActivity.class);
+//                startActivity(i);
+//                finish();
+                if (validateData()) {
+                    ProgressDialog mDialog = new ProgressDialog(WelcomeActivity.this);
                     mDialog.setMessage("Đang xử lí");
                     mDialog.show();
                     final String localPhone = edtPhone.getText().toString();
@@ -107,11 +146,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
                                 if (user.getPassword().equals(edtPassword.getText().toString())) {
 
-                                    if(Boolean.parseBoolean(user.getIsAdmin())){
+                                    if (Boolean.parseBoolean(user.getIsAdmin())) {
                                         Toast.makeText(WelcomeActivity.this, "Giao dien server", Toast.LENGTH_SHORT).show();
+                                        Intent i= new Intent(WelcomeActivity.this, AdminActivity.class);
+                                        startActivity(i);
+                                        finish();
                                         // Tại đây thêm giao diện server
-                                    }
-                                    else {
+                                    } else {
                                         Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
                                         startActivity(i);
                                     }
@@ -132,18 +173,20 @@ public class WelcomeActivity extends AppCompatActivity {
                     });
                 }
 
-               }
+            }
+
             private boolean validateData() {
-                if(edtPhone.getText().toString().isEmpty()){
+                if (edtPhone.getText().toString().isEmpty()) {
                     edtPhone.setError("Vui lòng nhập số điện thoại");
                     return false;
                 }
-                if(edtPassword.getText().toString().isEmpty()){
+                if (edtPassword.getText().toString().isEmpty()) {
                     edtPassword.setError("Vui lòng nhập mật khẩu");
                     return false;
                 }
                 return true;
             }
+
         });
     }
-        }
+}
