@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.ItemRecyclerAdapter;
@@ -38,7 +39,8 @@ import com.smarteist.autoimageslider.SliderView;
 
 public class CategoriesFragment extends Fragment {
     private RecyclerView recyclerView,recyclerView2;
-    ItemRecyclerAdapter itemRecycleAdapter;
+    ItemRecyclerAdapter itemRecycleAdapterFood;
+    ItemRecyclerAdapter itemRecycleAdapterDrink;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -144,18 +146,23 @@ public class CategoriesFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView2.setLayoutManager(gridLayoutManager2);
 
-        FirebaseRecyclerOptions<Drink> options =
+        FirebaseRecyclerOptions<Drink> typeFood =
                 new FirebaseRecyclerOptions.Builder<Drink>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Drink"), Drink.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("type").equalTo("Food"), Drink.class)
+                        .build();
+        FirebaseRecyclerOptions<Drink> typeDrink =
+                new FirebaseRecyclerOptions.Builder<Drink>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("type").equalTo("Drink"), Drink.class)
                         .build();
 
 
-        itemRecycleAdapter = new ItemRecyclerAdapter(options);
-        recyclerView.setAdapter(itemRecycleAdapter);
-        recyclerView2.setAdapter(itemRecycleAdapter);
+        itemRecycleAdapterFood = new ItemRecyclerAdapter(typeFood);
+        itemRecycleAdapterDrink = new ItemRecyclerAdapter(typeDrink);
+        recyclerView.setAdapter(itemRecycleAdapterFood);
+        recyclerView2.setAdapter(itemRecycleAdapterDrink);
 
         //setlistener
-        itemRecycleAdapter.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
+        itemRecycleAdapterFood.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClickAddToCart(ImageView imageView, Drink drink) {
@@ -165,6 +172,17 @@ public class CategoriesFragment extends Fragment {
                 imageView.setBackgroundColor(com.nex3z.notificationbadge.R.color.red);
             }
         });
+        itemRecycleAdapterDrink.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClickAddToCart(ImageView imageView, Drink drink) {
+                mainActivity.setCountProductInCart(mainActivity.getmCountProduct()+1);
+//                if(imageView.)
+                imageView.setEnabled(false);
+                imageView.setBackgroundColor(com.nex3z.notificationbadge.R.color.red);
+            }
+        });
+
 
         return view;
 
@@ -180,12 +198,14 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        itemRecycleAdapter.startListening();
+        itemRecycleAdapterFood.startListening();
+        itemRecycleAdapterDrink.startListening();
     }
     @Override
     public void onStop() {
         super.onStop();
-        itemRecycleAdapter.stopListening();
+        itemRecycleAdapterFood.stopListening();
+        itemRecycleAdapterDrink.stopListening();
     }
     private void replaceFragment(Fragment fragment) {
 
@@ -197,3 +217,6 @@ public class CategoriesFragment extends Fragment {
     }
 
 }
+
+
+/////////////////////////
