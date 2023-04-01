@@ -97,12 +97,12 @@ public class WelcomeActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.child(edtphonesu.getText().toString()).exists()) {
                             mDialog.dismiss();
-                            Toast.makeText(WelcomeActivity.this, "Phone number already register", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(WelcomeActivity.this, "Số điện thoại đã được đăng kí ", Toast.LENGTH_SHORT).show();
                         }else{
                             mDialog.dismiss();
                             User user = new User(edtnamesu.getText().toString(), edtpasssu.getText().toString());
                             users.child(edtphonesu.getText().toString()).setValue(user);
-                            Toast.makeText(WelcomeActivity.this, "Sign up successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(WelcomeActivity.this, "Đăng kí thành công", Toast.LENGTH_SHORT).show();
                             signin.setBackground(getResources().getDrawable(R.drawable.switch_trcks));
                             signin.setTextColor(getResources().getColor(R.color.textColor));
 

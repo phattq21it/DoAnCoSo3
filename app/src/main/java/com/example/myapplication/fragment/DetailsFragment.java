@@ -22,6 +22,8 @@ public class DetailsFragment extends Fragment {
         private String mParam1;
         private String mParam2;
         String name, price, image;
+
+
         public DetailsFragment() {
 
         }
@@ -44,6 +46,7 @@ public class DetailsFragment extends Fragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
             if (getArguments() != null) {
                 mParam1 = getArguments().getString(ARG_PARAM1);
                 mParam2 = getArguments().getString(ARG_PARAM2);
@@ -66,8 +69,10 @@ public class DetailsFragment extends Fragment {
             Glide.with(getContext()).load(image ).into(imageholder);
 
 
+
             return  view;
         }
+
 
 //        public void onBackPressed()
 //        {

@@ -49,7 +49,7 @@
                 android:id="@+id/tvlogin"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Log In"
+                android:text="Đăng nhập"
                 android:paddingRight="15dp"
                 android:paddingLeft="15dp"
                 android:paddingTop="5dp"
@@ -66,7 +66,7 @@
                 android:id="@+id/tvsignup"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Sign up"
+                android:text="Đăng kí"
                 android:paddingRight="15dp"
                 android:paddingLeft="15dp"
                 android:paddingTop="5dp"
@@ -110,7 +110,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="Mật khẩu"
                 android:textColorHint="@color/purple_200"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -135,7 +135,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Forgot Password?"
+                android:text="Quên mật khẩu ?"
                 android:textAlignment="textEnd"
                 android:textColor="#616161"
                 android:textSize="11sp"
@@ -147,7 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnsignIn"
-                android:text="Log In"
+                android:text="Đăng nhập"
                 android:textAllCaps="false"
                 android:elevation="15dp"
                 android:layout_marginStart="24dp"
@@ -171,7 +171,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Phone Number"
+                android:hint="Số điện thoại"
                 android:textColorHint="@color/purple_200"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -195,7 +195,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Name"
+                android:hint="Tên"
                 android:textColorHint="@color/purple_200"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -203,7 +203,6 @@
                 app:shapeAppearanceOverlay="@style/Button4"
                 app:boxStrokeColor="#4E4A4A"
                 app:boxStrokeWidth="1dp"
-                app:endIconMode="password_toggle"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
 
@@ -220,7 +219,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="Mật khẩu"
                 android:textColorHint="@color/purple_200"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -247,7 +246,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnsignup"
-                android:text="Sign Up"
+                android:text="Đăng kí"
                 android:padding="10dp"
                 android:paddingTop="10dp"
                 android:textAllCaps="false"

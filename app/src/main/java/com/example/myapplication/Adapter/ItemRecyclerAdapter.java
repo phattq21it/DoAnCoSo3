@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
+import com.example.myapplication.database.Database;
 import com.example.myapplication.fragment.DetailsFragment;
 import com.example.myapplication.model.Drink;
+import com.example.myapplication.model.Order;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
@@ -46,6 +48,7 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
                 activity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.framlayoutman, new DetailsFragment(model.getName(), model.getPrice(), model.getImage()))
                         .addToBackStack(null).commit();
+
             }
         });
         holder.cart.setOnClickListener(new View.OnClickListener() {

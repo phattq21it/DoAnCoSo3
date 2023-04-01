@@ -3,7 +3,10 @@ package com.example.myapplication;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -22,6 +25,8 @@ import com.example.myapplication.fragment.HomeFragMent;
 
 public class MainActivity extends AppCompatActivity {
     private int mCountProduct;
+//    TextView valueQuantity;
+//    int count = 0;
 
     FrameLayout frameLayout;
 
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 //        setContentView(binding.getRoot());
 //        replaceFragment(new HomeFragMent());
         setContentView(R.layout.activity_main);
+//        valueQuantity = findViewById(R.id.valueQuantity);
 
 
         ahBottomNavigation = (AHBottomNavigation) findViewById(R.id.AHBottomNavigation);
@@ -148,4 +154,17 @@ public class MainActivity extends AppCompatActivity {
     public int getmCountProduct() {
         return mCountProduct;
     }
+
+//    public void increment(View v){
+//
+//            count++;
+//            valueQuantity.setText("" + count);
+//        }
+//
+//    public void decrement(View v){
+//        if(count<=0) count = 0;
+//                else count--;
+//                valueQuantity.setText(""+count);
+//    }
 }
+

@@ -32,10 +32,18 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src\\main\\assets'
+            }
+        }
+    }
 
 }
 
 dependencies {
+
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
     implementation 'com.github.dhaval2404:imagepicker:2.1'
