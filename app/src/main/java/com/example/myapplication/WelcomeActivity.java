@@ -107,12 +107,13 @@ public class WelcomeActivity extends AppCompatActivity {
                             signin.setTextColor(getResources().getColor(R.color.textColor));
 
 
+
+                            Intent i= new Intent(WelcomeActivity.this,WelcomeActivity.class);
+                            startActivity(i);
                             signup.setBackground(getResources().getDrawable(R.drawable.switch_tumbs));
                             signup.setTextColor(getResources().getColor(R.color.pinkColor));
                             signuplayout.setVisibility(View.GONE);
                             signinlayout.setVisibility(View.VISIBLE);
-                            Intent i= new Intent(WelcomeActivity.this,WelcomeActivity.class);
-                            startActivity(i);
                             finish();
                         }
                     }
@@ -130,48 +131,51 @@ public class WelcomeActivity extends AppCompatActivity {
 //                Intent i= new Intent(WelcomeActivity.this, AdminActivity.class);
 //                startActivity(i);
 //                finish();
-                if (validateData()) {
-                    ProgressDialog mDialog = new ProgressDialog(WelcomeActivity.this);
-                    mDialog.setMessage("Đang xử lí");
-                    mDialog.show();
-                    final String localPhone = edtPhone.getText().toString();
-                    final String localPassword = edtPassword.getText().toString();
-                    users.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.child(edtPhone.getText().toString()).exists()) {
-                                mDialog.dismiss();
-                                User user = snapshot.child(edtPhone.getText().toString()).getValue(User.class);
-                                user.setPhone(localPhone);
-
-                                if (user.getPassword().equals(edtPassword.getText().toString())) {
-
-                                    if (Boolean.parseBoolean(user.getIsAdmin())) {
-                                        Toast.makeText(WelcomeActivity.this, "Giao dien server", Toast.LENGTH_SHORT).show();
-                                        Intent i= new Intent(WelcomeActivity.this, AdminActivity.class);
-                                        startActivity(i);
-                                        finish();
-                                        // Tại đây thêm giao diện server
-                                    } else {
-                                        Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
-                                        startActivity(i);
-                                    }
-
-                                } else {
-                                    Toast.makeText(WelcomeActivity.this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                mDialog.dismiss();
-                                Toast.makeText(WelcomeActivity.this, "User không tồn tại", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                }
+//                if (validateData()) {
+//                    ProgressDialog mDialog = new ProgressDialog(WelcomeActivity.this);
+//                    mDialog.setMessage("Đang xử lí");
+//                    mDialog.show();
+//                    final String localPhone = edtPhone.getText().toString();
+//                    final String localPassword = edtPassword.getText().toString();
+//                    users.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            if (snapshot.child(edtPhone.getText().toString()).exists()) {
+//                                mDialog.dismiss();
+//                                User user = snapshot.child(edtPhone.getText().toString()).getValue(User.class);
+//                                user.setPhone(localPhone);
+//
+//                                if (user.getPassword().equals(edtPassword.getText().toString())) {
+//
+//                                    if (Boolean.parseBoolean(user.getIsAdmin())) {
+//                                        Toast.makeText(WelcomeActivity.this, "Giao dien server", Toast.LENGTH_SHORT).show();
+//                                        Intent i= new Intent(WelcomeActivity.this, AdminActivity.class);
+//                                        startActivity(i);
+//                                        finish();
+//                                        // Tại đây thêm giao diện server
+//                                    } else {
+//                                        Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
+//                                        startActivity(i);
+//                                    }
+//
+//                                } else {
+//                                    Toast.makeText(WelcomeActivity.this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
+//                                }
+//                            } else {
+//                                mDialog.dismiss();
+//                                Toast.makeText(WelcomeActivity.this, "User không tồn tại", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
+//                }
+                Intent i= new Intent(WelcomeActivity.this,MainActivity.class);
+                startActivity(i);
+                finish();
 
             }
 

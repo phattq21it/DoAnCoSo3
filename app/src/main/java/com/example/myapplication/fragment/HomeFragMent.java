@@ -49,7 +49,6 @@ public class HomeFragMent extends Fragment {
 
     private String mParam1;
     private String mParam2;
-    RecyclerView recview;
     private MainActivity mainActivity;
     private MenuItem menuItem;
     private SearchView searchView;
@@ -62,7 +61,6 @@ public class HomeFragMent extends Fragment {
             R.drawable.five,
             R.drawable.six};
 
-    SliderAdapter sliderAdapter;
     SliderView sliderView;
     public HomeFragMent() {
 
@@ -109,7 +107,6 @@ public class HomeFragMent extends Fragment {
                 getParentFragmentManager().setFragmentResult("datasearch",bundle);
                 hideKeyboard(mainActivity);
                 replaceFragment(new ResultSearchFragment());
-                Log.d(query,query);
 
                 return true;
             }

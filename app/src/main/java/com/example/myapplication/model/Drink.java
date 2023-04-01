@@ -1,7 +1,7 @@
 package com.example.myapplication.model;
 
 public class Drink {
-    private String key,name,image,price;
+    private String key,name,image,price,mota;
     private boolean isAddToCart;
 
 

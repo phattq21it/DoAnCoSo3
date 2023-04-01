@@ -81,7 +81,8 @@
             android:id="@+id/login_layout"
             android:orientation="vertical"
             android:padding="25dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -165,8 +166,7 @@
             android:id="@+id/sigup_layout"
             android:orientation="vertical"
             android:padding="25dp"
-            android:gravity="center"
-            android:visibility="gone">
+            android:gravity="center">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -203,12 +203,11 @@
                 app:shapeAppearanceOverlay="@style/Button4"
                 app:boxStrokeColor="#4E4A4A"
                 app:boxStrokeWidth="1dp"
-                app:endIconMode="password_toggle"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
 
                 <EditText
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:id="@+id/edt_su_name"
                     android:ems="10"
                     android:textSize="13sp"
@@ -259,6 +258,25 @@
                 android:layout_gravity="center"
                 app:shapeAppearanceOverlay="@style/Button5"
                 android:backgroundTint="@color/pinkColor"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="8dp"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bạn đã có tài khoản: "
+                    android:textSize="10sp" />
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đăng nhập ngay"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"/>
+            </LinearLayout>
 
         </LinearLayout>
 

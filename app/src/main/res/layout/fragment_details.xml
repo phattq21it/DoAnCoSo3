@@ -18,7 +18,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/white"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        >
     <TextView
         android:id="@+id/nameholder"
         android:layout_width="match_parent"
@@ -39,6 +40,59 @@
         android:textColor="@color/red"
         android:textSize="25sp"
         android:layout_margin="10dp"/>
+        <TextView
+        android:id="@+id/txtmota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Mo ta"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:layout_margin="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btngiam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textSize="25sp"
+                    android:textColor="#e9eeff"
+                    android:background="@drawable/btnblue"/>
+                <TextView
+                    android:id="@+id/txtsoluong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_centerHorizontal="true"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btntang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:textSize="25sp"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="#e9eeff"
+                    android:background="@drawable/btnblue"/>
+            </RelativeLayout>
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               >
+               <androidx.appcompat.widget.AppCompatButton
+                   android:id="@+id/btnthemgiohang"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="Them vao gio hang"
+                   android:layout_alignParentBottom="true"
+                   android:textColor="#e9eeff"
+                   android:background="@drawable/btnblue"/>
+           </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

@@ -26,7 +26,6 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
 
     public void setData(IClickAddToCartListener iClickAddToCartListener) {
         this.iClickAddToCartListener = iClickAddToCartListener;
-
     }
 
     public ItemRecyclerAdapter(@NonNull FirebaseRecyclerOptions<Drink> options) {
@@ -44,7 +43,7 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
             public void onClick(View view) {
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.framlayoutman, new DetailsFragment(model.getName(), model.getPrice(), model.getImage()))
+                        .replace(R.id.framlayoutman, new DetailsFragment(model.getName(), model.getPrice(), model.getImage(),"chua co mo ta"))
                         .addToBackStack(null).commit();
             }
         });

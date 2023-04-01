@@ -21,7 +21,6 @@ import com.example.myapplication.fragment.CartFragment;
     public Fragment createFragment(int position) {
         switch (position){
             case 0:
-            return new HomeFragMent();
             case 1:
                 return new CartFragment();
             case 2  :
