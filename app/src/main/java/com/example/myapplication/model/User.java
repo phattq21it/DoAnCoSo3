@@ -7,6 +7,8 @@ public class User {
         Name = name;
         Password = password;
         IsAdmin = "false";
+
+
     }
 
     public User() {
