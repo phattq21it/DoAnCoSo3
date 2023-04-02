@@ -14,8 +14,10 @@ import android.widget.TextView;
     import android.widget.Toast;
 
     import com.bumptech.glide.Glide;
+    import com.example.myapplication.Database.Database;
     import com.example.myapplication.MainActivity;
     import com.example.myapplication.R;
+    import com.example.myapplication.model.Order;
 
 public class DetailsFragment extends Fragment {
 
@@ -29,20 +31,27 @@ public class DetailsFragment extends Fragment {
         int count=0;
         private String mParam1;
         private String mParam2;
-        String name, price, image,description;
+        String name, price, image,description,key,menuId;
         MainActivity mainActivity;
         public DetailsFragment() {
 
         }
 
         public DetailsFragment(String name, String price, String image,String description) {
+
             this.name=name;
             this.price=price;
             this.image=image;
             this.description=description;
+
         }
 
-        public static DetailsFragment newInstance(String param1, String param2) {
+    public DetailsFragment(String key, String name, String price, String image, String description) {
+    }
+
+
+
+    public static DetailsFragment newInstance(String param1, String param2) {
             DetailsFragment fragment = new DetailsFragment();
             Bundle args = new Bundle();
             args.putString(ARG_PARAM1, param1);
@@ -85,8 +94,16 @@ public class DetailsFragment extends Fragment {
                         Toast.makeText(mainActivity, "Vui lòng nhập số lượng", Toast.LENGTH_SHORT).show();
 
                     } else {
-                        Toast.makeText(mainActivity, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+
                         mainActivity.setCountProductInCart(mainActivity.getmCountProduct() + count);
+                        new Database(getContext()).addToCart(new Order(
+                                "1",
+                                "Hello",
+                                "ahaha",
+                                "ngon lam",
+                                "0"
+                        ));
+                        Toast.makeText(mainActivity, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
 
                     }
                 }

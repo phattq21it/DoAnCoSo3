@@ -62,6 +62,7 @@ public class CartFragment extends Fragment {
         recyclerView = (RecyclerView)view.findViewById(R.id.listCart);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,true);
+
         recyclerView.setLayoutManager(layoutManager);
 
         txtTotalPrice = (TextView) view.findViewById(R.id.total);

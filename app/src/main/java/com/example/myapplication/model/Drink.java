@@ -1,8 +1,18 @@
 package com.example.myapplication.model;
 
 public class Drink {
-    private String key,name,image,price,description;
+    private String key,name,image,price,description,menuId;
     private boolean isAddToCart;
+
+
+    public Drink(String key, String name, String image, String price, String description) {
+        this.key = key;
+        this.name = name;
+        this.image = image;
+        this.price = price;
+        this.description = description;
+
+    }
 
 
 

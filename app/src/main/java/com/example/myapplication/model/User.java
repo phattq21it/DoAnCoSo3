@@ -9,6 +9,7 @@ public class User {
         IsAdmin = "false";
 
 
+
     }
 
     public User() {

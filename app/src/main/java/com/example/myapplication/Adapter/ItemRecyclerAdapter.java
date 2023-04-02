@@ -1,5 +1,6 @@
 package com.example.myapplication.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 activity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.framlayoutman, new DetailsFragment(model.getName(), model.getPrice(), model.getImage(),model.getDescription()))
