@@ -6,4 +6,5 @@
     <string name="categories_nav">Categories</string>
     <string name="manager_nav">Manager</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select">Chọn danh mục</string>
 </resources>

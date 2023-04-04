@@ -83,17 +83,31 @@
             android:orientation="vertical"
             android:padding="10dp">
             <TextView
-                android:layout_marginBottom="10dp"
-                android:layout_width="match_parent"
+
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Danh mục"
+                android:text="Chọn danh mục"
                 android:textColor="@color/black"
-                android:textSize="30sp"/>
+                android:textSize="30sp"
+                android:id="@+id/tvCategory"
+
+                />
+
             <EditText
                 android:id="@+id/edtTypeItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nhập kiểu"/>
+                />
+            <Spinner
+                android:layout_width="400dp"
+                android:layout_height="50dp"
+                android:id="@+id/spinercategories"
+                android:spinnerMode="dialog"
+                android:background="@android:drawable/btn_dropdown"
+                android:layout_marginTop="-30dp"
+                >
+
+            </Spinner>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

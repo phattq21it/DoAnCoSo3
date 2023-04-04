@@ -3,18 +3,30 @@ package com.example.adminapp.fragment;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.adminapp.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +37,11 @@ public class AddItemFragment extends Fragment {
     Button btnAddItem;
     TextView idItem,imgItem,nameItem,priceItem,typeItem,descriptionItem,discountItem;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    String[] categories;
+    Spinner spinnerCategories;
+     ArrayAdapter<String> mAdapter;
+     ArrayList<String> mCategoryList;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,6 +87,9 @@ public class AddItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
         // Inflate the layout for this fragment
         View view=  inflater.inflate(R.layout.fragment_add_item,container,false);
         btnAddItem = view.findViewById(R.id.btnAddItem);
@@ -78,8 +98,51 @@ public class AddItemFragment extends Fragment {
         imgItem = view.findViewById(R.id.edtImageItem);
         priceItem = view.findViewById(R.id.edtPriceItem);
         typeItem = view.findViewById(R.id.edtTypeItem);
+        typeItem.setVisibility(View.INVISIBLE);
         descriptionItem = view.findViewById(R.id.edtDescriptionItem);
         discountItem = view.findViewById(R.id.edtDiscountItem);
+        // Lấy danh mục
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference categoriesRef = database.getReference("Categories");
+        mCategoryList = new ArrayList<>();
+
+        spinnerCategories = view.findViewById(R.id.spinercategories);
+        mAdapter = new ArrayAdapter<>(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,mCategoryList);
+        mAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
+        spinnerCategories.setAdapter(mAdapter);
+        categoriesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mCategoryList.clear();
+                for(DataSnapshot categorySnapshot : snapshot.getChildren()){
+                    String categoryName = categorySnapshot.child("name").getValue(String.class);
+                    mCategoryList.add(categoryName);
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,categories);
+//        adapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
+//        spinnerCategories.setAdapter(adapter);
+//        spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//               String value = parent.getItemAtPosition(position).toString();
+//                typeItem.setText(value.toString());
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//
+//        });
+
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
