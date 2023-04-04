@@ -126,22 +126,20 @@ public class AddItemFragment extends Fragment {
 
             }
         });
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,categories);
-//        adapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-//        spinnerCategories.setAdapter(adapter);
-//        spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//               String value = parent.getItemAtPosition(position).toString();
-//                typeItem.setText(value.toString());
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//
-//        });
+
+        spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               String value = parent.getItemAtPosition(position).toString();
+                typeItem.setText(value.toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+        });
 
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
