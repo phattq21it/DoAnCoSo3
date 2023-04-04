@@ -31,17 +31,17 @@ public class DetailsFragment extends Fragment {
         int count=0;
         private String mParam1;
         private String mParam2;
-        String name, price, image,mota;
+        String name, price, image,description;
         MainActivity mainActivity;
         public DetailsFragment() {
 
         }
 
-        public DetailsFragment(String name, String price, String image,String mota) {
+        public DetailsFragment(String name, String price, String image,String description) {
             this.name=name;
             this.price=price;
             this.image=image;
-            this.mota=mota;
+            this.description=description;
         }
 
         public static DetailsFragment newInstance(String param1, String param2) {
@@ -118,7 +118,7 @@ public class DetailsFragment extends Fragment {
 
             nameholder.setText(name);
             priceholder.setText(price);
-            txtmota.setText(mota);
+            txtmota.setText(description);
             Glide.with(getContext()).load(image ).into(imageholder);
 
 

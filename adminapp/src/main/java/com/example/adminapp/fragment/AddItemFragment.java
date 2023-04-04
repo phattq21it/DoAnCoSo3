@@ -1,5 +1,6 @@
 package com.example.adminapp.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.adminapp.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +22,9 @@ import com.example.adminapp.R;
  * create an instance of this fragment.
  */
 public class AddItemFragment extends Fragment {
+    Button btnAddItem;
+    TextView idItem,imgItem,nameItem,priceItem,typeItem,descriptionItem,discountItem;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,10 +66,85 @@ public class AddItemFragment extends Fragment {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_item, container, false);
+        View view=  inflater.inflate(R.layout.fragment_add_item,container,false);
+        btnAddItem = view.findViewById(R.id.btnAddItem);
+        idItem = view.findViewById(R.id.edtIdItem);
+        nameItem = view.findViewById(R.id.edtNameItem);
+        imgItem = view.findViewById(R.id.edtImageItem);
+        priceItem = view.findViewById(R.id.edtPriceItem);
+        typeItem = view.findViewById(R.id.edtTypeItem);
+        descriptionItem = view.findViewById(R.id.edtDescriptionItem);
+        discountItem = view.findViewById(R.id.edtDiscountItem);
+        btnAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(validateData()) {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference categoriesRef = database.getReference("Item");
+                    DatabaseReference newCategoryRef = categoriesRef.child(idItem.getText().toString());
+
+                    newCategoryRef.child("name").setValue(nameItem.getText().toString());
+                    newCategoryRef.child("description").setValue(descriptionItem.getText().toString());
+                    newCategoryRef.child("price").setValue(priceItem.getText().toString());
+                    newCategoryRef.child("type").setValue(typeItem.getText().toString());
+                    newCategoryRef.child("discount").setValue(typeItem.getText().toString());
+                    newCategoryRef.child("image").setValue(imgItem.getText().toString());
+                    Toast.makeText(getContext(), "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+
+            }
+            private boolean validateData() {
+                if (idItem.getText().toString().isEmpty()) {
+                    idItem.setError("Vui lòng nhập id sản phẩm");
+                    Toast.makeText(getContext(),"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
+                    return false;
+
+                }
+                if (nameItem.getText().toString().isEmpty()) {
+                    nameItem.setError("Vui lòng nhập  tên sản phẩm");
+                    Toast.makeText(getContext(),"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                if (priceItem.getText().toString().isEmpty()) {
+                    priceItem.setError("Vui lòng nhập giá tiền");
+                    Toast.makeText(getContext(),"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
+                    return false;
+                } if (descriptionItem.getText().toString().isEmpty()) {
+                    descriptionItem.setError("Vui lòng nhập mô tả về sản phẩm");
+                    Toast.makeText(getContext(),"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
+                    return false;
+                } if (typeItem.getText().toString().isEmpty()) {
+                    typeItem.setError("Vui lòng nhập danh mục của sản phẩm");
+                    Toast.makeText(getContext(),"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
+                    return false;
+                } if (imgItem.getText().toString().isEmpty()) {
+                    imgItem.setError("Vui lòng đính kèm  hình ảnh của sản phẩm ");
+                    Toast.makeText(getContext(),"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+             if (discountItem.getText().toString().isEmpty()) {
+                imgItem.setError("Vui lòng nhập giá giảm của sản phẩm ");
+                Toast.makeText(getContext(),"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+
+
+
+                return true;
+            }
+
+        });
+
+        return view;
     }
 }

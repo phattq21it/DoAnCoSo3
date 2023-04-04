@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,42 +11,43 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adminapp.R;
+import com.example.adminapp.model.Categories;
 import com.example.adminapp.model.Drink;
 
 import java.util.ArrayList;
 
-public class ManageItemAdapter extends RecyclerView.Adapter<ManageItemAdapter.Holder> {
-    private ArrayList<Drink> mListDrink;
+public class ManageCategoriesAdapter extends RecyclerView.Adapter<ManageCategoriesAdapter.Holder> {
+    private ArrayList<Categories> mListCategories;
     private Context mContext;
-    public ManageItemAdapter(Context mContext, ArrayList<Drink> mListDrink) {
+    public ManageCategoriesAdapter(Context mContext, ArrayList<Categories> mListCategories) {
         this.mContext = mContext;
-        this.mListDrink=mListDrink;
+        this.mListCategories=mListCategories;
     }
 
-    public void setData(ArrayList<Drink> list){
-        this.mListDrink=list;
+    public void setData(ArrayList<Categories> list){
+        this.mListCategories=list;
         notifyDataSetChanged();
     }
     @NonNull
     @Override
-    public ManageItemAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ManageCategoriesAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_manager,parent,false);
-        return new ManageItemAdapter.Holder(view);
+        return new ManageCategoriesAdapter.Holder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ManageItemAdapter.Holder holder, int position) {
-        Drink drink=mListDrink.get(position);
-        if(drink==null){
+    public void onBindViewHolder(@NonNull ManageCategoriesAdapter.Holder holder, int position) {
+        Categories categories=mListCategories.get(position);
+        if(categories==null){
             return;
         }
-        holder.txtDrink.setText(drink.getName());
+        holder.txtNameCategory.setText(categories.getName());
     }
 
     @Override
     public int getItemCount() {
-        if(mListDrink!=null){
-            return mListDrink.size();
+        if(mListCategories!=null){
+            return mListCategories.size();
         }
         return 0;
     }
@@ -74,13 +74,12 @@ public class ManageItemAdapter extends RecyclerView.Adapter<ManageItemAdapter.Ho
 //    }
 //
     public class Holder extends RecyclerView.ViewHolder{
-        TextView txtDrink;
+        TextView txtNameCategory;
         ImageView imgEdit,imgDelete;
-        Button btnAddItem;
         public Holder(@NonNull View itemView) {
             super(itemView);
-            btnAddItem= itemView.findViewById(R.id.btnAddItem);
-            txtDrink=itemView.findViewById(R.id.txtuser);
+
+            txtNameCategory=itemView.findViewById(R.id.txtuser);
             imgEdit=itemView.findViewById(R.id.edituser);
             imgDelete=itemView.findViewById(R.id.deleteuser);
         }

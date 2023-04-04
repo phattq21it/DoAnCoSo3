@@ -1,7 +1,7 @@
 package com.example.myapplication.model;
 
 public class Drink {
-    private String key,name,image,price,mota;
+    private String key,name,image,price,description;
     private boolean isAddToCart;
 
 
@@ -39,6 +39,14 @@ public class Drink {
     }
     public boolean isAddToCart() {
         return isAddToCart;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setAddToCart(boolean addToCart) {

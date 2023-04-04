@@ -64,7 +64,13 @@ public class ManagerFragment extends Fragment {
         viewCategories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragment(new ManageItemFragment());
+                replaceFragment(new ManageCategoryFragment());
+            }
+        });
+        addCategories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
         return view;
