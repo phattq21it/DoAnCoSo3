@@ -33,13 +33,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".CartActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="@string/app_name" />
-        </activity>
-        <activity
             android:name=".WelcomeActivity"
             android:exported="true">
             <intent-filter>

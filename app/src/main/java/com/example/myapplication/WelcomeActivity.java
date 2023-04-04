@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.adminapp.AdminActivity;
+import com.example.myapplication.Common.Common;
 import com.example.myapplication.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -100,6 +101,7 @@ public class WelcomeActivity extends AppCompatActivity {
                             Toast.makeText(WelcomeActivity.this, "Phone number already register", Toast.LENGTH_SHORT).show();
                         }else{
                             mDialog.dismiss();
+                            //
                             User user = new User(edtnamesu.getText().toString(), edtpasssu.getText().toString());
                             users.child(edtphonesu.getText().toString()).setValue(user);
                             Toast.makeText(WelcomeActivity.this, "Sign up successfully", Toast.LENGTH_SHORT).show();
@@ -131,51 +133,52 @@ public class WelcomeActivity extends AppCompatActivity {
 //                Intent i= new Intent(WelcomeActivity.this, AdminActivity.class);
 //                startActivity(i);
 //                finish();
-//                if (validateData()) {
-//                    ProgressDialog mDialog = new ProgressDialog(WelcomeActivity.this);
-//                    mDialog.setMessage("Đang xử lí");
-//                    mDialog.show();
-//                    final String localPhone = edtPhone.getText().toString();
-//                    final String localPassword = edtPassword.getText().toString();
-//                    users.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            if (snapshot.child(edtPhone.getText().toString()).exists()) {
-//                                mDialog.dismiss();
-//                                User user = snapshot.child(edtPhone.getText().toString()).getValue(User.class);
-//                                user.setPhone(localPhone);
-//
-//                                if (user.getPassword().equals(edtPassword.getText().toString())) {
-//
-//                                    if (Boolean.parseBoolean(user.getIsAdmin())) {
-//                                        Toast.makeText(WelcomeActivity.this, "Giao dien server", Toast.LENGTH_SHORT).show();
-//                                        Intent i= new Intent(WelcomeActivity.this, AdminActivity.class);
-//                                        startActivity(i);
-//                                        finish();
-//                                        // Tại đây thêm giao diện server
-//                                    } else {
-//                                        Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
-//                                        startActivity(i);
-//                                    }
-//
-//                                } else {
-//                                    Toast.makeText(WelcomeActivity.this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
-//                                }
-//                            } else {
-//                                mDialog.dismiss();
-//                                Toast.makeText(WelcomeActivity.this, "User không tồn tại", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
-//                }
-                Intent i= new Intent(WelcomeActivity.this,MainActivity.class);
-                startActivity(i);
-                finish();
+                if (validateData()) {
+                    ProgressDialog mDialog = new ProgressDialog(WelcomeActivity.this);
+                    mDialog.setMessage("Đang xử lí");
+                    mDialog.show();
+                    final String localPhone = edtPhone.getText().toString();
+                    final String localPassword = edtPassword.getText().toString();
+                    users.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.child(edtPhone.getText().toString()).exists()) {
+                                mDialog.dismiss();
+                                User user = snapshot.child(edtPhone.getText().toString()).getValue(User.class);
+                                user.setPhone(localPhone);
+
+                                if (user.getPassword().equals(edtPassword.getText().toString())) {
+
+                                    if (Boolean.parseBoolean(user.getIsAdmin())) {
+                                        Toast.makeText(WelcomeActivity.this, "Giao dien server", Toast.LENGTH_SHORT).show();
+                                        Intent i= new Intent(WelcomeActivity.this, AdminActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                        // Tại đây thêm giao diện server
+                                    } else {
+                                        Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
+                                        startActivity(i);
+                                        Common.currentUser=user;
+                                    }
+
+                                } else {
+                                    Toast.makeText(WelcomeActivity.this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                mDialog.dismiss();
+                                Toast.makeText(WelcomeActivity.this, "User không tồn tại", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+//                Intent i= new Intent(WelcomeActivity.this,MainActivity.class);
+//                startActivity(i);
+//                finish();
 
             }
 

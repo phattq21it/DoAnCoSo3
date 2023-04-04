@@ -59,8 +59,8 @@
                     android:layout_height="wrap_content"
                     android:text="-"
                     android:textSize="25sp"
-                    android:textColor="#e9eeff"
-                    android:background="@drawable/btnblue"/>
+                    android:textColor="@color/textColor"
+                    android:background="@drawable/switch_trcks"/>
                 <TextView
                     android:id="@+id/txtsoluong"
                     android:layout_width="wrap_content"
@@ -77,8 +77,8 @@
                     android:text="+"
                     android:textSize="25sp"
                     android:layout_alignParentEnd="true"
-                    android:textColor="#e9eeff"
-                    android:background="@drawable/btnblue"/>
+                    android:textColor="@color/textColor"
+                    android:background="@drawable/switch_trcks"/>
             </RelativeLayout>
            <RelativeLayout
                android:layout_width="match_parent"
@@ -90,8 +90,9 @@
                    android:layout_height="wrap_content"
                    android:text="Them vao gio hang"
                    android:layout_alignParentBottom="true"
-                   android:textColor="#e9eeff"
-                   android:background="@drawable/btnblue"/>
+                   android:textColor="@color/textColor"
+                   android:background="@drawable/switch_trcks"
+                   />
            </RelativeLayout>
     </LinearLayout>
 

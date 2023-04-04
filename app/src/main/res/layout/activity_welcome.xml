@@ -81,8 +81,7 @@
             android:id="@+id/login_layout"
             android:orientation="vertical"
             android:padding="25dp"
-            android:gravity="center"
-            android:visibility="gone">
+            android:gravity="center">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -166,7 +165,9 @@
             android:id="@+id/sigup_layout"
             android:orientation="vertical"
             android:padding="25dp"
-            android:gravity="center">
+            android:gravity="center"
+
+            android:visibility="gone">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

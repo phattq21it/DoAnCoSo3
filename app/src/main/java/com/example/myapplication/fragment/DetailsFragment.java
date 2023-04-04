@@ -14,13 +14,15 @@ import android.widget.TextView;
     import android.widget.Toast;
 
     import com.bumptech.glide.Glide;
+    import com.example.myapplication.DatabaseHelper.DbHelper;
     import com.example.myapplication.MainActivity;
     import com.example.myapplication.R;
+    import com.example.myapplication.model.Order;
 
 public class DetailsFragment extends Fragment {
 
 
-
+        DbHelper dbHelper;
         private static final String ARG_PARAM1 = "param1";
         private static final String ARG_PARAM2 = "param2";
         Button btngiam;
@@ -66,7 +68,7 @@ public class DetailsFragment extends Fragment {
                                  Bundle savedInstanceState) {
 
             mainActivity= (MainActivity) getActivity();
-
+            dbHelper= new DbHelper(getContext());
             View view=inflater.inflate(R.layout.fragment_details, container, false);
 
             @SuppressLint({"MissingInflatedId", "LocalSuppress"}) ImageView imageholder=view.findViewById(R.id.imageholder);
@@ -85,8 +87,18 @@ public class DetailsFragment extends Fragment {
                         Toast.makeText(mainActivity, "Vui lòng nhập số lượng", Toast.LENGTH_SHORT).show();
 
                     } else {
-                        Toast.makeText(mainActivity, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
-                        mainActivity.setCountProductInCart(mainActivity.getmCountProduct() + count);
+                        Order order= new Order();
+                        order.setProductName(name);
+                        order.setQuantity(String.valueOf(count));
+                        order.setPrice(String.valueOf(price));
+                        order.setDiscount("1");
+                        dbHelper.insertData(order);
+//                        dbHelper.update(order);
+                            Toast.makeText(getContext(), "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+                            mainActivity.setCountProductInCart(mainActivity.getmCountProduct() + count);
+
+
+
 
                     }
                 }
