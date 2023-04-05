@@ -146,15 +146,15 @@ public class AddItemFragment extends Fragment {
             public void onClick(View v) {
                 if(validateData()) {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference categoriesRef = database.getReference("Item");
-                    DatabaseReference newCategoryRef = categoriesRef.child(idItem.getText().toString());
+                    DatabaseReference productRef = database.getReference("Item");
+                    DatabaseReference newProductRef = productRef.child(idItem.getText().toString());
 
-                    newCategoryRef.child("name").setValue(nameItem.getText().toString());
-                    newCategoryRef.child("description").setValue(descriptionItem.getText().toString());
-                    newCategoryRef.child("price").setValue(priceItem.getText().toString());
-                    newCategoryRef.child("type").setValue(typeItem.getText().toString());
-                    newCategoryRef.child("discount").setValue(typeItem.getText().toString());
-                    newCategoryRef.child("image").setValue(imgItem.getText().toString());
+                    newProductRef.child("name").setValue(nameItem.getText().toString());
+                    newProductRef.child("description").setValue(descriptionItem.getText().toString());
+                    newProductRef.child("price").setValue(priceItem.getText().toString());
+                    newProductRef.child("type").setValue(typeItem.getText().toString());
+                    newProductRef.child("discount").setValue(typeItem.getText().toString());
+                    newProductRef.child("image").setValue(imgItem.getText().toString());
                     Toast.makeText(getContext(), "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
                 }
 

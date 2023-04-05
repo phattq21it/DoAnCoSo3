@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.adminapp.Adapter.ManageItemAdapter;
 import com.example.adminapp.Adapter.ManagerUserAdapter;
@@ -35,6 +38,7 @@ public class ManageItemFragment extends Fragment {
     RecyclerView rcv;
     ManageItemAdapter manageItemAdapter;
     ArrayList<Drink> drinkArrayList;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,12 +80,13 @@ public class ManageItemFragment extends Fragment {
         }
     }
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "NotifyDataSetChanged"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_manage_item, container, false);
+        View view2 = inflater.inflate(R.layout.item_user_manager, container, false);
         rcv=view.findViewById(R.id.rcvitem);
         database= FirebaseDatabase.getInstance().getReference("Item");
         rcv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -105,6 +110,9 @@ public class ManageItemFragment extends Fragment {
 
             }
         });
+
+
+
         return view;
     }
 }
