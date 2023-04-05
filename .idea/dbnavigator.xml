@@ -645,7 +645,7 @@ from
     <operation-settings>
       <transactions>
         <uncommitted-changes>
-          <on-project-close value="ASK" />
+          <on-project-close value="COMMIT" />
           <on-disconnect value="COMMIT" />
           <on-autocommit-toggle value="ASK" />
         </uncommitted-changes>
