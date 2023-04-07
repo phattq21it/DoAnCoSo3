@@ -39,7 +39,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.Holder
         Order order= list.get(position);
         Locale locale= new Locale("en","US");
         NumberFormat fmt= NumberFormat.getCurrencyInstance(locale);
-        int price= Integer.parseInt(order.getPrice())*Integer.parseInt(order.getQuantity());
+        double price= Double.parseDouble(order.getPrice())*Integer.parseInt(order.getQuantity());
         holder.priceItem.setText(fmt.format(price));
 
         holder.nameItem.setText(order.getProductName());

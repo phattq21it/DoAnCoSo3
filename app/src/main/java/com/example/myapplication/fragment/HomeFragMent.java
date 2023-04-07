@@ -146,7 +146,7 @@ public class HomeFragMent extends Fragment {
 
         FirebaseRecyclerOptions<Drink> options =
                 new FirebaseRecyclerOptions.Builder<Drink>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Drink"), Drink.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item"), Drink.class)
                         .build();
 
 

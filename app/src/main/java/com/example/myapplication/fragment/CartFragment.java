@@ -58,11 +58,16 @@ public class CartFragment extends Fragment {
         cart= new DbHelper(getContext()).getAllOrder();
         cartItemAdapter= new CartItemAdapter(cart,getContext());
         recyclerView.setAdapter(cartItemAdapter);
-        int total=0;
-        for(Order order:cart)
-            total+=(Integer.parseInt(order.getPrice()))*(Integer.parseInt(order.getQuantity()));
-        Locale locale= new Locale("en","US");
-        NumberFormat fmt= NumberFormat.getCurrencyInstance(locale);
+        double total=0;
+        for(Order order : cart) {
+            if (order != null && order.getPrice() != null && order.getQuantity() != null) {
+                double price = Double.parseDouble(order.getPrice());
+                int quantity = Integer.parseInt(order.getQuantity());
+                total += price * quantity;
+            }
+        }
+        Locale locale = new Locale("en", "US");
+        NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
         txtTongTien.setText(fmt.format(total));
 
         txtMuaHang.setOnClickListener(new View.OnClickListener() {
