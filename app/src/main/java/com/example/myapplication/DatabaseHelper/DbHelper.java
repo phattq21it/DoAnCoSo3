@@ -23,6 +23,7 @@ public class DbHelper extends SQLiteOpenHelper
     private static final String COL3="Quantity";
     private static final String COL4="Price";
     private static final String COL5="Discount";
+    private static final String COL6="Phone";
 
     public DbHelper(@Nullable Context context) {
         super(context, DBName, null, 2);
@@ -32,7 +33,7 @@ public class DbHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("create table "+TableName+" ("+COL1+" integer primary key autoincrement,"
-                +COL2+" text, "+COL3+" text, "+COL4+" text, "+COL5+" text)");
+                +COL2+" text, "+COL3+" text, "+COL4+" text, "+COL5+" text,"+COL6+" text)");
     }
 
     @Override
