@@ -13,16 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="16dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
 
-        <ImageView
-            android:layout_gravity="end"
-            android:id="@+id/imgcart"
+        <TextView
+            android:layout_gravity="start"
+            android:id="@+id/sale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_shopping_cart_24"
-            app:tint="@color/red" />
+            android:text="Giảm giá 5%"
+            android:background="#ff0000"
+            android:textColor="@color/white"/>
         <ImageView
             android:layout_width="300dp"
             android:layout_height="100dp"

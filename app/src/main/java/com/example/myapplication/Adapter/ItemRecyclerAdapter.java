@@ -47,14 +47,14 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
                         .addToBackStack(null).commit();
             }
         });
-        holder.cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!model.isAddToCart()) {
-                    iClickAddToCartListener.onClickAddToCart(holder.cart, model);
-                }
-            }
-        });
+//        holder.cart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!model.isAddToCart()) {
+//                    iClickAddToCartListener.onClickAddToCart(holder.cart, model);
+//                }
+//            }
+//        });
     }
 
     @NonNull
@@ -66,13 +66,13 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
 
     public class DriverItemViewHolder extends RecyclerView.ViewHolder {
         private TextView price;
-        private TextView name;
-        private ImageView image, cart;
+        private TextView name,textSale;
+        private ImageView image;
 
 
         public DriverItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.cart = itemView.findViewById(R.id.imgcart);
+            this.textSale = itemView.findViewById(R.id.sale);
             this.price = itemView.findViewById(R.id.txtPrice);
             this.name = itemView.findViewById(R.id.txtName);
             this.image = itemView.findViewById(R.id.imageview);
