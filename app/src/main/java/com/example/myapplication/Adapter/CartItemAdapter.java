@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.model.Order;
 
@@ -41,9 +42,9 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.Holder
         NumberFormat fmt= NumberFormat.getCurrencyInstance(locale);
         double price= Double.parseDouble(order.getPrice())*Integer.parseInt(order.getQuantity());
         holder.priceItem.setText(fmt.format(price));
-
         holder.nameItem.setText(order.getProductName());
         holder.quantityItem.setText(order.getQuantity());
+        Glide.with(holder.imageItem.getContext()).load(order.getImage()).into(holder.imageItem);
     }
 
     @Override

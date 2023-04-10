@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".WelcomeActivity"
     android:orientation="vertical"
-    android:background="@color/WhiteSmoke">
+    android:background="@drawable/pngtree_food_western_food_simple_poster_background_image_25130">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -305,17 +305,17 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_margin="10sp"
-                android:src="@drawable/profile"/>
+                android:src="@drawable/facebook"/>
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_margin="10sp"
-                android:src="@drawable/profile"/>
+                android:src="@drawable/google"/>
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_margin="10sp"
-                android:src="@drawable/profile"/>
+                android:src="@drawable/telegram"/>
         </LinearLayout>
     </LinearLayout>
     </androidx.cardview.widget.CardView>

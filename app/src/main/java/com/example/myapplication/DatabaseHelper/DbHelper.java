@@ -24,6 +24,7 @@ public class DbHelper extends SQLiteOpenHelper
     private static final String COL4="Price";
     private static final String COL5="Discount";
     private static final String COL6="Phone";
+    private static final String COL7="Image";
 
     public DbHelper(@Nullable Context context) {
         super(context, DBName, null, 2);
@@ -33,7 +34,7 @@ public class DbHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("create table "+TableName+" ("+COL1+" integer primary key autoincrement,"
-                +COL2+" text, "+COL3+" text, "+COL4+" text, "+COL5+" text,"+COL6+" text)");
+                +COL2+" text, "+COL3+" text, "+COL4+" text, "+COL5+" text,"+COL6+" text, "+COL7+" text)");
     }
 
     @Override
@@ -65,6 +66,7 @@ public class DbHelper extends SQLiteOpenHelper
             values.put(COL2, name);
             values.put(COL3, quantity);
             values.put(COL4, order.getPrice());
+            values.put(COL7,order.getImage());
 
             sqLiteDatabase.insert(TableName, null, values);
         }
@@ -104,6 +106,7 @@ public class DbHelper extends SQLiteOpenHelper
                 Order.setQuantity(c.getString(c.getColumnIndex(COL3)));
                 Order.setPrice(c.getString(c.getColumnIndex(COL4)));
                 Order.setDiscount(c.getString(c.getColumnIndex(COL5)));
+                Order.setImage(c.getString(c.getColumnIndex(COL7)));
 
                 list.add(Order);
                 c.moveToNext();

@@ -2,17 +2,26 @@ package com.example.myapplication.model;
 
 public class Order  {
     private int ProductID;
-    private String ProductName,Quantity,Price,Discount;
+    private String ProductName,Quantity,Price,Discount,Image;
 
-    public Order(int ProductID, String ProductName, String Quantity, String Price, String Discount) {
+    public Order(int ProductID, String ProductName, String Quantity, String Price, String Discount,String Image) {
         this.ProductID = ProductID;
         this.ProductName = ProductName;
         this.Quantity = Quantity;
         this.Price = Price;
         this.Discount = Discount;
+        this.Image=Image;
     }
 
     public Order() {
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
     }
 
     public int getProductId() {

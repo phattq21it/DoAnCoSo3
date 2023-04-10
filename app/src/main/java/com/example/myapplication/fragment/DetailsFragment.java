@@ -92,6 +92,7 @@ public class DetailsFragment extends Fragment {
                         order.setQuantity(String.valueOf(count));
                         order.setPrice(String.valueOf(price));
                         order.setDiscount("1");
+                        order.setImage(image);
                         dbHelper.insertData(order);
 //                        dbHelper.update(order);
                             Toast.makeText(getContext(), "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
@@ -119,7 +120,7 @@ public class DetailsFragment extends Fragment {
             nameholder.setText(name);
             priceholder.setText(price);
             txtmota.setText(description);
-            Glide.with(getContext()).load(image ).into(imageholder);
+            Glide.with(getContext()).load(image).into(imageholder);
 
 
             return  view;
