@@ -122,10 +122,11 @@ public class ManageItemAdapter extends RecyclerView.Adapter<ManageItemAdapter.Ho
         holder.imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 activity.getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.framlayoutman, new EditProductFragment(holder.txtDrink.getText().toString()))
-                        .replace(R.id.framlayoutman, new EditProductFragment())
+                        .replace(R.id.framlayoutman, new EditProductFragment(holder.txtDrink.getText().toString()))
+//                        .replace(R.id.framlayoutman, new EditProductFragment())
                         .addToBackStack(null).commit();
 
             }
