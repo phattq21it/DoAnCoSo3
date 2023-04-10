@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ID"
+                android:textColor="@color/black"
+                android:textSize="30sp"/>
+            <EditText
+                android:id="@+id/edtIdItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập id"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hình ảnh sản phẩm"
+                android:textColor="@color/black"
+                android:textSize="30sp"/>
+            <EditText
+                android:id="@+id/edtImageItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập hình ảnh"/>
+        </LinearLayout> <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <TextView
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên sản phẩm"
+            android:textColor="@color/black"
+            android:textSize="30sp"/>
+        <EditText
+            android:id="@+id/edtNameItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập tên sản phẩm"/>
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Giá"
+                android:textColor="@color/black"
+                android:textSize="30sp"/>
+            <EditText
+                android:id="@+id/edtPriceItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập giá"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chọn danh mục"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:id="@+id/tvCategory"
+
+                />
+
+            <EditText
+                android:id="@+id/edtTypeItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <Spinner
+                android:layout_width="400dp"
+                android:layout_height="50dp"
+                android:id="@+id/spinercategories"
+                android:spinnerMode="dialog"
+                android:background="@android:drawable/btn_dropdown"
+                android:layout_marginTop="-30dp"
+                >
+
+            </Spinner>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mô tả"
+                android:textColor="@color/black"
+                android:textSize="30sp"/>
+            <EditText
+                android:id="@+id/edtDescriptionItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập mô tả"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Giảm giá"
+                android:textColor="@color/black"
+                android:textSize="30sp"/>
+            <EditText
+                android:id="@+id/edtDiscountItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Giá giảm"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnAddItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cập nhật sản phẩm"
+            android:textSize="20sp"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sửa"
+            android:textSize="20sp"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+
+
+</ScrollView>

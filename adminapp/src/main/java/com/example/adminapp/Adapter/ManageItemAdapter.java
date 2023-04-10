@@ -13,9 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.adminapp.AdminActivity;
 import com.example.adminapp.R;
+import com.example.adminapp.fragment.DetailsFragment;
+import com.example.adminapp.fragment.EditProductFragment;
+import com.example.adminapp.fragment.ManageItemFragment;
 import com.example.adminapp.model.Drink;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 
@@ -109,6 +119,17 @@ public class ManageItemAdapter extends RecyclerView.Adapter<ManageItemAdapter.Ho
 
             }
         });
+        holder.imgEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.framlayoutman, new EditProductFragment(holder.txtDrink.getText().toString()))
+                        .replace(R.id.framlayoutman, new EditProductFragment())
+                        .addToBackStack(null).commit();
+
+            }
+        });
     }
 
     @Override
@@ -145,6 +166,7 @@ public class ManageItemAdapter extends RecyclerView.Adapter<ManageItemAdapter.Ho
         ImageView imgEdit,imgDelete;
         Button btnAddItem;
         RecyclerView recyclerView;
+
         public Holder(@NonNull View itemView) {
             super(itemView);
             btnAddItem= itemView.findViewById(R.id.btnAddItem);
@@ -155,4 +177,5 @@ public class ManageItemAdapter extends RecyclerView.Adapter<ManageItemAdapter.Ho
 
         }
     }
+
 }

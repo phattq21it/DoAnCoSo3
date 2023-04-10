@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.myapplication.Common.Common;
 import com.example.myapplication.model.Order;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class DbHelper extends SQLiteOpenHelper
     private static final String COL3="Quantity";
     private static final String COL4="Price";
     private static final String COL5="Discount";
+    private static final String COL6="Phone";
 
     public DbHelper(@Nullable Context context) {
         super(context, DBName, null, 2);
@@ -32,11 +34,12 @@ public class DbHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("create table "+TableName+" ("+COL1+" integer primary key autoincrement,"
-                +COL2+" text, "+COL3+" text, "+COL4+" text, "+COL5+" text)");
+                +COL2+" text, "+COL3+" text, "+COL4+" text, "+COL5+" text, "+COL6+" text)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+//        db.execSQL("ALTER TABLE " + TableName + " ADD COLUMN " + COL6 + " TEXT");
         db.execSQL("drop table if exists "+TableName);
         onCreate(db);
     }
@@ -64,6 +67,7 @@ public class DbHelper extends SQLiteOpenHelper
             values.put(COL2, name);
             values.put(COL3, quantity);
             values.put(COL4, order.getPrice());
+            values.put(COL6, Common.currentUser.getPhone());
 
             sqLiteDatabase.insert(TableName, null, values);
         }
@@ -92,7 +96,12 @@ public class DbHelper extends SQLiteOpenHelper
     public List<Order> getAllOrder(){
         SQLiteDatabase db=this.getReadableDatabase();
         List<Order> list= new ArrayList<>();
+        String phoneIDcurrent = Common.currentUser.getPhone();
+
         String selectQuery = "SELECT  * FROM " + TableName;
+
+//        String selectQuery = "SELECT ProductId, ProductName, Quantity, Price, Discount FROM " + TableName + " WHERE Phone = '" + phoneIDcurrent + "'";
+
         Cursor c = db.rawQuery(selectQuery, null);
         if (c != null) {
             c.moveToFirst();

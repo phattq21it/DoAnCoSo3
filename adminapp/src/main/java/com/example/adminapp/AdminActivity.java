@@ -17,7 +17,7 @@ import com.example.adminapp.fragment.ManagerFragment;
 import com.example.adminapp.fragment.CategoriesFragment;
 import com.example.adminapp.fragment.HomeFragMent;
 
-public class AdminActivity extends AppCompatActivity {
+public class    AdminActivity extends AppCompatActivity {
 
 
     FrameLayout frameLayout;

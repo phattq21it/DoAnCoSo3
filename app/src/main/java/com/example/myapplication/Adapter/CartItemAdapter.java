@@ -46,6 +46,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.Holder
         holder.quantityItem.setText(order.getQuantity());
     }
 
+
     @Override
     public int getItemCount() {
         return list.size();

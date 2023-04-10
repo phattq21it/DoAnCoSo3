@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.adminapp.Adapter.ManageItemAdapter;
 import com.example.adminapp.Adapter.ManagerUserAdapter;
+import com.example.adminapp.AdminActivity;
 import com.example.adminapp.R;
 import com.example.adminapp.model.Drink;
 import com.example.adminapp.model.User;
@@ -34,10 +37,13 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class ManageItemFragment extends Fragment {
+    AdminActivity adminActivity= (AdminActivity) getActivity();
+
     DatabaseReference database;
     RecyclerView rcv;
     ManageItemAdapter manageItemAdapter;
     ArrayList<Drink> drinkArrayList;
+    ImageView btnEditProduct;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -88,11 +94,14 @@ public class ManageItemFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_manage_item, container, false);
         View view2 = inflater.inflate(R.layout.item_user_manager, container, false);
         rcv=view.findViewById(R.id.rcvitem);
+
         database= FirebaseDatabase.getInstance().getReference("Item");
         rcv.setLayoutManager(new LinearLayoutManager(getContext()));
         drinkArrayList= new ArrayList<>();
         manageItemAdapter = new ManageItemAdapter(getContext(),drinkArrayList);
         rcv.setAdapter(manageItemAdapter);
+
+
         database.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -115,4 +124,6 @@ public class ManageItemFragment extends Fragment {
 
         return view;
     }
+
+
 }
