@@ -20,16 +20,18 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.adminapp.Adapter.InforOrderAdapter;
 import com.example.adminapp.Adapter.ItemRecyclerAdapter;
 import com.example.adminapp.AdminActivity;
 import com.example.adminapp.R;
 import com.example.adminapp.model.Drink;
+import com.example.adminapp.model.Request;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeFragMent extends Fragment {
     private RecyclerView recyclerView,recyclerView2;
-    ItemRecyclerAdapter itemRecycleAdapter;
+    InforOrderAdapter inforOrderAdapter;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -135,15 +137,15 @@ public class HomeFragMent extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView2.setLayoutManager(gridLayoutManager2);
 
-        FirebaseRecyclerOptions<Drink> options =
-                new FirebaseRecyclerOptions.Builder<Drink>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item"), Drink.class)
+        FirebaseRecyclerOptions<Request> options =
+                new FirebaseRecyclerOptions.Builder<Request>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Request"), Request.class)
                         .build();
 
 
-        itemRecycleAdapter = new ItemRecyclerAdapter(options);
-        recyclerView.setAdapter(itemRecycleAdapter);
-        recyclerView2.setAdapter(itemRecycleAdapter);
+        inforOrderAdapter = new InforOrderAdapter(options);
+        recyclerView.setAdapter(inforOrderAdapter);
+        recyclerView2.setAdapter(inforOrderAdapter);
 
         //setlistener
 //        itemRecycleAdapter.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
@@ -171,12 +173,12 @@ public class HomeFragMent extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        itemRecycleAdapter.startListening();
+        inforOrderAdapter.startListening();
     }
     @Override
     public void onStop() {
         super.onStop();
-        itemRecycleAdapter.stopListening();
+        inforOrderAdapter.stopListening();
     }
     private void replaceFragment(Fragment fragment) {
 

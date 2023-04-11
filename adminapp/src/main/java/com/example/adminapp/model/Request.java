@@ -1,20 +1,19 @@
-package com.example.myapplication.Interface.model;
+package com.example.adminapp.model;
 
 import java.util.List;
 
 public class Request {
-    private String phone,name,address, total,time;
-    private List<Order> food;
+    private String key,name,address, total,time;
+
 
     public Request() {
     }
 
-    public Request(String phone, String name, String address, String total, List<Order> food,String time) {
-        this.phone = phone;
+    public Request( String key,String name, String address, String total,  String time) {
+        this.key = key;
         this.name = name;
         this.address = address;
         this.total = total;
-        this.food = food;
         this.time = time;
     }
 
@@ -26,12 +25,12 @@ public class Request {
         this.time = time;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getKey() {
+        return key;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {
@@ -58,11 +57,5 @@ public class Request {
         this.total = total;
     }
 
-    public List<Order> getFood() {
-        return food;
-    }
 
-    public void setFood(List<Order> food) {
-        this.food = food;
-    }
 }
