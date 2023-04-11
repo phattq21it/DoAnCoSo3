@@ -13,7 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,7 +63,8 @@ public class HomeFragMent extends Fragment {
     private String mParam2;
     private MainActivity mainActivity;
     private MenuItem menuItem;
-    private SearchView searchView;
+    private EditText edtsearch;
+    private ImageView imgsearch;
 
 
     int[] images={R.drawable.screenshot_2023_04_10_095739,
@@ -98,32 +101,22 @@ public class HomeFragMent extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menusearch,menu);
         menuItem=menu.findItem(R.id.search_view);
-        searchView= (SearchView) MenuItemCompat.getActionView(menuItem);
+        edtsearch= (EditText) menu.findItem(R.id.edtsearch);
+        imgsearch= (ImageView) menu.findItem(R.id.imgsearch1);
 
-        searchView.setIconified(true);
-
-        SearchManager searchManager= (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        imgsearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                Bundle bundle= new Bundle();
-                bundle.putString("df2",query);
-                getParentFragmentManager().setFragmentResult("datasearch",bundle);
-                hideKeyboard(mainActivity);
-                replaceFragment(new ResultSearchFragment());
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return true;
+            public void onClick(View v) {
+//                String query= edtsearch.getText().toString();
+//                Bundle bundle= new Bundle();
+//                bundle.putString("df2",query);
+//                getParentFragmentManager().setFragmentResult("datasearch",bundle);
+//                hideKeyboard(mainActivity);
+//                replaceFragment(new ResultSearchFragment());
+                Toast.makeText(getContext(), "hihi", Toast.LENGTH_SHORT).show();
             }
         });
 
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @SuppressLint("MissingInflatedId")

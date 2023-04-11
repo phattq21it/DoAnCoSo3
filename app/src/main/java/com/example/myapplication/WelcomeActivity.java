@@ -28,7 +28,7 @@ public class WelcomeActivity extends AppCompatActivity {
     LinearLayout signuplayout, signinlayout;
     TextView signin, signup;
     Button btnsignin, btnsignup;
-    EditText edtphonesu, edtpasssu, edtnamesu, edtPassword, edtPhone;
+    EditText edtphonesu, edtpasssu, edtnamesu, edtPassword, edtPhone,edtdiachisu,edtmailsu;
     FirebaseAuth auth;
 
 
@@ -45,6 +45,8 @@ public class WelcomeActivity extends AppCompatActivity {
         edtphonesu = findViewById(R.id.edt_su_phone);
         edtnamesu = findViewById(R.id.edt_su_name);
         edtpasssu = findViewById(R.id.edt_su_pass);
+        edtdiachisu = findViewById(R.id.edt_su_diachi);
+        edtmailsu = findViewById(R.id.edt_su_mail);
 
         signuplayout = findViewById(R.id.sigup_layout);
         signinlayout = findViewById(R.id.login_layout);
@@ -89,10 +91,11 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+            if(validateInfor(edtnamesu.getText().toString(),edtpasssu.getText().toString(),edtphonesu.getText().toString(),edtmailsu.getText().toString(),edtdiachisu.getText().toString())){
                 ProgressDialog mDialog = new ProgressDialog(WelcomeActivity.this);
                 mDialog.setMessage("Đang xử lí");
                 mDialog.show();
-
                 users.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -102,7 +105,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         }else{
                             mDialog.dismiss();
                             //
-                            User user = new User(edtnamesu.getText().toString(), edtpasssu.getText().toString());
+                            User user = new User(edtnamesu.getText().toString(), edtpasssu.getText().toString(),edtmailsu.getText().toString(),edtdiachisu.getText().toString());
                             users.child(edtphonesu.getText().toString()).setValue(user);
                             Toast.makeText(WelcomeActivity.this, "Sign up successfully", Toast.LENGTH_SHORT).show();
                             signin.setBackground(getResources().getDrawable(R.drawable.switch_trcks));
@@ -125,6 +128,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
                     }
                 });
+            }
+
+
             }
         });
         btnsignin.setOnClickListener(new View.OnClickListener() {
@@ -195,5 +201,46 @@ public class WelcomeActivity extends AppCompatActivity {
             }
 
         });
+
+    }
+    private boolean validateInfor(String name,String pass,String phone,String mail,String address){
+        if(phone.length()==0){
+            edtphonesu.requestFocus();
+            edtphonesu.setError("Vui lòng nhập số điện thoại");
+            return false;
+        }else if(!phone.matches("^0\\d{9}$")){
+            edtphonesu.requestFocus();
+            edtphonesu.setError("Nhập sai số điện thoại");
+            return false;
+        }else if(name.length()==0){
+            edtnamesu.requestFocus();
+            edtnamesu.setError("Vui lòng nhập tên");
+            return false;
+        }else if(!name.matches("^[a-zA-ZÀ-ỹ ]+$")){
+            edtnamesu.requestFocus();
+            edtnamesu.setError("Tên phải bắt đầu bằng chữ hoa và không có kí tự đặc biệt");
+            return false;
+        }else  if(mail.length()==0){
+            edtmailsu.requestFocus();
+            edtmailsu.setError("Vui lòng nhập mail");
+            return false;
+        }else if(!mail.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")){
+            edtmailsu.requestFocus();
+            edtmailsu.setError("Nhập sai mail");
+            return false;
+        }
+
+        else if(pass.length()==0){
+            edtpasssu.requestFocus();
+            edtpasssu.setError("Vui lòng nhập pass");
+            return false;
+        }else if(!pass.matches("^.{6,}$")){
+            edtpasssu.requestFocus();
+            edtpasssu.setError("Mật khẩu phải có ít nhất 6 kí tự");
+            return false;
+        }else{
+            return true;
+        }
+
     }
 }

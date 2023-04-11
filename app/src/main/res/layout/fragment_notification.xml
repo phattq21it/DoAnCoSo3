@@ -24,6 +24,7 @@
             android:orientation="vertical"
             android:layout_marginStart="10dp">
             <TextView
+                android:id="@+id/ac_txt_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="28sp"
@@ -32,6 +33,7 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="20dp"/>
             <TextView
+                android:id="@+id/ac_txt_mail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="20sp"
@@ -69,9 +71,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Địa chỉ "
+                android:text="Địa chỉ: "
                 android:textColor="@color/black"
                 android:textSize="22sp" />
+            <TextView
+                android:id="@+id/ac_txt_diachi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ "
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:layout_marginStart="5dp"/>
 
         </LinearLayout>
 
@@ -132,6 +142,7 @@
 
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btndangxuat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Đăng xuất"
