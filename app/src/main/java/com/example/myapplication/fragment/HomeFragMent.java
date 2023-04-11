@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.CursorAnchorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
@@ -28,20 +29,34 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.adminapp.model.User;
+import com.example.myapplication.Adapter.CategoriAdapter;
 import com.example.myapplication.Adapter.ItemRecyclerAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.model.Category;
 import com.example.myapplication.model.Drink;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
+
 public class HomeFragMent extends Fragment {
-    private RecyclerView recyclerView,recyclerView2;
+    private RecyclerView recyclerView,recyclerView2,rcvcategory;
     ItemRecyclerAdapter itemRecycleAdapter;
+    CategoriAdapter categoriAdapter;
+    ArrayList<Category> categoryArrayList;
+    DatabaseReference databaseReference;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -54,12 +69,8 @@ public class HomeFragMent extends Fragment {
     private SearchView searchView;
 
 
-    int[] images={R.drawable.one,
-            R.drawable.two,
-            R.drawable.three,
-            R.drawable.four,
-            R.drawable.five,
-            R.drawable.six};
+    int[] images={R.drawable.screenshot_2023_04_10_095739,
+            R.drawable.screenshot_2023_04_10_100148};
 
     SliderView sliderView;
     public HomeFragMent() {
@@ -127,10 +138,31 @@ public class HomeFragMent extends Fragment {
         View view=  inflater.inflate(R.layout.fragment_home,container,false);
         recyclerView = view.findViewById(R.id.recycler_drink);
         recyclerView2 = view.findViewById(R.id.recycler_drink2);
+        rcvcategory= view.findViewById(R.id.recycler_category_home);
 
         mainActivity= (MainActivity) getActivity();
 
 
+        databaseReference=FirebaseDatabase.getInstance().getReference("Categories");
+        categoryArrayList= new ArrayList<>();
+        categoriAdapter= new CategoriAdapter(categoryArrayList,getContext());
+        rcvcategory.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        rcvcategory.setAdapter(categoriAdapter);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    Category category= dataSnapshot.getValue(Category.class);
+                    categoryArrayList.add(category);
+                }
+                categoriAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         //slider
         sliderView= view.findViewById(R.id.imageSlider);
         SliderAdapter sliderAdapter= new SliderAdapter(images);

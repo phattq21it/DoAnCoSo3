@@ -36,7 +36,25 @@
                 app:sliderScrollTimeInSec="5"
                 app:sliderStartAutoCycle="true"
                 android:layout_margin="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Danh mục sản phẩm"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_category_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"/>
 
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,17 +63,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="center"
                     android:text="Sản phẩm giảm giá"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_drink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_drink"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

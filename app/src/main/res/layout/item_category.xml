@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/button_write"
+    android:padding="10dp"
+    android:layout_margin="5dp">
+
+    <ImageView
+        android:id="@+id/logo_category"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/meat"
+        android:padding="5dp"/>
+    <TextView
+        android:id="@+id/namecategory"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo_category"
+        android:text="ca"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="3dp"/>
+
+</RelativeLayout>
