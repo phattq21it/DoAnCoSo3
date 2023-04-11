@@ -28,7 +28,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -95,11 +98,17 @@ public class CartFragment extends Fragment {
         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Calendar calendar = Calendar.getInstance();
+                Date date = calendar.getTime();
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String dateString = dateFormat.format(date);
+
                 Request request= new Request(Common.currentUser.getPhone(),
                         Common.currentUser.getName(),
                         edtAddress.getText().toString(),
                         txtTongTien.getText().toString(),
-                        cart);
+                        cart,dateString);
                  requestt.child(String.valueOf(System.currentTimeMillis())).setValue(request);
                  // deletecart
                 new DbHelper(getContext()).deleteAllDataInOrderDetailTable();
