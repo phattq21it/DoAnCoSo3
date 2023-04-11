@@ -1,4 +1,4 @@
-package com.example.myapplication.model;
+package com.example.myapplication.Interface.model;
 
 public class Drink {
     private String key,name,image,price,description;

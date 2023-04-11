@@ -6,14 +6,12 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.CursorAnchorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
@@ -29,14 +27,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.adminapp.model.User;
 import com.example.myapplication.Adapter.CategoriAdapter;
 import com.example.myapplication.Adapter.ItemRecyclerAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.model.Category;
-import com.example.myapplication.model.Drink;
+import com.example.myapplication.Interface.model.Category;
+import com.example.myapplication.Interface.model.Drink;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,8 +43,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 

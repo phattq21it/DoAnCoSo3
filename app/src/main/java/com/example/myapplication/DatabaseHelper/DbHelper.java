@@ -9,7 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.example.myapplication.model.Order;
+import com.example.myapplication.Common.Common;
+import com.example.myapplication.Interface.model.Order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,8 @@ public class DbHelper extends SQLiteOpenHelper
     private static final String COL3="Quantity";
     private static final String COL4="Price";
     private static final String COL5="Discount";
+    private static final String COL6="Phone";
+    private static final String COL7="Image";
 
     public DbHelper(@Nullable Context context) {
         super(context, DBName, null, 2);
@@ -32,7 +35,7 @@ public class DbHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("create table "+TableName+" ("+COL1+" integer primary key autoincrement,"
-                +COL2+" text, "+COL3+" text, "+COL4+" text, "+COL5+" text)");
+                +COL2+" text, "+COL3+" text, "+COL4+" text, "+COL5+" text,"+COL6+" text,"+COL7+" text)");
     }
 
     @Override
@@ -64,7 +67,9 @@ public class DbHelper extends SQLiteOpenHelper
             values.put(COL2, name);
             values.put(COL3, quantity);
             values.put(COL4, order.getPrice());
-
+            values.put(COL5,order.getDiscount());
+            values.put(COL6,order.getPhone());
+            values.put(COL7,order.getImage());
             sqLiteDatabase.insert(TableName, null, values);
         }
 
@@ -91,8 +96,14 @@ public class DbHelper extends SQLiteOpenHelper
     @SuppressLint("Range")
     public List<Order> getAllOrder(){
         SQLiteDatabase db=this.getReadableDatabase();
+
         List<Order> list= new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + TableName;
+//        String selectQuery = "SELECT  * FROM " + TableName;
+        String phoneCurrent = Common.currentUser.getPhone();
+
+        String selectQuery = "SELECT * FROM " + TableName + " WHERE phone = '" + phoneCurrent + "'";
+
+
         Cursor c = db.rawQuery(selectQuery, null);
         if (c != null) {
             c.moveToFirst();
@@ -103,6 +114,8 @@ public class DbHelper extends SQLiteOpenHelper
                 Order.setQuantity(c.getString(c.getColumnIndex(COL3)));
                 Order.setPrice(c.getString(c.getColumnIndex(COL4)));
                 Order.setDiscount(c.getString(c.getColumnIndex(COL5)));
+                Order.setPhone(c.getString(c.getColumnIndex(COL6)));
+                Order.setImage(c.getString(c.getColumnIndex(COL7)));
 
                 list.add(Order);
                 c.moveToNext();

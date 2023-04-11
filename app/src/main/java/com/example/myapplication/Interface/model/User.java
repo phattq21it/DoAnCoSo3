@@ -1,4 +1,4 @@
-package com.example.myapplication.model;
+package com.example.myapplication.Interface.model;
 
 public class User {
     private String Name,Password,Phone,IsAdmin;

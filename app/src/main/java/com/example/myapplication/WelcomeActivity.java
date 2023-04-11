@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.example.adminapp.AdminActivity;
 import com.example.myapplication.Common.Common;
-import com.example.myapplication.model.User;
+import com.example.myapplication.Interface.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

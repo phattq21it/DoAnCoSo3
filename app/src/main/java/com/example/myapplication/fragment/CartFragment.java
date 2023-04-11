@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +22,8 @@ import com.example.myapplication.Adapter.CartItemAdapter;
 import com.example.myapplication.Common.Common;
 import com.example.myapplication.DatabaseHelper.DbHelper;
 import com.example.myapplication.R;
-import com.example.myapplication.model.Order;
-import com.example.myapplication.model.Request;
+import com.example.myapplication.Interface.model.Order;
+import com.example.myapplication.Interface.model.Request;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -33,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-//import com.example.myapplication.R;
 
 public class CartFragment extends Fragment {
     TextView txtMuaHang,txtTongTien;
@@ -80,8 +78,6 @@ public class CartFragment extends Fragment {
                 }
 
             }
-
-
         });
         return view;
     }

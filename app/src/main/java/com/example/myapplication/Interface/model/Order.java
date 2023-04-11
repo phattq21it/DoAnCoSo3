@@ -1,19 +1,28 @@
-package com.example.myapplication.model;
+package com.example.myapplication.Interface.model;
 
 public class Order  {
     private int ProductID;
-    private String ProductName,Quantity,Price,Discount,Image;
+    private String ProductName,Quantity,Price,Discount,Phone,Image;
 
-    public Order(int ProductID, String ProductName, String Quantity, String Price, String Discount,String Image) {
-        this.ProductID = ProductID;
-        this.ProductName = ProductName;
-        this.Quantity = Quantity;
-        this.Price = Price;
-        this.Discount = Discount;
-        this.Image=Image;
+    public Order(int productID, String productName, String quantity, String price, String discount, String phone, String image) {
+        ProductID = productID;
+        ProductName = productName;
+        Quantity = quantity;
+        Price = price;
+        Discount = discount;
+        Phone = phone;
+        Image = image;
     }
 
     public Order() {
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String phone) {
+        Phone = phone;
     }
 
     public String getImage() {

@@ -14,10 +14,11 @@ import android.widget.TextView;
     import android.widget.Toast;
 
     import com.bumptech.glide.Glide;
+    import com.example.myapplication.Common.Common;
     import com.example.myapplication.DatabaseHelper.DbHelper;
     import com.example.myapplication.MainActivity;
     import com.example.myapplication.R;
-    import com.example.myapplication.model.Order;
+    import com.example.myapplication.Interface.model.Order;
 
 public class DetailsFragment extends Fragment {
 
@@ -92,6 +93,7 @@ public class DetailsFragment extends Fragment {
                         order.setQuantity(String.valueOf(count));
                         order.setPrice(String.valueOf(price));
                         order.setDiscount("1");
+                        order.setPhone(Common.currentUser.getPhone());
                         order.setImage(image);
                         dbHelper.insertData(order);
 //                        dbHelper.update(order);
