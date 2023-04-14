@@ -24,8 +24,11 @@ import com.example.myapplication.DatabaseHelper.DbHelper;
 import com.example.myapplication.R;
 import com.example.myapplication.Interface.model.Order;
 import com.example.myapplication.Interface.model.Request;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -98,6 +101,7 @@ public class CartFragment extends Fragment {
         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 Calendar calendar = Calendar.getInstance();
                 Date date = calendar.getTime();
 
@@ -110,13 +114,46 @@ public class CartFragment extends Fragment {
                         txtTongTien.getText().toString(),
                         cart,dateString);
                  requestt.child(String.valueOf(System.currentTimeMillis())).setValue(request);
+                for (int i = 0; i < cart.size(); i++) {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference productsRef = database.getReference("Item");
+                    String nameProductBought = cart.get(i).getProductName();
+                    productsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                                String firebaseProductName = productSnapshot.child("name").getValue(String.class);
+                                int firebaseProductSales = productSnapshot.child("quantityPurchased").getValue(Integer.class);
+
+                                // So sánh tên sản phẩm mới với tên sản phẩm trong danh sách Firebase
+                                if (firebaseProductName.equals(nameProductBought)) {
+                                    // Tăng giá trị lượt mua lên 1 và cập nhật giá trị mới vào Firebase
+                                    int newSales = firebaseProductSales + 1;
+                                    productSnapshot.getRef().child("quantityPurchased").setValue(newSales);
+                                    break;
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
                  // deletecart
                 new DbHelper(getContext()).deleteAllDataInOrderDetailTable();
                 cart= new DbHelper(getContext()).getAllOrder();
                 cartItemAdapter= new CartItemAdapter(cart,getContext());
                 recyclerView.setAdapter(cartItemAdapter);
                 txtTongTien.setText("$0.00");
-                Toast.makeText(getContext(), "Bạn đã mua hàng thành công", Toast.LENGTH_SHORT).show();
+
+
+
+                Toast.makeText(getContext(), "Bạn đã mua hàng thành công" , Toast.LENGTH_SHORT).show();
+
+
+
             }
         });
 //        alertDialog.setPositiveButton("NO", new DialogInterface.OnClickListener() {

@@ -51,6 +51,7 @@ import java.util.ArrayList;
 public class HomeFragMent extends Fragment {
     private RecyclerView recyclerView,recyclerView2,rcvcategory;
     ItemRecyclerAdapter itemRecycleAdapter;
+    ItemRecyclerAdapter itemRecyclerAdapter2;
     CategoriAdapter categoriAdapter;
     ArrayList<Category> categoryArrayList;
     DatabaseReference databaseReference;
@@ -166,16 +167,34 @@ public class HomeFragMent extends Fragment {
 
         FirebaseRecyclerOptions<Drink> options =
                 new FirebaseRecyclerOptions.Builder<Drink>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item"), Drink.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("created_at").limitToLast(3), Drink.class)
+                        .build();
+        FirebaseRecyclerOptions<Drink> option1s =
+                new FirebaseRecyclerOptions.Builder<Drink>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("quantityPurchased").limitToLast(3),Drink.class)
                         .build();
 
 
+
+
+
         itemRecycleAdapter = new ItemRecyclerAdapter(options);
+        itemRecyclerAdapter2 = new ItemRecyclerAdapter(option1s);
         recyclerView.setAdapter(itemRecycleAdapter);
-        recyclerView2.setAdapter(itemRecycleAdapter);
+        recyclerView2.setAdapter(itemRecyclerAdapter2);
 
         //setlistener
         itemRecycleAdapter.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClickAddToCart(ImageView imageView, Drink drink) {
+                mainActivity.setCountProductInCart(mainActivity.getmCountProduct()+1);
+//                if(imageView.)
+                imageView.setEnabled(false);
+                imageView.setColorFilter(ContextCompat.getColor(view.getContext(),R.color.DimGray), PorterDuff.Mode.SRC_IN);
+            }
+        });
+        itemRecyclerAdapter2.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClickAddToCart(ImageView imageView, Drink drink) {
@@ -201,11 +220,13 @@ public class HomeFragMent extends Fragment {
     public void onStart() {
         super.onStart();
         itemRecycleAdapter.startListening();
+        itemRecyclerAdapter2.startListening();
     }
     @Override
     public void onStop() {
         super.onStop();
         itemRecycleAdapter.stopListening();
+        itemRecyclerAdapter2.stopListening();
     }
     private void replaceFragment(Fragment fragment) {
 

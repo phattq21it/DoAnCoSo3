@@ -25,7 +25,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -145,6 +148,11 @@ public class AddItemFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(validateData()) {
+                    Calendar calendar = Calendar.getInstance();
+                    Date date = calendar.getTime();
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String dateString = dateFormat.format(date);
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference productRef = database.getReference("Item");
                     DatabaseReference newProductRef = productRef.child(idItem.getText().toString());
@@ -155,7 +163,11 @@ public class AddItemFragment extends Fragment {
                     newProductRef.child("type").setValue(typeItem.getText().toString());
                     newProductRef.child("discount").setValue(typeItem.getText().toString());
                     newProductRef.child("image").setValue(imgItem.getText().toString());
+                    newProductRef.child("created_at").setValue(dateString);
+                    newProductRef.child("quantityPurchased").setValue(0);
+
                     Toast.makeText(getContext(), "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                    clear();
                 }
 
 
@@ -198,6 +210,16 @@ public class AddItemFragment extends Fragment {
                 return false;
             }
                 return true;
+            }
+            private void clear(){
+                nameItem.setText("");
+                priceItem.setText("");
+                discountItem.setText("");
+                imgItem.setText("");
+                idItem.setText("");
+                descriptionItem.setText("");
+                discountItem.setText("");
+
             }
 
         });

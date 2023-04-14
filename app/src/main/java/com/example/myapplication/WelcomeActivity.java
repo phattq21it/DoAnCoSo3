@@ -171,7 +171,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                     Toast.makeText(WelcomeActivity.this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                mDialog.dismiss();
+//                                mDialog.dismiss();
                                 Toast.makeText(WelcomeActivity.this, "User không tồn tại", Toast.LENGTH_SHORT).show();
                             }
                         }

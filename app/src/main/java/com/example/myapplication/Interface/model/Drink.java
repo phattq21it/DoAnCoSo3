@@ -1,10 +1,17 @@
 package com.example.myapplication.Interface.model;
 
 public class Drink {
-    private String key,name,image,price,description;
+    private String key,name,image,price,description,discount;
     private boolean isAddToCart;
 
 
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
+    }
 
     public String getKey() {
         return key;
