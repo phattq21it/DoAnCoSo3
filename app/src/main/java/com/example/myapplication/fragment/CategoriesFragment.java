@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.ItemRecyclerAdapter;
@@ -37,9 +38,8 @@ import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
 public class CategoriesFragment extends Fragment {
-    private RecyclerView recyclerView,recyclerView2;
-    ItemRecyclerAdapter itemRecycleAdapterFood;
-    ItemRecyclerAdapter itemRecycleAdapterDrink;
+    private RecyclerView rcvcafe,rcvanvat,rcvhotdog,rcvhaisan;
+    ItemRecyclerAdapter adapterCafe,adapterAnVat,adapterHotDog,adapterHaiSan;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -52,13 +52,8 @@ public class CategoriesFragment extends Fragment {
     private MenuItem menuItem;
     private SearchView searchView;
 
-
-    int[] images={R.drawable.one,
-            R.drawable.two,
-            R.drawable.three,
-            R.drawable.four,
-            R.drawable.five,
-            R.drawable.six};
+    int[] images={R.drawable.screenshot_2023_04_10_095739,
+            R.drawable.screenshot_2023_04_10_100148,R.drawable.banner3,R.drawable.banner4};
 
     SliderAdapter sliderAdapter;
     SliderView sliderView;
@@ -88,46 +83,17 @@ public class CategoriesFragment extends Fragment {
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menusearch,menu);
-        menuItem=menu.findItem(R.id.search_view);
-        searchView= (SearchView) MenuItemCompat.getActionView(menuItem);
 
-        searchView.setIconified(true);
-
-        SearchManager searchManager= (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                Bundle bundle= new Bundle();
-                bundle.putString("df2",query);
-                getParentFragmentManager().setFragmentResult("datasearch",bundle);
-                hideKeyboard(mainActivity);
-                replaceFragment(new ResultSearchFragment());
-                Log.d(query,query);
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return true;
-            }
-        });
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
     @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=  inflater.inflate(R.layout.fragment_categories,container,false);
-        recyclerView = view.findViewById(R.id.rcv_category_list1);
-        recyclerView2 = view.findViewById(R.id.rcv_category_list2);
+        rcvcafe = view.findViewById(R.id.rcvcafe);
+        rcvanvat = view.findViewById(R.id.rcvanvat);
+        rcvhaisan=view.findViewById(R.id.rcvhaisan);
+        rcvhotdog=view.findViewById(R.id.rcvhotdog);
 
         mainActivity= (MainActivity) getActivity();
 
@@ -140,47 +106,66 @@ public class CategoriesFragment extends Fragment {
         sliderView.setSliderTransformAnimation(SliderAnimations.CUBEINDEPTHTRANSFORMATION);
         sliderView.startAutoCycle();
         //list product
-        GridLayoutManager gridLayoutManager= new GridLayoutManager(getContext(),2);
-        GridLayoutManager gridLayoutManager2= new GridLayoutManager(getContext(),2);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView2.setLayoutManager(gridLayoutManager2);
+        LinearLayoutManager linearLayoutManager1= new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager2= new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager3= new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager4= new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
+        rcvcafe.setLayoutManager(linearLayoutManager1);
+        rcvhaisan.setLayoutManager(linearLayoutManager2);
+        rcvhotdog.setLayoutManager(linearLayoutManager3);
+        rcvanvat.setLayoutManager(linearLayoutManager4);
 
-        FirebaseRecyclerOptions<Drink> typeFood =
+        FirebaseRecyclerOptions<Drink> optionAnVat =
                 new FirebaseRecyclerOptions.Builder<Drink>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("type").equalTo("Food"), Drink.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("type").equalTo("Đồ ăn vặt"), Drink.class)
                         .build();
-        FirebaseRecyclerOptions<Drink> typeDrink =
+        FirebaseRecyclerOptions<Drink> optionHaiSan =
                 new FirebaseRecyclerOptions.Builder<Drink>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("type").equalTo("Drink"), Drink.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("type").equalTo("Hải Sản"), Drink.class)
+                        .build();
+        FirebaseRecyclerOptions<Drink> optionHotDog =
+                new FirebaseRecyclerOptions.Builder<Drink>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("type").equalTo("Hot Dog"), Drink.class)
+                        .build();
+        FirebaseRecyclerOptions<Drink> optionCafe =
+                new FirebaseRecyclerOptions.Builder<Drink>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("type").equalTo("Cà Phê & Trà Sữa"), Drink.class)
                         .build();
 
 
-        itemRecycleAdapterFood = new ItemRecyclerAdapter(typeFood);
-        itemRecycleAdapterDrink = new ItemRecyclerAdapter(typeDrink);
-        recyclerView.setAdapter(itemRecycleAdapterFood);
-        recyclerView2.setAdapter(itemRecycleAdapterDrink);
+        adapterAnVat = new ItemRecyclerAdapter(optionAnVat);
+        adapterHaiSan = new ItemRecyclerAdapter(optionHaiSan);
+        adapterCafe = new ItemRecyclerAdapter(optionCafe);
+        adapterHotDog = new ItemRecyclerAdapter(optionHotDog);
+
+
+
+        rcvhotdog.setAdapter(adapterHotDog);
+        rcvcafe.setAdapter(adapterCafe);
+        rcvanvat.setAdapter(adapterAnVat);
+        rcvhaisan.setAdapter(adapterHaiSan);
 
         //setlistener
-        itemRecycleAdapterFood.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClickAddToCart(ImageView imageView, Drink drink) {
-                mainActivity.setCountProductInCart(mainActivity.getmCountProduct()+1);
-//                if(imageView.)
-                imageView.setEnabled(false);
-                imageView.setBackgroundColor(com.nex3z.notificationbadge.R.color.red);
-            }
-        });
-        itemRecycleAdapterDrink.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClickAddToCart(ImageView imageView, Drink drink) {
-                mainActivity.setCountProductInCart(mainActivity.getmCountProduct()+1);
-//                if(imageView.)
-                imageView.setEnabled(false);
-                imageView.setBackgroundColor(com.nex3z.notificationbadge.R.color.red);
-            }
-        });
+//        itemRecycleAdapterFood.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
+//            @SuppressLint("ResourceAsColor")
+//            @Override
+//            public void onClickAddToCart(ImageView imageView, Drink drink) {
+//                mainActivity.setCountProductInCart(mainActivity.getmCountProduct()+1);
+////                if(imageView.)
+//                imageView.setEnabled(false);
+//                imageView.setBackgroundColor(com.nex3z.notificationbadge.R.color.red);
+//            }
+//        });
+//        itemRecycleAdapterDrink.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
+//            @SuppressLint("ResourceAsColor")
+//            @Override
+//            public void onClickAddToCart(ImageView imageView, Drink drink) {
+//                mainActivity.setCountProductInCart(mainActivity.getmCountProduct()+1);
+////                if(imageView.)
+//                imageView.setEnabled(false);
+//                imageView.setBackgroundColor(com.nex3z.notificationbadge.R.color.red);
+//            }
+//        });
 
 
         return view;
@@ -197,14 +182,18 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        itemRecycleAdapterFood.startListening();
-        itemRecycleAdapterDrink.startListening();
+        adapterHotDog.startListening();
+        adapterAnVat.startListening();
+        adapterHaiSan.startListening();
+        adapterCafe.startListening();
     }
     @Override
     public void onStop() {
         super.onStop();
-        itemRecycleAdapterFood.stopListening();
-        itemRecycleAdapterDrink.stopListening();
+        adapterHotDog.stopListening();
+        adapterAnVat.stopListening();
+        adapterHaiSan.stopListening();
+        adapterCafe.stopListening();
     }
     private void replaceFragment(Fragment fragment) {
 

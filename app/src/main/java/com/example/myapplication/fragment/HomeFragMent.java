@@ -49,9 +49,8 @@ import com.smarteist.autoimageslider.SliderView;
 import java.util.ArrayList;
 
 public class HomeFragMent extends Fragment {
-    private RecyclerView recyclerView,recyclerView2,rcvcategory;
-    ItemRecyclerAdapter itemRecycleAdapter;
-    ItemRecyclerAdapter itemRecyclerAdapter2;
+    private RecyclerView recyclerNew,recyclerBanChay,rcvcategory,rcvAllItem;
+    ItemRecyclerAdapter ItemMoiRaMat,ItemBanChay,AllItemAdapter;
     CategoriAdapter categoriAdapter;
     ArrayList<Category> categoryArrayList;
     DatabaseReference databaseReference;
@@ -69,7 +68,7 @@ public class HomeFragMent extends Fragment {
 
 
     int[] images={R.drawable.screenshot_2023_04_10_095739,
-            R.drawable.screenshot_2023_04_10_100148};
+            R.drawable.screenshot_2023_04_10_100148,R.drawable.banner3,R.drawable.banner4};
 
     SliderView sliderView;
     public HomeFragMent() {
@@ -125,13 +124,55 @@ public class HomeFragMent extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=  inflater.inflate(R.layout.fragment_home,container,false);
-        recyclerView = view.findViewById(R.id.recycler_drink);
-        recyclerView2 = view.findViewById(R.id.recycler_drink2);
+        recyclerNew = view.findViewById(R.id.recycler_new);
+        recyclerBanChay = view.findViewById(R.id.recycler_banchay);
         rcvcategory= view.findViewById(R.id.recycler_category_home);
+        rcvAllItem=view.findViewById(R.id.recycler_allitem);
 
         mainActivity= (MainActivity) getActivity();
 
+        hideKeyboard(mainActivity);
 
+
+        //slider
+        sliderView= view.findViewById(R.id.imageSlider);
+        SliderAdapter sliderAdapter= new SliderAdapter(images);
+        sliderView.setSliderAdapter(sliderAdapter);
+        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
+        sliderView.setSliderTransformAnimation(SliderAnimations.CUBEINDEPTHTRANSFORMATION);
+        sliderView.startAutoCycle();
+        //list product
+        LinearLayoutManager gridLayoutManager= new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
+        LinearLayoutManager gridLayoutManager2= new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
+        GridLayoutManager gridLayoutManager3= new GridLayoutManager(getContext(),2);
+        recyclerNew.setLayoutManager(gridLayoutManager);
+        recyclerBanChay.setLayoutManager(gridLayoutManager2);
+        rcvAllItem.setLayoutManager(gridLayoutManager3);
+
+        FirebaseRecyclerOptions<Drink> OptionNew =
+                new FirebaseRecyclerOptions.Builder<Drink>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("created_at").limitToFirst(5), Drink.class)
+                        .build();
+        FirebaseRecyclerOptions<Drink> optionBanChay =
+                new FirebaseRecyclerOptions.Builder<Drink>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("quantityPurchased").startAt(1),Drink.class)
+                        .build();
+        FirebaseRecyclerOptions<Drink> optionAllitem =
+                new FirebaseRecyclerOptions.Builder<Drink>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item"),Drink.class)
+                        .build();
+
+
+
+
+        AllItemAdapter= new ItemRecyclerAdapter(optionAllitem);
+        ItemMoiRaMat = new ItemRecyclerAdapter(OptionNew);
+        ItemBanChay = new ItemRecyclerAdapter(optionBanChay);
+        recyclerNew.setAdapter(ItemMoiRaMat);
+        recyclerBanChay.setAdapter(ItemBanChay);
+        rcvAllItem.setAdapter(AllItemAdapter);
+
+        //category
         databaseReference=FirebaseDatabase.getInstance().getReference("Categories");
         categoryArrayList= new ArrayList<>();
         categoriAdapter= new CategoriAdapter(categoryArrayList,getContext());
@@ -152,58 +193,28 @@ public class HomeFragMent extends Fragment {
 
             }
         });
-        //slider
-        sliderView= view.findViewById(R.id.imageSlider);
-        SliderAdapter sliderAdapter= new SliderAdapter(images);
-        sliderView.setSliderAdapter(sliderAdapter);
-        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
-        sliderView.setSliderTransformAnimation(SliderAnimations.CUBEINDEPTHTRANSFORMATION);
-        sliderView.startAutoCycle();
-        //list product
-        LinearLayoutManager gridLayoutManager= new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
-        GridLayoutManager gridLayoutManager2= new GridLayoutManager(getContext(),2);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView2.setLayoutManager(gridLayoutManager2);
-
-        FirebaseRecyclerOptions<Drink> options =
-                new FirebaseRecyclerOptions.Builder<Drink>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("created_at").limitToLast(3), Drink.class)
-                        .build();
-        FirebaseRecyclerOptions<Drink> option1s =
-                new FirebaseRecyclerOptions.Builder<Drink>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("quantityPurchased").limitToLast(3),Drink.class)
-                        .build();
-
-
-
-
-
-        itemRecycleAdapter = new ItemRecyclerAdapter(options);
-        itemRecyclerAdapter2 = new ItemRecyclerAdapter(option1s);
-        recyclerView.setAdapter(itemRecycleAdapter);
-        recyclerView2.setAdapter(itemRecyclerAdapter2);
 
         //setlistener
-        itemRecycleAdapter.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClickAddToCart(ImageView imageView, Drink drink) {
-                mainActivity.setCountProductInCart(mainActivity.getmCountProduct()+1);
-//                if(imageView.)
-                imageView.setEnabled(false);
-                imageView.setColorFilter(ContextCompat.getColor(view.getContext(),R.color.DimGray), PorterDuff.Mode.SRC_IN);
-            }
-        });
-        itemRecyclerAdapter2.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClickAddToCart(ImageView imageView, Drink drink) {
-                mainActivity.setCountProductInCart(mainActivity.getmCountProduct()+1);
-//                if(imageView.)
-                imageView.setEnabled(false);
-                imageView.setColorFilter(ContextCompat.getColor(view.getContext(),R.color.DimGray), PorterDuff.Mode.SRC_IN);
-            }
-        });
+//        ItemMoiRaMat.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
+//            @SuppressLint("ResourceAsColor")
+//            @Override
+//            public void onClickAddToCart(ImageView imageView, Drink drink) {
+//                mainActivity.setCountProductInCart(mainActivity.getmCountProduct()+1);
+////                if(imageView.)
+//                imageView.setEnabled(false);
+//                imageView.setColorFilter(ContextCompat.getColor(view.getContext(),R.color.DimGray), PorterDuff.Mode.SRC_IN);
+//            }
+//        });
+//        ItemBanChay.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
+//            @SuppressLint("ResourceAsColor")
+//            @Override
+//            public void onClickAddToCart(ImageView imageView, Drink drink) {
+//                mainActivity.setCountProductInCart(mainActivity.getmCountProduct()+1);
+////                if(imageView.)
+//                imageView.setEnabled(false);
+//                imageView.setColorFilter(ContextCompat.getColor(view.getContext(),R.color.DimGray), PorterDuff.Mode.SRC_IN);
+//            }
+//        });
 
         return view;
 
@@ -219,14 +230,16 @@ public class HomeFragMent extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        itemRecycleAdapter.startListening();
-        itemRecyclerAdapter2.startListening();
+        ItemMoiRaMat.startListening();
+        ItemBanChay.startListening();
+        AllItemAdapter.startListening();
     }
     @Override
     public void onStop() {
         super.onStop();
-        itemRecycleAdapter.stopListening();
-        itemRecyclerAdapter2.stopListening();
+        ItemMoiRaMat.stopListening();
+        ItemBanChay.stopListening();
+        AllItemAdapter.stopListening();
     }
     private void replaceFragment(Fragment fragment) {
 

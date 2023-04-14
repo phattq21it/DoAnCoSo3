@@ -119,7 +119,7 @@ public class HomeFragMent extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=  inflater.inflate(R.layout.fragment_homead,container,false);
         recyclerView = view.findViewById(R.id.recycler_drink);
-        recyclerView2 = view.findViewById(R.id.recycler_drink2);
+//        recyclerView2 = view.findViewById(R.id.recycler_drink2);
 
         adminActivity= (AdminActivity) getActivity();
 
@@ -132,10 +132,10 @@ public class HomeFragMent extends Fragment {
 //        sliderView.setSliderTransformAnimation(SliderAnimations.CUBEINDEPTHTRANSFORMATION);
 //        sliderView.startAutoCycle();
         //list product
-        LinearLayoutManager gridLayoutManager= new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
+        LinearLayoutManager gridLayoutManager= new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
         GridLayoutManager gridLayoutManager2= new GridLayoutManager(getContext(),2);
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView2.setLayoutManager(gridLayoutManager2);
+//        recyclerView2.setLayoutManager(gridLayoutManager2);
 
         FirebaseRecyclerOptions<Request> options =
                 new FirebaseRecyclerOptions.Builder<Request>()
@@ -145,7 +145,7 @@ public class HomeFragMent extends Fragment {
 
         inforOrderAdapter = new InforOrderAdapter(options);
         recyclerView.setAdapter(inforOrderAdapter);
-        recyclerView2.setAdapter(inforOrderAdapter);
+//        recyclerView2.setAdapter(inforOrderAdapter);
 
         //setlistener
 //        itemRecycleAdapter.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {

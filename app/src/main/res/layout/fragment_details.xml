@@ -1,99 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="#BFBABA"
-    android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/imageholder"
-        android:layout_width="match_parent"
-        android:layout_height="300dp" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white"
-        android:layout_marginTop="20dp"
-        >
-    <TextView
-        android:id="@+id/nameholder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="dsgfdg"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_margin="10dp"/>
+    android:background="#E5E4E2"
+    android:orientation="vertical"
+    >
 
-    <TextView
-        android:id="@+id/priceholder"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="1000"
-        android:textColor="@color/red"
-        android:textSize="25sp"
-        android:layout_margin="10dp"/>
-        <TextView
-        android:id="@+id/txtmota"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Mo ta"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        android:layout_margin="10dp"/>
-
-            <RelativeLayout
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/btnthemgiohang">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btngiam"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-"
-                    android:textSize="25sp"
-                    android:textColor="@color/textColor"
-                    android:background="@drawable/switch_trcks"/>
-                <TextView
-                    android:id="@+id/txtsoluong"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="35sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:layout_centerHorizontal="true"/>
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btntang"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="+"
-                    android:textSize="25sp"
-                    android:layout_alignParentEnd="true"
-                    android:textColor="@color/textColor"
-                    android:background="@drawable/switch_trcks"/>
-            </RelativeLayout>
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               >
-               <androidx.appcompat.widget.AppCompatButton
-                   android:id="@+id/btnthemgiohang"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:text="Them vao gio hang"
-                   android:layout_alignParentBottom="true"
-                   android:textColor="@color/textColor"
-                   android:background="@drawable/switch_trcks"
-                   />
-           </RelativeLayout>
-    </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#E5E4E2"
+                android:id="@+id/linear1">
 
-</LinearLayout>
+                <ImageView
+                    android:id="@+id/imageholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginBottom="10dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/white">
+                    <TextView
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/nameholder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="dsgfdg"
+                        android:fontFamily="serif"
+                        android:textColor="@color/black"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp">
+                        <TextView
+                            android:id="@+id/priceholder"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="1000"
+                            android:textColor="@color/Red"
+                            android:textSize="25sp"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal"
+                            android:background="@drawable/switch_trcks">
+
+                            <TextView
+                                android:id="@+id/btngiam"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
+                                android:text="-"
+                                android:textColor="@color/white"
+                                android:textSize="25sp"
+                                android:textStyle="bold"
+                                android:paddingStart="10dp"/>
+
+                            <TextView
+                                android:id="@+id/txtsoluong"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="25sp"
+                                android:textStyle="bold"
+                                android:layout_marginStart="10dp"/>
+                            <TextView
+                                android:id="@+id/btntang"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:paddingEnd="10dp"
+                                android:text="+"
+                                android:textColor="@color/white"
+                                android:textSize="25sp"
+                                android:textStyle="bold"
+                                android:layout_marginStart="10dp"/>
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtmota"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="serif"
+                    android:text="y. Lorem Ipsum sinnot only five centuries, butdsfsdfdsfsdfsdfsfsdfsdfsfsdfsd also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:background="@color/white"
+                    android:paddingStart="10dp"/>
+
+            </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:layout_margin="3dp"
+        android:id="@+id/waybackhome"/>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnthemgiohang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/switch_trcks"
+            android:text="Them vao gio hang"
+            android:textColor="@color/textColor" />
+</RelativeLayout>

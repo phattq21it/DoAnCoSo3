@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8BF6B"
+    android:background="#E5E4E2"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -82,10 +82,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:text="Danh mục sản phẩm"
+                    android:paddingStart="10dp"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="serif"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_category_home"
                     android:layout_width="match_parent"
@@ -104,13 +106,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:text="Sản phẩm mới ra mắt"
+                    android:paddingStart="10dp"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="serif"/>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_drink"
+                    android:id="@+id/recycler_new"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -127,13 +131,38 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:text="Sản phẩm bán chạy"
+                    android:paddingStart="10dp"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+
+                    android:fontFamily="serif"
+                    android:textColor="@color/black"/>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_drink2"
+                    android:id="@+id/recycler_banchay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="8dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tất cả sản phẩm"
+                    android:paddingStart="10dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+
+                    android:textColor="@color/black"
+                    android:fontFamily="serif"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_allitem"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="8dp" />

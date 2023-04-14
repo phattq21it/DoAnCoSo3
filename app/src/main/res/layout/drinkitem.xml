@@ -4,30 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="10dp"
     app:cardElevation="12dp"
     android:padding="8dp"
     android:layout_margin="8dp"
     android:background="@color/white">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:background="@color/white"
+        >
 
-        <TextView
-            android:layout_gravity="start"
-            android:id="@+id/sale"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Giảm giá 5%"
-            android:background="#ff0000"
-            android:textColor="@color/white"/>
+
         <ImageView
-            android:layout_width="300dp"
+            android:layout_width="250dp"
             android:layout_height="100dp"
             android:id="@+id/imageview"
             android:src="@drawable/common_google_signin_btn_icon_dark"/>
@@ -38,7 +31,9 @@
             android:textSize="30sp"
             android:textStyle="bold"
             android:id="@+id/txtPrice"
-            android:text="Gia"/>
+            android:text="Gia"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,11 +41,17 @@
            android:layout_gravity="start"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Ten"/>
-
-
-
+            android:text="Ten"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"/>
     </LinearLayout>
-
-
+    <TextView
+        android:layout_gravity="start"
+        android:id="@+id/sale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giảm giá 5%"
+        android:paddingStart="5dp"
+        android:background="@drawable/btnblue"
+        android:textColor="@color/white"/>
 </androidx.cardview.widget.CardView>

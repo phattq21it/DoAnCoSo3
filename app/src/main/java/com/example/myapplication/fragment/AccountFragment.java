@@ -11,9 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.myapplication.Common.Common;
 import com.example.myapplication.Interface.model.User;
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.WelcomeActivity;
 import com.google.firebase.database.DataSnapshot;
@@ -24,7 +27,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class AccountFragment extends Fragment {
-    TextView txtDangXuat;
+    MainActivity mainActivity;
+    TextView txtDangXuat,txtdonhangcuaban;
     TextView txtName;
     TextView txtMail;
     TextView txtDiaChi;
@@ -37,6 +41,14 @@ public class AccountFragment extends Fragment {
         txtName= view.findViewById(R.id.ac_txt_name);
         txtMail= view.findViewById(R.id.ac_txt_mail);
         txtDiaChi= view.findViewById(R.id.ac_txt_diachi);
+        txtdonhangcuaban=view.findViewById(R.id.txtdonhangcuaban);
+
+        txtdonhangcuaban.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new YourOrderFragment());
+            }
+        });
         txtDangXuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,5 +77,13 @@ public class AccountFragment extends Fragment {
             }
         });
         return view;
+    }
+    private void replaceFragment(Fragment fragment) {
+
+        mainActivity= (MainActivity) getActivity();
+        FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.framlayoutman, fragment);
+        fragmentTransaction.commit();
     }
 }

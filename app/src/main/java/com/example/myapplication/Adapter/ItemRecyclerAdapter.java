@@ -18,15 +18,9 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecyclerAdapter.DriverItemViewHolder> {
-    private IClickAddToCartListener iClickAddToCartListener;
 
-    public interface IClickAddToCartListener {
-        void onClickAddToCart(ImageView imageView, Drink drink);
-    }
 
-    public void setData(IClickAddToCartListener iClickAddToCartListener) {
-        this.iClickAddToCartListener = iClickAddToCartListener;
-    }
+
 
     public ItemRecyclerAdapter(@NonNull FirebaseRecyclerOptions<Drink> options) {
         super(options);

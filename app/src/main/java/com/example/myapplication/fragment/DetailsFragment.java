@@ -4,8 +4,10 @@ package com.example.myapplication.fragment;
     import android.os.Bundle;
 
     import androidx.fragment.app.Fragment;
+    import androidx.fragment.app.FragmentManager;
+    import androidx.fragment.app.FragmentTransaction;
 
-import android.view.LayoutInflater;
+    import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
     import android.widget.Button;
@@ -26,9 +28,10 @@ public class DetailsFragment extends Fragment {
         DbHelper dbHelper;
         private static final String ARG_PARAM1 = "param1";
         private static final String ARG_PARAM2 = "param2";
-        Button btngiam;
-        Button btntang,btnThemGioHang;
+        TextView btngiam,btntang;
+        Button btnThemGioHang;
         TextView txtsoluong;
+        ImageView waybackhome;
         int count=0;
         private String mParam1;
         private String mParam2;
@@ -64,6 +67,7 @@ public class DetailsFragment extends Fragment {
 
         }
 
+        @SuppressLint("MissingInflatedId")
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -80,7 +84,13 @@ public class DetailsFragment extends Fragment {
             btntang=view.findViewById(R.id.btntang);
             txtsoluong=view.findViewById(R.id.txtsoluong);
             btnThemGioHang=view.findViewById(R.id.btnthemgiohang);
-
+            waybackhome= view.findViewById(R.id.waybackhome);
+            waybackhome.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    replaceFragment(new HomeFragMent());
+                }
+            });
             btnThemGioHang.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -96,13 +106,8 @@ public class DetailsFragment extends Fragment {
                         order.setPhone(Common.currentUser.getPhone());
                         order.setImage(image);
                         dbHelper.insertData(order);
-//                        dbHelper.update(order);
-                            Toast.makeText(getContext(), "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),"Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
                             mainActivity.setCountProductInCart(mainActivity.getmCountProduct() + count);
-
-
-
-
                     }
                 }
             });
@@ -139,6 +144,13 @@ public class DetailsFragment extends Fragment {
             }
             txtsoluong.setText(String.valueOf(count));
         }
+    private void replaceFragment(Fragment fragment) {
 
+        mainActivity= (MainActivity) getActivity();
+        FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.framlayoutman, fragment);
+        fragmentTransaction.commit();
+    }
 //
     }
