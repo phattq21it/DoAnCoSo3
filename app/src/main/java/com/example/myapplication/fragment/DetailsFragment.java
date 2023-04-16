@@ -36,12 +36,14 @@ public class DetailsFragment extends Fragment {
         private String mParam1;
         private String mParam2;
         String name, price, image,description;
+        int soluotban;
         MainActivity mainActivity;
         public DetailsFragment() {
 
         }
 
-        public DetailsFragment(String name, String price, String image,String description) {
+        public DetailsFragment(String name, String price, String image,String description,int soluotban) {
+            this.soluotban=soluotban;
             this.name=name;
             this.price=price;
             this.image=image;
@@ -80,6 +82,8 @@ public class DetailsFragment extends Fragment {
             @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView nameholder=view.findViewById(R.id.nameholder);
             @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView priceholder=view.findViewById(R.id.priceholder);
             @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView txtmota=view.findViewById(R.id.txtmota);
+            @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView txtluotban=view.findViewById(R.id.luotban);
+
             btngiam=view.findViewById(R.id.btngiam);
             btntang=view.findViewById(R.id.btntang);
             txtsoluong=view.findViewById(R.id.txtsoluong);
@@ -127,8 +131,8 @@ public class DetailsFragment extends Fragment {
             nameholder.setText(name);
             priceholder.setText(price);
             txtmota.setText(description);
+            txtluotban.setText(String.valueOf(soluotban)+" Lượt bán");
             Glide.with(getContext()).load(image).into(imageholder);
-
 
             return  view;
         }

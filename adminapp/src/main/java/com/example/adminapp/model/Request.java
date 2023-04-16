@@ -1,6 +1,5 @@
 package com.example.adminapp.model;
 
-import java.util.List;
 
 public class Request {
     private String key,name,address, total,time;

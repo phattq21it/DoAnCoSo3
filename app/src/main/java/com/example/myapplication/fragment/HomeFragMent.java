@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -64,7 +65,7 @@ public class HomeFragMent extends Fragment {
     private MainActivity mainActivity;
     private MenuItem menuItem;
     private EditText edtsearch;
-    private ImageView imgsearch;
+    private Button imgsearch;
 
 
     int[] images={R.drawable.screenshot_2023_04_10_095739,
@@ -97,27 +98,7 @@ public class HomeFragMent extends Fragment {
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menusearch,menu);
-        menuItem=menu.findItem(R.id.search_view);
-        edtsearch= (EditText) menu.findItem(R.id.edtsearch);
-        imgsearch= (ImageView) menu.findItem(R.id.imgsearch1);
 
-        imgsearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                String query= edtsearch.getText().toString();
-//                Bundle bundle= new Bundle();
-//                bundle.putString("df2",query);
-//                getParentFragmentManager().setFragmentResult("datasearch",bundle);
-//                hideKeyboard(mainActivity);
-//                replaceFragment(new ResultSearchFragment());
-                Toast.makeText(getContext(), "hihi", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
 
     @SuppressLint("MissingInflatedId")
     @Nullable
@@ -128,12 +109,27 @@ public class HomeFragMent extends Fragment {
         recyclerBanChay = view.findViewById(R.id.recycler_banchay);
         rcvcategory= view.findViewById(R.id.recycler_category_home);
         rcvAllItem=view.findViewById(R.id.recycler_allitem);
+        imgsearch= view.findViewById(R.id.imgsearch1);
 
+        edtsearch= view.findViewById(R.id.edtsearch);
         mainActivity= (MainActivity) getActivity();
 
         hideKeyboard(mainActivity);
 
+        //search
 
+        imgsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String query= edtsearch.getText().toString();
+                Bundle bundle= new Bundle();
+                bundle.putString("df2",query);
+                getParentFragmentManager().setFragmentResult("datasearch",bundle);
+                hideKeyboard(mainActivity);
+                replaceFragment(new ResultSearchFragment());
+//                Toast.makeText(mainActivity, "cccc", Toast.LENGTH_SHORT).show();
+            }
+        });
         //slider
         sliderView= view.findViewById(R.id.imageSlider);
         SliderAdapter sliderAdapter= new SliderAdapter(images);
@@ -159,7 +155,7 @@ public class HomeFragMent extends Fragment {
                         .build();
         FirebaseRecyclerOptions<Drink> optionAllitem =
                 new FirebaseRecyclerOptions.Builder<Drink>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item"),Drink.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").limitToFirst(30),Drink.class)
                         .build();
 
 

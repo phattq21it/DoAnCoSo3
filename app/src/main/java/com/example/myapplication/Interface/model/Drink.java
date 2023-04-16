@@ -1,8 +1,23 @@
 package com.example.myapplication.Interface.model;
 
 public class Drink {
-    private String key,name,image,price,description,discount;
+    private String key;
+    private String name;
+    private String image;
+    private String price;
+    private String description;
+    private String discount;
+
+    private int quantityPurchased;
     private boolean isAddToCart;
+    public int getquantityPurchased() {
+        return quantityPurchased;
+    }
+
+    public void setquantityPurchased(int soluotban) {
+        this.quantityPurchased = soluotban;
+    }
+
 
 
     public String getDiscount() {

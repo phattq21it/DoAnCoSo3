@@ -6,14 +6,11 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="16dp"
     app:cardElevation="12dp"
-    android:padding="8dp"
-    android:layout_margin="8dp"
     android:background="@color/white">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="16dp"
         android:orientation="vertical">
 
         <ImageView
@@ -23,12 +20,22 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_shopping_cart_24"
             app:tint="@color/red" />
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageview"
-            android:src="@drawable/common_google_signin_btn_icon_dark"/>
-        <TextView
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imageview"
+                android:src="@drawable/common_google_signin_btn_icon_dark"/>
+
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+            <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -36,14 +43,15 @@
             android:textStyle="bold"
             android:id="@+id/txtPrice"
             android:text="Gia"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtName"
-            android:layout_gravity="start"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="Ten"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtName"
+                android:layout_gravity="start"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Ten"/>
+        </LinearLayout>
 
 
 

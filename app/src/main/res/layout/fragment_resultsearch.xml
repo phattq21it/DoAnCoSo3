@@ -3,14 +3,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/research"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:paddingBottom="5dp">
 
+        <ImageView
+            android:id="@+id/waybackhome2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingEnd="5dp"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+        <EditText
+            android:layout_toRightOf="@+id/waybackhome2"
+            android:layout_marginTop="10dp"
+            android:inputType="text"
+            android:id="@+id/edtsearchinrs"
+            android:hint="Tìm kiếm sản phẩm"
+            android:textColorHint="@color/DimGray"
+            android:paddingStart="5dp"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/white"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnsearchinrs"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/pinkColor"
+            android:text="Tìm kiếm"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+
+    </RelativeLayout>
     <TextView
+        android:layout_below="@+id/research"
+        android:layout_marginTop="10dp"
+        android:paddingStart="10dp"
         android:id="@+id/txtsearch"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="italic|bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="Kết quả tìm kiếm " />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="10dp"
+        android:layout_below="@+id/txtsearch"
         android:id="@+id/rcvresultsearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

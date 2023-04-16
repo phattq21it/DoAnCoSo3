@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
-import com.example.myapplication.Adapter.ViewPagerAdapter;
 import com.example.myapplication.fragment.AccountFragment;
 import com.example.myapplication.fragment.CartFragment;
 import com.example.myapplication.fragment.CategoriesFragment;
