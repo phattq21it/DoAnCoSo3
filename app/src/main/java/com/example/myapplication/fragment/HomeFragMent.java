@@ -161,9 +161,9 @@ public class HomeFragMent extends Fragment {
 
 
 
-        AllItemAdapter= new ItemRecyclerAdapter(optionAllitem);
-        ItemMoiRaMat = new ItemRecyclerAdapter(OptionNew);
-        ItemBanChay = new ItemRecyclerAdapter(optionBanChay);
+        AllItemAdapter= new ItemRecyclerAdapter(optionAllitem,"Yêu thích");
+        ItemMoiRaMat = new ItemRecyclerAdapter(OptionNew,"Mới ra mắt");
+        ItemBanChay = new ItemRecyclerAdapter(optionBanChay,"Bán chạy nhất");
         recyclerNew.setAdapter(ItemMoiRaMat);
         recyclerBanChay.setAdapter(ItemBanChay);
         rcvAllItem.setAdapter(AllItemAdapter);

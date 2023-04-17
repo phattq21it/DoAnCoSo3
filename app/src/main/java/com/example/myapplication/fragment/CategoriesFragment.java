@@ -129,7 +129,7 @@ public class CategoriesFragment extends Fragment {
                         .build();
         FirebaseRecyclerOptions<Drink> optionCafe =
                 new FirebaseRecyclerOptions.Builder<Drink>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("type").equalTo("Cà Phê & Trà Sữa"), Drink.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("type").equalTo("Cà Phê"), Drink.class)
                         .build();
 
 

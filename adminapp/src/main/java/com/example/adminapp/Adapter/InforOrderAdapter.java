@@ -40,7 +40,7 @@ public class InforOrderAdapter extends FirebaseRecyclerAdapter<Request, InforOrd
     @NonNull
     @Override
     public DriverItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.infor_order, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.infor_orderad, parent, false);
         return new DriverItemViewHolder(view);
     }
 

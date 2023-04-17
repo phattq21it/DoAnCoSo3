@@ -36,39 +36,37 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/txtName"
                 android:layout_gravity="start"
-                android:fontFamily="serif"
                 android:textSize="18sp"
-                android:text="Socola bạc hà đ"
+                android:textStyle="bold"
+                android:text="Socola bgdsfgag"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp"
                 android:layout_alignParentStart="true"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:fontFamily="serif"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="22sp"
-                    android:id="@+id/txtPrice"
-                    android:text="Gia"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="10dp"/>
-                <TextView
-                    android:id="@+id/txtdaban"
-                    android:gravity="end"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Đã bán 10"
-                    android:textSize="13sp"
-                    android:paddingEnd="10dp"
-                    android:textColor="@color/black"
-                    android:fontFamily="serif"
-                    />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="25sp"
+                  android:textStyle="bold"
+                  android:id="@+id/txtPrice"
+                  android:text="Gia"
+                  android:textColor="@color/black"
+                  android:layout_marginStart="10dp"
+                  android:paddingTop="8dp"/>
+              <TextView
+                  android:gravity="end"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Đã bán 10"
+                  android:paddingEnd="10dp"
+                  android:textColor="@color/black"
+                  />
 
-            </LinearLayout>
+          </LinearLayout>
 
 
 
@@ -76,16 +74,12 @@
 
     </LinearLayout>
     <TextView
-        android:fontFamily="serif"
         android:layout_gravity="start"
         android:id="@+id/sale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mới ra mắt"
-        android:textSize="12sp"
-        android:paddingStart="4dp"
-        android:paddingEnd="4dp"
-        android:padding="1dp"
+        android:text="Giảm giá 5%"
+        android:paddingStart="5dp"
         android:background="@drawable/btnblue"
         android:textColor="@color/white"/>
 </androidx.cardview.widget.CardView>

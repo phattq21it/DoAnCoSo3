@@ -18,9 +18,12 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecyclerAdapter.DriverItemViewHolder> {
+    String text;
 
-
-
+    public ItemRecyclerAdapter(@NonNull FirebaseRecyclerOptions<Drink> options, String text) {
+        super(options);
+        this.text = text;
+    }
 
     public ItemRecyclerAdapter(@NonNull FirebaseRecyclerOptions<Drink> options) {
         super(options);
@@ -41,6 +44,8 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
                         .addToBackStack(null).commit();
             }
         });
+        holder.daban.setText("Đã bán "+model.getquantityPurchased());
+        holder.textSale.setText(text);
 //        holder.cart.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -59,7 +64,7 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
     }
 
     public class DriverItemViewHolder extends RecyclerView.ViewHolder {
-        private TextView price;
+        private TextView price,daban;
         private TextView name,textSale;
         private ImageView image;
 
@@ -70,6 +75,8 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
             this.price = itemView.findViewById(R.id.txtPrice);
             this.name = itemView.findViewById(R.id.txtName);
             this.image = itemView.findViewById(R.id.imageview);
+            this.daban=itemView.findViewById(R.id.txtdaban);
+            this.textSale=itemView.findViewById(R.id.sale);
         }
 
 
