@@ -23,7 +23,17 @@ public class InforOrder extends FirebaseRecyclerAdapter<Request,InforOrder.Drive
     @Override
     protected void onBindViewHolder(@NonNull InforOrder.DriverItemViewHolder holder, int position, @NonNull Request model) {
         holder.diachi.setText(model.getAddress());
-        holder.ten.setText(model.getName());
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < model.getFood().size(); i++) {
+            sb.append(model.getFood().get(i).getProductName());
+            if (i < model.getFood().size() - 1) {
+                sb.append(",");
+            }
+        }
+
+
+
+        holder.ten.setText(sb);
         holder.thoigiandat.setText(model.getTime());
         holder.tongtien.setText(model.getTotal());
 

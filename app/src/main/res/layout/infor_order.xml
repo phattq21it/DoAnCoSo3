@@ -31,7 +31,7 @@
                 android:layout_gravity="start"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:text="Tên user:"
+                android:text="Sản phẩm:"
                 android:textColor="@color/black"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -108,6 +108,19 @@
                     android:textStyle="normal"
                     android:text="Nhi Ha - GIo thanh"
                     android:layout_marginStart="5dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+                <Button
+                    android:id="@+id/btnDanhGiaSanPham"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="Đánh giá sản phẩm"/>
+
             </LinearLayout>
 
         </LinearLayout>
