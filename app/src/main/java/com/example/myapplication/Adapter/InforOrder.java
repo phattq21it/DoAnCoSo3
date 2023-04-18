@@ -3,17 +3,24 @@ package com.example.myapplication.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Interface.model.Order;
 import com.example.myapplication.Interface.model.Request;
 import com.example.myapplication.R;
+import com.example.myapplication.fragment.DetailsFragment;
+import com.example.myapplication.fragment.ReviewFragment;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-public class InforOrder extends FirebaseRecyclerAdapter<Request,InforOrder.DriverItemViewHolder> {
 
+import java.util.List;
+
+public class InforOrder extends FirebaseRecyclerAdapter<Request,InforOrder.DriverItemViewHolder> {
 
 
     public InforOrder(@NonNull FirebaseRecyclerOptions<Request> options) {
@@ -36,6 +43,16 @@ public class InforOrder extends FirebaseRecyclerAdapter<Request,InforOrder.Drive
         holder.ten.setText(sb);
         holder.thoigiandat.setText(model.getTime());
         holder.tongtien.setText(model.getTotal());
+        holder.btnDanhgia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.framlayoutman, new ReviewFragment(model.getFood()))
+                        .addToBackStack(null).commit();
+            }
+        });
 
 
     }
@@ -49,6 +66,7 @@ public class InforOrder extends FirebaseRecyclerAdapter<Request,InforOrder.Drive
 
     public class DriverItemViewHolder extends RecyclerView.ViewHolder {
         private TextView ten,thoigiandat,tongtien,diachi;
+        Button btnDanhgia;
 
 
         public DriverItemViewHolder(@NonNull View itemView) {
@@ -57,6 +75,7 @@ public class InforOrder extends FirebaseRecyclerAdapter<Request,InforOrder.Drive
             this.ten=itemView.findViewById(R.id.txtNameUser);
             this.thoigiandat=itemView.findViewById(R.id.txttime);
             this.tongtien=itemView.findViewById(R.id.txtTotalPrice);
+            btnDanhgia=itemView.findViewById(R.id.btnDanhGiaSanPham);
         }
     }
 }

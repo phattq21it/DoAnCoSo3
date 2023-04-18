@@ -2,9 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".fragment.ReviewFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bgedt"
+    android:layout_marginBottom="10dp"
+    android:layout_marginStart="1dp"
+    android:layout_marginEnd="1dp">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -15,16 +19,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tên sản phẩm"
+            android:text="Tên sản phẩm:"
+
             android:textColor="@color/black"
-            android:textSize="16sp"/>
+            android:textSize="18sp"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/rwtensp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:textColor="@color/black"
-            android:textSize="16sp"/>
+            android:textSize="18sp"
+            android:textStyle="bold"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,16 +41,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Giá"
+            android:text="Giá: "
             android:textColor="@color/black"
-            android:textSize="16sp"/>
+            android:textSize="18sp"
+            android:textStyle="bold"/>
         <TextView
-            android:id="@+id/edtrwtensp"
+            android:id="@+id/rwgiasp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:textColor="@color/black"
-            android:textSize="16sp"/>
+            android:textSize="18sp"
+            android:textStyle="bold"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,11 +62,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đánh giá"
+            android:text="Đánh giá: "
             android:textColor="@color/black"
-            android:textSize="16sp"/>
+            android:textSize="18sp"
+            android:textStyle="bold"/>
         <EditText
-            android:id="@+id/rwgiasp"
+            android:id="@+id/rwdanhgia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp" android:inputType="textMultiLine"
@@ -65,14 +75,12 @@
             android:gravity="top|start"
             android:textColor="@color/black"
 
-            android:textSize="16sp"
-            android:background="@color/white"
-            />
+            android:paddingStart="10dp"
+            android:textSize="18sp"
+            android:background="@drawable/bgedt"/>
     </LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnreview"
             android:background="@color/pinkColor"
             android:paddingEnd="5dp"
             android:paddingStart="5dp"
@@ -80,10 +88,10 @@
             android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"/>
-    </RelativeLayout>
-
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+/>
 
 
 </LinearLayout>

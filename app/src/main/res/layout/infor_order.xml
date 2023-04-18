@@ -29,15 +29,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:text="Sản phẩm:"
                 android:textColor="@color/black"/>
             <TextView
+                android:fontFamily="serif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="normal"
                 android:id="@+id/txtNameUser"
                 android:text="Phạm Văn Phi"
@@ -109,19 +110,23 @@
                     android:text="Nhi Ha - GIo thanh"
                     android:layout_marginStart="5dp"/>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                >
-                <Button
-                    android:id="@+id/btnDanhGiaSanPham"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Đánh giá sản phẩm"/>
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <androidx.appcompat.widget.AppCompatButton
+                   android:id="@+id/btnDanhGiaSanPham"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:textSize="18sp"
+                   android:text="Đánh giá sản phẩm"
+                   android:layout_marginTop="10dp"
+                   android:background="@color/pinkColor"
+                   android:textColor="@color/white"
+                   android:textAllCaps="false"/>
+           </RelativeLayout>
 
-            </LinearLayout>
+
+
 
         </LinearLayout>
 

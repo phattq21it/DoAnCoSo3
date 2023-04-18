@@ -1,14 +1,27 @@
 package com.example.myapplication.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myapplication.Adapter.ReviewAdapter;
+import com.example.myapplication.Common.Common;
+import com.example.myapplication.Interface.model.Drink;
+import com.example.myapplication.Interface.model.Order;
+import com.example.myapplication.Interface.model.Request;
 import com.example.myapplication.R;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +29,9 @@ import com.example.myapplication.R;
  * create an instance of this fragment.
  */
 public class ReviewFragment extends Fragment {
+    List<Order> orders;
+    private RecyclerView rcv_rv;
+    ReviewAdapter reviewAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +45,11 @@ public class ReviewFragment extends Fragment {
     public ReviewFragment() {
         // Required empty public constructor
     }
+      public ReviewFragment(List<Order> orders) {
+        this.orders=orders;
+        // Required empty public constructor
+    }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -57,10 +78,33 @@ public class ReviewFragment extends Fragment {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_review, container, false);
+        View view= inflater.inflate(R.layout.fragment_review, container, false);
+
+
+        rcv_rv=view.findViewById(R.id.rcv_rv);
+//        FirebaseRecyclerOptions<Request> itemRv =
+//                new FirebaseRecyclerOptions.Builder<Request>()
+//                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Request"),Request.class)
+//                        .build();
+        reviewAdapter= new ReviewAdapter(orders);
+        rcv_rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rcv_rv.setAdapter(reviewAdapter);
+
+        return  view;
     }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        reviewAdapter.startListening();
+//    }
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        reviewAdapter.stopListening();
+//    }
 }
