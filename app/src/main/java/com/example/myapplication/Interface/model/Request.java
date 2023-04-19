@@ -3,19 +3,35 @@ package com.example.myapplication.Interface.model;
 import java.util.List;
 
 public class Request {
-    private String phone,name,address, total,time;
+    private String phone;
+    private String name;
+    private String address;
+    private String total;
+    private String time;
+
+    private String note;
+
     private List<Order> food;
 
     public Request() {
     }
 
-    public Request(String phone, String name, String address, String total, List<Order> food,String time) {
+    public Request(String phone, String name, String address, String total, List<Order> food,String time,String note) {
         this.phone = phone;
         this.name = name;
         this.address = address;
         this.total = total;
         this.food = food;
         this.time = time;
+        this.note = note;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public String getTime() {
