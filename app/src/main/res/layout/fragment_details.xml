@@ -127,6 +127,7 @@
                         android:textStyle="bold"
                         android:padding="5dp"
                         android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/txtmota"
                         android:layout_width="match_parent"
@@ -137,6 +138,25 @@
                         android:text="y. Lorem Ipsum sinnot only five centuries, butdsfsdfdsfsdfsdfsfsdfsdfsfsdfsd also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
                         android:textColor="@color/black"
                         android:textSize="18sp" />
+                    <TextView
+
+                        android:id="@+id/txtdanhgiasp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/white"
+                        android:fontFamily="serif"
+                        android:paddingStart="10dp"
+                        android:text="Đánh giá sản phẩm"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:padding="5dp"
+                        android:textSize="18sp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcv_rvv"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
 
 
