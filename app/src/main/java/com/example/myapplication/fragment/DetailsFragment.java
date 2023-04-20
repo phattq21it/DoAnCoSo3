@@ -33,6 +33,11 @@ import android.widget.TextView;
     import com.google.firebase.database.FirebaseDatabase;
     import com.google.firebase.database.ValueEventListener;
 
+    import org.w3c.dom.Comment;
+
+    import java.util.ArrayList;
+    import java.util.List;
+
 public class DetailsFragment extends Fragment {
 
 
@@ -101,9 +106,11 @@ public class DetailsFragment extends Fragment {
 
 
             FirebaseRecyclerOptions<Comments> options =
+
                     new FirebaseRecyclerOptions.Builder<Comments>()
-                            .setQuery(FirebaseDatabase.getInstance().getReference().child("Comments").orderByChild(""), Comments.class)
+                            .setQuery(FirebaseDatabase.getInstance().getReference().child("Comments").child(name), Comments.class)
                             .build();
+
             nhungLoiRvAdapter = new NhungLoiRvAdapter(options);
             rcvDanhGia.setAdapter(nhungLoiRvAdapter);
             btngiam=view.findViewById(R.id.btngiam);

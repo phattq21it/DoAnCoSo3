@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,10 @@ import com.example.myapplication.Interface.model.Request;
 import com.example.myapplication.R;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.core.Tag;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.List;
 
@@ -90,6 +95,25 @@ public class ReviewFragment extends Fragment {
 
 
         rcv_rv=view.findViewById(R.id.rcv_rv);
+        Button btnHoanThanhDanhGia = view.findViewById(R.id.btnHoanThanhDanhGia);
+        btnHoanThanhDanhGia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String currentPhone = Common.currentUser.getPhone(); // thay thế bằng số điện thoại hiện tại của bạn
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                CollectionReference requestsRef = db.collection("Request");
+
+                requestsRef.whereEqualTo("phone", currentPhone).get().addOnSuccessListener(querySnapshot -> {
+                    for (QueryDocumentSnapshot document : querySnapshot) {
+                        requestsRef.document(document.getId()).update("Note", "Đã đánh giá");
+                    }
+                }).addOnFailureListener(e -> {
+
+                });
+                Toast.makeText(getContext(), "Cảm ơn bạn đã hoàn thành đánh giá", Toast.LENGTH_SHORT).show();
+            }
+        });
 //        FirebaseRecyclerOptions<Request> itemRv =
 //                new FirebaseRecyclerOptions.Builder<Request>()
 //                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Request"),Request.class)

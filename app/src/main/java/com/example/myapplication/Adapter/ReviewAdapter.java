@@ -48,40 +48,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holderr> {
         holder.rvten.setText(order.getProductName());
         holder.rvgia.setText(order.getPrice());
 
-        holder.btnRv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validateData()){
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference productsRef = database.getReference("Comments");
-                    String comment = holder.edtDanhGia.getText().toString();
-                    String nameProductEvaluated = holder.rvten.getText().toString();
-                    String usernameCurrent = Common.currentUser.getName();
-//
-                    DatabaseReference productRef = database.getReference("Comments");
-                    DatabaseReference newProductRef = productRef.child(nameProductEvaluated);
-                    DatabaseReference newUserref = newProductRef.child(usernameCurrent);
 
-
-                    newUserref.child("text").setValue(comment);
-
-                    Toast.makeText(v.getContext(), "Cảm ơn bạn đã đánh giá", Toast.LENGTH_SHORT).show();
-
-
-
-
-
-                }
-            }
-            private boolean validateData() {
-                if (holder.edtDanhGia.getText().toString().isEmpty()) {
-                    holder.edtDanhGia.setError("Vui lòng đánh giá sản phẩm ");
-                    return false;
-                }
-
-                return true;
-            }
-        });
 
 
 
@@ -97,6 +64,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holderr> {
         TextView rvten,rvgia;
         EditText edtDanhGia;
         Button btnRv;
+
         
         public Holderr(@NonNull View itemView) {
             super(itemView);
@@ -104,6 +72,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holderr> {
             rvten=itemView.findViewById(R.id.rwtensp);
             btnRv=itemView.findViewById(R.id.btnreview);
             edtDanhGia = itemView.findViewById(R.id.rwdanhgia);
+
         }
     }
 }

@@ -3,30 +3,31 @@ package com.example.myapplication.Interface.model;
 import java.util.List;
 
 public class Comments {
+    private String username;
+    private String text;
 
-    String comment,user;
+    public Comments() {}
 
-    public Comments( String user, String comment) {
-        this.user = user;
-        this.comment = comment;
+    public Comments(String username, String text) {
+        this.username = username;
+        this.text = text;
     }
 
-    public Comments() {
+    public String getUsername() {
+        return username;
     }
 
-    public String getUser() {
-        return user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public String getText() {
+        return text;
     }
 
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setText(String text) {
+        this.text = text;
     }
 }
+
+
