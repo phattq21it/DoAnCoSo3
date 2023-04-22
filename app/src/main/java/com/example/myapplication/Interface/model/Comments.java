@@ -5,12 +5,14 @@ import java.util.List;
 public class Comments {
     private String username;
     private String text;
+    private String time;
 
     public Comments() {}
 
-    public Comments(String username, String text) {
+    public Comments(String username, String text,String time) {
         this.username = username;
         this.text = text;
+        this.time = time;
     }
 
     public String getUsername() {
@@ -27,6 +29,14 @@ public class Comments {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }
 

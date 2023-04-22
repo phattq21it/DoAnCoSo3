@@ -27,6 +27,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holderr> {
@@ -48,7 +51,49 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holderr> {
         holder.rvten.setText(order.getProductName());
         holder.rvgia.setText(order.getPrice());
 
+        holder.btnRv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (validateData()){
+                    Calendar calendar = Calendar.getInstance();
+                    Date date = calendar.getTime();
 
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String dateString = dateFormat.format(date);
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference productsRef = database.getReference("Comments");
+                    String comment = holder.edtDanhGia.getText().toString();
+                    String nameProductEvaluated = holder.rvten.getText().toString();
+                    String usernameCurrent = Common.currentUser.getName();
+//
+                    DatabaseReference productRef = database.getReference("Comments");
+                    DatabaseReference newProductRef = productRef.child(nameProductEvaluated);
+                    DatabaseReference newUserref = newProductRef.child(usernameCurrent);
+
+
+
+
+
+                    newUserref.child("text").setValue(comment);
+                    newUserref.child("time").setValue(dateString);
+
+                    Toast.makeText(v.getContext(), "Cảm ơn bạn đã đánh giá", Toast.LENGTH_SHORT).show();
+
+
+
+
+
+                }
+            }
+            private boolean validateData() {
+                if (holder.edtDanhGia.getText().toString().isEmpty()) {
+                    holder.edtDanhGia.setError("Vui lòng đánh giá sản phẩm ");
+                    return false;
+                }
+
+                return true;
+            }
+        });
 
 
 

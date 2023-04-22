@@ -33,8 +33,10 @@ public class NhungLoiRvAdapter extends FirebaseRecyclerAdapter<Comments, NhungLo
     @Override
     protected void onBindViewHolder(@NonNull NhungLoiRvAdapter.Holder holder, int position, @NonNull Comments model) {
 
-        holder.user.setText(model.getUsername());
-       holder.danhgia.setText(model.getText());
+        String textComment = " Đã đánh giá :" +model.getText()+ "( "+model.getTime()+" )";
+        holder.user.setText(model.getUsername() );
+       holder.danhgia.setText(textComment);
+
 
 
 
@@ -57,6 +59,7 @@ public class NhungLoiRvAdapter extends FirebaseRecyclerAdapter<Comments, NhungLo
             this.image = itemView.findViewById(R.id.imguserr);
             this.user = itemView.findViewById(R.id.usernamerv);
             this.danhgia = itemView.findViewById(R.id.loidanhgia);
+
         }
 
 
