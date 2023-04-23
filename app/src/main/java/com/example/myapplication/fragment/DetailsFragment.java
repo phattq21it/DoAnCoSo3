@@ -162,7 +162,6 @@ public class DetailsFragment extends Fragment {
             txtmota.setText(description);
             txtluotban.setText(String.valueOf(soluotban)+" Lượt bán");
             Glide.with(getContext()).load(image).into(imageholder);
-
             return  view;
         }
         public void increament(View v){

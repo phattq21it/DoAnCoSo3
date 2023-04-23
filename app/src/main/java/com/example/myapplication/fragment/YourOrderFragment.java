@@ -20,6 +20,10 @@ import com.example.myapplication.R;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link YourOrderFragment#newInstance} factory method to
@@ -91,12 +95,19 @@ public class YourOrderFragment extends Fragment {
         //list product
         LinearLayoutManager gridLayoutManager= new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
         GridLayoutManager gridLayoutManager2= new GridLayoutManager(getContext(),2);
+        gridLayoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(gridLayoutManager);
 //        recyclerView2.setLayoutManager(gridLayoutManager2);
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = dateFormat.format(date);
         FirebaseRecyclerOptions<Request> options =
                 new FirebaseRecyclerOptions.Builder<Request>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Request").orderByChild("phone").equalTo(Common.currentUser.getPhone()), Request.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Request").orderByChild("phone").equalTo(Common.currentUser.getPhone())
+                                        .limitToLast(20)
+                      , Request.class)
                         .build();
 
 

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Common.Common;
 import com.example.myapplication.Interface.model.Order;
 import com.example.myapplication.Interface.model.Request;
 import com.example.myapplication.R;
@@ -29,33 +30,33 @@ public class InforOrder extends FirebaseRecyclerAdapter<Request,InforOrder.Drive
 
     @Override
     protected void onBindViewHolder(@NonNull InforOrder.DriverItemViewHolder holder, int position, @NonNull Request model) {
-        holder.diachi.setText(model.getAddress());
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < model.getFood().size(); i++) {
-            sb.append(model.getFood().get(i).getProductName());
-            if (i < model.getFood().size() - 1) {
-                sb.append(",");
+//        if(model.getPhone().equals(Common.currentUser.getPhone())){
+            holder.diachi.setText(model.getAddress());
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < model.getFood().size(); i++) {
+                sb.append(model.getFood().get(i).getProductName());
+                if (i < model.getFood().size() - 1) {
+                    sb.append(",");
+                }
             }
+            holder.ten.setText(sb);
+            holder.thoigiandat.setText(model.getTime());
+            holder.tongtien.setText(model.getTotal());
+            holder.btnDanhgia.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.framlayoutman, new ReviewFragment(model.getFood()))
+                            .addToBackStack(null).commit();
+                }
+            });
         }
 
 
 
-        holder.ten.setText(sb);
-        holder.thoigiandat.setText(model.getTime());
-        holder.tongtien.setText(model.getTotal());
-        holder.btnDanhgia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.framlayoutman, new ReviewFragment(model.getFood()))
-                        .addToBackStack(null).commit();
-            }
-        });
-
-
-    }
+//    }
 
     @NonNull
     @Override

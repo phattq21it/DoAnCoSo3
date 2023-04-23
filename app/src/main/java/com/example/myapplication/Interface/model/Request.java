@@ -8,6 +8,7 @@ public class Request {
     private String address;
     private String total;
     private String time;
+    long currentTimeMillis;
 
     private String note;
 
@@ -16,7 +17,7 @@ public class Request {
     public Request() {
     }
 
-    public Request(String phone, String name, String address, String total, List<Order> food,String time,String note) {
+    public Request(String phone, String name, String address, String total, List<Order> food,String time,String note,long currentTimeMillis) {
         this.phone = phone;
         this.name = name;
         this.address = address;
@@ -24,6 +25,15 @@ public class Request {
         this.food = food;
         this.time = time;
         this.note = note;
+        this.currentTimeMillis=currentTimeMillis;
+    }
+
+    public long getCurrentTimeMillis() {
+        return currentTimeMillis;
+    }
+
+    public void setCurrentTimeMillis(long currentTimeMillis) {
+        this.currentTimeMillis = currentTimeMillis;
     }
 
     public String getNote() {

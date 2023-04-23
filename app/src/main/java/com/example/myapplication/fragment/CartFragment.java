@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -108,49 +109,60 @@ public class CartFragment extends Fragment {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String dateString = dateFormat.format(date);
 
-                Request request= new Request(Common.currentUser.getPhone(),
-                        Common.currentUser.getName(),
-                        edtAddress.getText().toString(),
-                        txtTongTien.getText().toString(),
-                        cart,dateString,"Chưa đánh giá");
-                 requestt.child(String.valueOf(System.currentTimeMillis())).setValue(request);
-                for (int i = 0; i < cart.size(); i++) {
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference productsRef = database.getReference("Item");
-                    String nameProductBought = cart.get(i).getProductName();
-                    productsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot productSnapshot : snapshot.getChildren()) {
-                                String firebaseProductName = productSnapshot.child("name").getValue(String.class);
-                                int firebaseProductSales = productSnapshot.child("quantityPurchased").getValue(Integer.class);
+                Date convertedDate = null;
+                long currentTimeMillis = 0;
+                try {
+                    convertedDate = dateFormat.parse(dateString);
+                    currentTimeMillis = convertedDate.getTime();
+                    Request request = new Request(Common.currentUser.getPhone(),
+                            Common.currentUser.getName(),
+                            edtAddress.getText().toString(),
+                            txtTongTien.getText().toString(),
+                            cart, dateString, "Chưa đánh giá", currentTimeMillis);
+                    requestt.child(String.valueOf(System.currentTimeMillis())).setValue(request);
+                    for (int i = 0; i < cart.size(); i++) {
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference productsRef = database.getReference("Item");
+                        String nameProductBought = cart.get(i).getProductName();
+                        productsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                                    String firebaseProductName = productSnapshot.child("name").getValue(String.class);
+                                    int firebaseProductSales = productSnapshot.child("quantityPurchased").getValue(Integer.class);
 
-                                // So sánh tên sản phẩm mới với tên sản phẩm trong danh sách Firebase
-                                if (firebaseProductName.equals(nameProductBought)) {
-                                    // Tăng giá trị lượt mua lên 1 và cập nhật giá trị mới vào Firebase
-                                    int newSales = firebaseProductSales + 1;
-                                    productSnapshot.getRef().child("quantityPurchased").setValue(newSales);
-                                    break;
+                                    // So sánh tên sản phẩm mới với tên sản phẩm trong danh sách Firebase
+                                    if (firebaseProductName.equals(nameProductBought)) {
+                                        // Tăng giá trị lượt mua lên 1 và cập nhật giá trị mới vào Firebase
+                                        int newSales = firebaseProductSales + 1;
+                                        productSnapshot.getRef().child("quantityPurchased").setValue(newSales);
+                                        break;
+                                    }
                                 }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
+                    // deletecart
+                    new DbHelper(getContext()).deleteAllDataInOrderDetailTable();
+                    cart = new DbHelper(getContext()).getAllOrder();
+                    cartItemAdapter = new CartItemAdapter(cart, getContext());
+                    recyclerView.setAdapter(cartItemAdapter);
+                    txtTongTien.setText("$0.00");
+
+
+                    Toast.makeText(getContext(), "Bạn đã mua hàng thành công", Toast.LENGTH_SHORT).show();
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-                 // deletecart
-                new DbHelper(getContext()).deleteAllDataInOrderDetailTable();
-                cart= new DbHelper(getContext()).getAllOrder();
-                cartItemAdapter= new CartItemAdapter(cart,getContext());
-                recyclerView.setAdapter(cartItemAdapter);
-                txtTongTien.setText("$0.00");
+
+                // Lấy giá trị currentTimeMillis từ đối tượng Date
 
 
-
-                Toast.makeText(getContext(), "Bạn đã mua hàng thành công" , Toast.LENGTH_SHORT).show();
 
 
 
