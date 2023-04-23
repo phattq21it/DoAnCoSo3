@@ -51,6 +51,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holderr> {
         holder.rvten.setText(order.getProductName());
         holder.rvgia.setText(order.getPrice());
 
+
         holder.btnRv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +77,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holderr> {
 
                     newUserref.child("text").setValue(comment);
                     newUserref.child("time").setValue(dateString);
+                    newUserref.child("username").setValue(usernameCurrent);
 
                     Toast.makeText(v.getContext(), "Cảm ơn bạn đã đánh giá", Toast.LENGTH_SHORT).show();
 
@@ -109,6 +111,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holderr> {
         TextView rvten,rvgia;
         EditText edtDanhGia;
         Button btnRv;
+        
+
 
         
         public Holderr(@NonNull View itemView) {
@@ -117,6 +121,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holderr> {
             rvten=itemView.findViewById(R.id.rwtensp);
             btnRv=itemView.findViewById(R.id.btnreview);
             edtDanhGia = itemView.findViewById(R.id.rwdanhgia);
+
 
         }
     }

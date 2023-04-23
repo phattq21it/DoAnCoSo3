@@ -34,7 +34,7 @@ public class NhungLoiRvAdapter extends FirebaseRecyclerAdapter<Comments, NhungLo
     protected void onBindViewHolder(@NonNull NhungLoiRvAdapter.Holder holder, int position, @NonNull Comments model) {
 
         String textComment = " Đã đánh giá :" +model.getText();
-        holder.user.setText(model.getUsername() );
+        holder.user.setText(model.getUsername());
        holder.danhgia.setText(textComment);
        holder.time.setText(model.getTime());
 

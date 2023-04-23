@@ -1,8 +1,12 @@
 package com.example.myapplication.fragment;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
+import android.nfc.Tag;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.Adapter.ReviewAdapter;
@@ -22,11 +27,18 @@ import com.example.myapplication.Interface.model.Order;
 import com.example.myapplication.Interface.model.Request;
 import com.example.myapplication.R;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.core.Tag;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 
@@ -37,6 +49,7 @@ import java.util.List;
  */
 public class ReviewFragment extends Fragment {
     List<Order> orders;
+    Long currentTimeMillis;
 
     private RecyclerView rcv_rv;
     ReviewAdapter reviewAdapter;
@@ -53,8 +66,9 @@ public class ReviewFragment extends Fragment {
     public ReviewFragment() {
         // Required empty public constructor
     }
-      public ReviewFragment(List<Order> orders) {
+      public ReviewFragment(List<Order> orders,Long currentTimeMillis) {
         this.orders=orders;
+        this.currentTimeMillis = currentTimeMillis;
         // Required empty public constructor
     }
 
@@ -96,22 +110,41 @@ public class ReviewFragment extends Fragment {
 
         rcv_rv=view.findViewById(R.id.rcv_rv);
         Button btnHoanThanhDanhGia = view.findViewById(R.id.btnHoanThanhDanhGia);
+
+        TextView maDonHang = view.findViewById(R.id.tvMaDonHang);
+        maDonHang.setText(currentTimeMillis.toString());
         btnHoanThanhDanhGia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String currentPhone = Common.currentUser.getPhone(); // thay thế bằng số điện thoại hiện tại của bạn
+                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("Request");
+                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot orderSnapshot : snapshot.getChildren()) {
+                            // Lấy key của đơn hàng hiện tại
+                            String orderKey = orderSnapshot.getKey();
 
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                CollectionReference requestsRef = db.collection("Request");
+                            // Lấy mã đơn hàng của đơn hàng hiện tại
+                            Long orderCode = orderSnapshot.child("currentTimeMillis").getValue(Long.class);
 
-                requestsRef.whereEqualTo("phone", currentPhone).get().addOnSuccessListener(querySnapshot -> {
-                    for (QueryDocumentSnapshot document : querySnapshot) {
-                        requestsRef.document(document.getId()).update("Note", "Đã đánh giá");
+                            // So sánh với mã đơn hàng của đơn hàng đang lấy
+                            if (orderCode.equals(currentTimeMillis)) {
+                                // Cập nhật thuộc tính note của đơn hàng hiện tại thành "Đã đánh giá"
+                                orderSnapshot.getRef().child("note").setValue("Đã đánh giá");
+                                Toast.makeText(getContext(), "Đã hoàn thành đánh giá đơn hàng", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     }
-                }).addOnFailureListener(e -> {
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
                 });
-                Toast.makeText(getContext(), "Cảm ơn bạn đã hoàn thành đánh giá", Toast.LENGTH_SHORT).show();
+
+
+
+
             }
         });
 //        FirebaseRecyclerOptions<Request> itemRv =

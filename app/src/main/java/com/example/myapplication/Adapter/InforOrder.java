@@ -48,7 +48,7 @@ public class InforOrder extends FirebaseRecyclerAdapter<Request,InforOrder.Drive
 
                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.framlayoutman, new ReviewFragment(model.getFood()))
+                            .replace(R.id.framlayoutman, new ReviewFragment(model.getFood(),model.getCurrentTimeMillis()))
                             .addToBackStack(null).commit();
                 }
             });
