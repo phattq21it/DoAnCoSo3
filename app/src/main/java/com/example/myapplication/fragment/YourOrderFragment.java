@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.Adapter.InforOrder;
+import com.example.myapplication.Adapter.InforOrderDaDanhGia;
 import com.example.myapplication.Common.Common;
 import com.example.myapplication.Interface.model.Request;
 import com.example.myapplication.MainActivity;
@@ -30,8 +31,9 @@ import java.util.Date;
  * create an instance of this fragment.
  */
 public class YourOrderFragment extends Fragment {
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView,recyclerView2;
     private InforOrder inforOrder;
+    private InforOrderDaDanhGia inforOrder2;
     MainActivity mainActivity;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,6 +82,7 @@ public class YourOrderFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_your_order, container, false);
         recyclerView = view.findViewById(R.id.recycler_drink);
+        recyclerView2 = view.findViewById(R.id.recycler_DaDanhGiadrink);
 //        recyclerView2 = view.findViewById(R.id.recycler_drink2);
 
         mainActivity= (MainActivity) getActivity();
@@ -94,9 +97,11 @@ public class YourOrderFragment extends Fragment {
 //        sliderView.startAutoCycle();
         //list product
         LinearLayoutManager gridLayoutManager= new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
-        GridLayoutManager gridLayoutManager2= new GridLayoutManager(getContext(),2);
+        LinearLayoutManager gridLayoutManager2= new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
         gridLayoutManager.setReverseLayout(true);
+        gridLayoutManager2.setReverseLayout(true);
         recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView2.setLayoutManager(gridLayoutManager2);
 //        recyclerView2.setLayoutManager(gridLayoutManager2);
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
@@ -105,24 +110,37 @@ public class YourOrderFragment extends Fragment {
         String dateString = dateFormat.format(date);
         FirebaseRecyclerOptions<Request> options =
                 new FirebaseRecyclerOptions.Builder<Request>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Request").orderByChild("phone").equalTo(Common.currentUser.getPhone())
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Request").orderByChild("note").equalTo(Common.currentUser.getPhone()+"_"+"Chưa đánh giá")
                                         .limitToLast(20)
                       , Request.class)
                         .build();
+        FirebaseRecyclerOptions<Request> options2 =
+                new FirebaseRecyclerOptions.Builder<Request>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Request").orderByChild("note").equalTo(Common.currentUser.getPhone()+"_"+"Đã đánh giá")
+                                        .limitToLast(20)
+                                , Request.class)
+                        .build();
+
+
 
 
         inforOrder = new InforOrder(options);
         recyclerView.setAdapter(inforOrder);
+        inforOrder2 = new InforOrderDaDanhGia(options2);
+        recyclerView2.setAdapter(inforOrder2);
+
         return view;
     }
     @Override
     public void onStart() {
         super.onStart();
         inforOrder.startListening();
+        inforOrder2.startListening();
     }
     @Override
     public void onStop() {
         super.onStop();
         inforOrder.stopListening();
+        inforOrder2.stopListening();
     }
 }

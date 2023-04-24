@@ -28,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Thông tin đơn hàng"
+                    android:text="Đơn hàng cần đánh giá"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -39,10 +39,31 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Đơn hàng đã đánh giá"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_DaDanhGiadrink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp" />
+
 
 
 
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
 

@@ -130,7 +130,7 @@ public class ReviewFragment extends Fragment {
                             // So sánh với mã đơn hàng của đơn hàng đang lấy
                             if (orderCode.equals(currentTimeMillis)) {
                                 // Cập nhật thuộc tính note của đơn hàng hiện tại thành "Đã đánh giá"
-                                orderSnapshot.getRef().child("note").setValue("Đã đánh giá");
+                                orderSnapshot.getRef().child("note").setValue(Common.currentUser.getPhone()+"_"+"Đã đánh giá");
                                 Toast.makeText(getContext(), "Đã hoàn thành đánh giá đơn hàng", Toast.LENGTH_SHORT).show();
                             }
                         }

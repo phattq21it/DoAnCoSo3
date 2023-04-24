@@ -118,7 +118,7 @@ public class CartFragment extends Fragment {
                             Common.currentUser.getName(),
                             edtAddress.getText().toString(),
                             txtTongTien.getText().toString(),
-                            cart, dateString, "Chưa đánh giá", currentTimeMillis);
+                            cart, dateString, Common.currentUser.getPhone()+"_"+"Chưa đánh giá", currentTimeMillis);
                     requestt.child(String.valueOf(System.currentTimeMillis())).setValue(request);
                     for (int i = 0; i < cart.size(); i++) {
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
