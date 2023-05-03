@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.Adapter.CartItemAdapter;
 import com.example.myapplication.Common.Common;
 import com.example.myapplication.DatabaseHelper.DbHelper;
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.Interface.model.Order;
 import com.example.myapplication.Interface.model.Request;
@@ -47,6 +48,8 @@ public class CartFragment extends Fragment {
     DatabaseReference requestt=firebaseDatabase.getReference("Request");;
     List<Order> cart= new ArrayList<>();
     CartItemAdapter cartItemAdapter;
+    MainActivity mainActivity;
+
     @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
@@ -62,18 +65,25 @@ public class CartFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         cart= new DbHelper(getContext()).getAllOrder();
         cartItemAdapter= new CartItemAdapter(cart,getContext());
+
         recyclerView.setAdapter(cartItemAdapter);
         double total=0;
+        int count=0;
         for(Order order : cart) {
-            if (order != null && order.getPrice() != null && order.getQuantity() != null) {
+            if (order != null && order.getPrice() != null && order.getQuantity() >=1) {
                 double price = Double.parseDouble(order.getPrice());
-                int quantity = Integer.parseInt(order.getQuantity());
+                int quantity = order.getQuantity();
+                count+=quantity;
                 total += price * quantity;
+
             }
         }
         Locale locale = new Locale("en", "US");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
         txtTongTien.setText(fmt.format(total));
+        mainActivity= (MainActivity) getActivity();
+        mainActivity.setCountProductInCart(count);
+
 
         txtMuaHang.setOnClickListener(new View.OnClickListener() {
             @Override

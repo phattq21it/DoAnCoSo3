@@ -133,15 +133,14 @@ public class DetailsFragment extends Fragment {
                     } else {
                         Order order= new Order();
                         order.setProductName(name);
-                        order.setQuantity(String.valueOf(count));
+                        order.setQuantity(count);
                         order.setPrice(String.valueOf(price));
                         order.setDiscount("1");
                         order.setPhone(Common.currentUser.getPhone());
                         order.setImage(image);
                         dbHelper.insertData(order);
                             Toast.makeText(getContext(),"Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
-                            mainActivity.setCountProductInCart(mainActivity.getmCountProduct() + count);
-                    }
+                                              }
                 }
             });
             btntang.setOnClickListener(new View.OnClickListener() {

@@ -35,7 +35,7 @@ public class DbHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("create table "+TableName+" ("+COL1+" integer primary key autoincrement,"
-                +COL2+" text, "+COL3+" text, "+COL4+" text, "+COL5+" text,"+COL6+" text,"+COL7+" text)");
+                +COL2+" text, "+COL3+" number, "+COL4+" text, "+COL5+" text,"+COL6+" text,"+COL7+" text)");
     }
 
     @Override
@@ -47,7 +47,7 @@ public class DbHelper extends SQLiteOpenHelper
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         String name = order.getProductName();
-        int quantity = Integer.parseInt(order.getQuantity());
+        int quantity = order.getQuantity();
 
 // Kiểm tra xem tên đã tồn tại trong bảng hay chưa
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TableName + " WHERE " + COL2 + " = ?", new String[]{name});
@@ -111,7 +111,7 @@ public class DbHelper extends SQLiteOpenHelper
                 Order Order = new Order();
                 Order.setProductId(Integer.parseInt(c.getString(c.getColumnIndex(COL1))));
                 Order.setProductName(c.getString(c.getColumnIndex(COL2)));
-                Order.setQuantity(c.getString(c.getColumnIndex(COL3)));
+                Order.setQuantity(c.getInt(c.getColumnIndex(COL3)));
                 Order.setPrice(c.getString(c.getColumnIndex(COL4)));
                 Order.setDiscount(c.getString(c.getColumnIndex(COL5)));
                 Order.setPhone(c.getString(c.getColumnIndex(COL6)));
@@ -127,6 +127,11 @@ public class DbHelper extends SQLiteOpenHelper
     public void deleteAllDataInOrderDetailTable() {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM OrderDetail");
+        db.close();
+    }
+    public void deleteItem(String productname){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM OrderDetail where "+COL2+" = '"+productname+"'");
         db.close();
     }
 }
