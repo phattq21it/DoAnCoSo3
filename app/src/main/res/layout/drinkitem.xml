@@ -53,9 +53,17 @@
                     android:layout_height="wrap_content"
                     android:textSize="22sp"
                     android:id="@+id/txtPrice"
-                    android:text="Gia"
+                    android:text="20000"
                     android:textColor="@color/black"
                     android:layout_marginStart="10dp"/>
+                <TextView
+                    android:fontFamily="serif"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:id="@+id/đd"
+                    android:text="đ"
+                    android:textColor="@color/black"/>
                 <TextView
                     android:id="@+id/txtdaban"
                     android:gravity="end"

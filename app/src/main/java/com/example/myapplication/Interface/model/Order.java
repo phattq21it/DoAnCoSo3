@@ -1,10 +1,10 @@
 package com.example.myapplication.Interface.model;
 
 public class Order  {
-    private int ProductID,Quantity;
-    private String ProductName,Price,Discount,Phone,Image;
+    private int ProductID;
+    private String ProductName,Price,Discount,Phone,Image,Quantity;
 
-    public Order(int productID, String productName, int quantity, String price, String discount, String phone, String image) {
+    public Order(int productID, String productName, String quantity, String price, String discount, String phone, String image) {
         ProductID = productID;
         ProductName = productName;
         Quantity = quantity;
@@ -49,11 +49,11 @@ public class Order  {
         this.ProductName = ProductName;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return Quantity;
     }
 
-    public void setQuantity(int Quantity) {
+    public void setQuantity(String Quantity) {
         this.Quantity = Quantity;
     }
 

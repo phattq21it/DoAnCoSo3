@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +33,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,7 +53,8 @@ public class CartFragment extends Fragment {
     List<Order> cart= new ArrayList<>();
     CartItemAdapter cartItemAdapter;
     MainActivity mainActivity;
-
+    public static  int countCart;
+    String tongtien;
     @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
@@ -68,21 +73,27 @@ public class CartFragment extends Fragment {
 
         recyclerView.setAdapter(cartItemAdapter);
         double total=0;
-        int count=0;
+        countCart=0;
         for(Order order : cart) {
-            if (order != null && order.getPrice() != null && order.getQuantity() >=1) {
+            if (order != null && order.getPrice() != null && Integer.parseInt(order.getQuantity()) >=1) {
                 double price = Double.parseDouble(order.getPrice());
-                int quantity = order.getQuantity();
-                count+=quantity;
+                int quantity = Integer.parseInt(order.getQuantity());
+
+                countCart+=quantity;
                 total += price * quantity;
+
 
             }
         }
-        Locale locale = new Locale("en", "US");
-        NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-        txtTongTien.setText(fmt.format(total));
+
+        DecimalFormat decimalFormat = new DecimalFormat("###,###.###");
+        DecimalFormat decimalFormat1 = new DecimalFormat("#");
+        tongtien=decimalFormat1.format(total);
+        decimalFormat.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.getDefault()));
+        String replacedNumber = decimalFormat.format(total).replace(",", ".");
+        txtTongTien.setText(replacedNumber);
         mainActivity= (MainActivity) getActivity();
-        mainActivity.setCountProductInCart(count);
+        mainActivity.setCountProductInCart(countCart);
 
 
         txtMuaHang.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +138,7 @@ public class CartFragment extends Fragment {
                     Request request = new Request(Common.currentUser.getPhone(),
                             Common.currentUser.getName(),
                             edtAddress.getText().toString(),
-                            txtTongTien.getText().toString(),
+                            tongtien,
                             cart, dateString, Common.currentUser.getPhone()+"_"+"Chưa đánh giá", currentTimeMillis);
                     requestt.child(String.valueOf(System.currentTimeMillis())).setValue(request);
                     for (int i = 0; i < cart.size(); i++) {
@@ -162,10 +173,11 @@ public class CartFragment extends Fragment {
                     cart = new DbHelper(getContext()).getAllOrder();
                     cartItemAdapter = new CartItemAdapter(cart, getContext());
                     recyclerView.setAdapter(cartItemAdapter);
-                    txtTongTien.setText("$0.00");
+                    txtTongTien.setText("0");
 
 
                     Toast.makeText(getContext(), "Bạn đã mua hàng thành công", Toast.LENGTH_SHORT).show();
+                    replaceFragment(new CartFragment());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -194,5 +206,13 @@ public class CartFragment extends Fragment {
         //calculate
 
 
+    }
+    private void replaceFragment(Fragment fragment) {
+
+        mainActivity= (MainActivity) getActivity();
+        FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.framlayoutman, fragment);
+        fragmentTransaction.commit();
     }
 }

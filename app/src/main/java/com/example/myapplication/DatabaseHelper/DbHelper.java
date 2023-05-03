@@ -47,7 +47,7 @@ public class DbHelper extends SQLiteOpenHelper
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         String name = order.getProductName();
-        int quantity = order.getQuantity();
+        int quantity = Integer.parseInt(order.getQuantity());
 
 // Kiểm tra xem tên đã tồn tại trong bảng hay chưa
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TableName + " WHERE " + COL2 + " = ?", new String[]{name});
@@ -111,7 +111,7 @@ public class DbHelper extends SQLiteOpenHelper
                 Order Order = new Order();
                 Order.setProductId(Integer.parseInt(c.getString(c.getColumnIndex(COL1))));
                 Order.setProductName(c.getString(c.getColumnIndex(COL2)));
-                Order.setQuantity(c.getInt(c.getColumnIndex(COL3)));
+                Order.setQuantity(c.getString(c.getColumnIndex(COL3)));
                 Order.setPrice(c.getString(c.getColumnIndex(COL4)));
                 Order.setDiscount(c.getString(c.getColumnIndex(COL5)));
                 Order.setPhone(c.getString(c.getColumnIndex(COL6)));

@@ -17,6 +17,10 @@ import com.example.myapplication.Interface.model.Drink;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecyclerAdapter.DriverItemViewHolder> {
     String text;
 
@@ -32,7 +36,10 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
     @Override
     protected void onBindViewHolder(@NonNull DriverItemViewHolder holder, int position, @NonNull Drink model) {
         holder.name.setText(model.getName());
-        holder.price.setText(model.getPrice());
+        DecimalFormat decimalFormat = new DecimalFormat("###,###.###");
+        decimalFormat.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.getDefault()));
+        String replacedNumber = decimalFormat.format(Integer.parseInt(model.getPrice())).replace(",", ".");
+        holder.price.setText(replacedNumber);
         Glide.with(holder.image.getContext()).load(model.getImage()).into(holder.image);
 
         holder.image.setOnClickListener(new View.OnClickListener() {

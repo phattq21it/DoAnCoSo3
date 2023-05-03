@@ -133,10 +133,10 @@ public class CategoriesFragment extends Fragment {
                         .build();
 
 
-        adapterAnVat = new ItemRecyclerAdapter(optionAnVat);
-        adapterHaiSan = new ItemRecyclerAdapter(optionHaiSan);
-        adapterCafe = new ItemRecyclerAdapter(optionCafe);
-        adapterHotDog = new ItemRecyclerAdapter(optionHotDog);
+        adapterAnVat = new ItemRecyclerAdapter(optionAnVat,"Đồ ăn vặt");
+        adapterHaiSan = new ItemRecyclerAdapter(optionHaiSan,"Hải sản");
+        adapterCafe = new ItemRecyclerAdapter(optionCafe,"Coffe");
+        adapterHotDog = new ItemRecyclerAdapter(optionHotDog,"Hotdog");
 
 
 

@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static com.example.myapplication.fragment.CartFragment.countCart;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         ahBottomNavigation.addItem(item2);
         ahBottomNavigation.addItem(item3);
         ahBottomNavigation.addItem(item4);
-
 
         replaceFragment(new HomeFragMent());
 //SLider

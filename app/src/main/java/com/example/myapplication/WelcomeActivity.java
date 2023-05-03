@@ -1,13 +1,18 @@
 package com.example.myapplication;
 
+import static com.example.myapplication.fragment.CartFragment.countCart;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -30,7 +35,7 @@ public class WelcomeActivity extends AppCompatActivity {
     Button btnsignin, btnsignup;
     EditText edtphonesu, edtpasssu, edtnamesu, edtPassword, edtPhone,edtdiachisu,edtmailsu;
     FirebaseAuth auth;
-
+    MainActivity mainActivity;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -136,6 +141,7 @@ public class WelcomeActivity extends AppCompatActivity {
         btnsignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 //                Intent i= new Intent(WelcomeActivity.this, AdminActivity.class);
 //                startActivity(i);
 //                finish();
@@ -164,6 +170,11 @@ public class WelcomeActivity extends AppCompatActivity {
                                     } else {
                                         Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
                                         startActivity(i);
+                                            View view = WelcomeActivity.this.findViewById(android.R.id.content);
+                                            if (view != null) {
+                                                InputMethodManager imm = (InputMethodManager) WelcomeActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                                        }
                                         Common.currentUser=user;
                                     }
 

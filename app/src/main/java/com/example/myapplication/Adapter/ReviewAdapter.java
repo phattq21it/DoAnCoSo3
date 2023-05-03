@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,6 +49,9 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holderr> {
     @Override
     public void onBindViewHolder(@NonNull Holderr holder, int position) {
         Order order=orders.get(position);
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+        String replacedNumber = decimalFormat.format(Integer.parseInt(order.getPrice())).replace(",", ".");
+        holder.rvgia.setText(replacedNumber+"đ");
         holder.rvten.setText(order.getProductName());
         holder.rvgia.setText(order.getPrice());
 

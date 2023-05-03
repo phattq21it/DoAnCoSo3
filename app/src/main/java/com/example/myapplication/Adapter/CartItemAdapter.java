@@ -23,6 +23,7 @@ import com.example.myapplication.Interface.model.Order;
 import com.example.myapplication.fragment.CartFragment;
 import com.example.myapplication.fragment.DetailsFragment;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -49,10 +50,12 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.Holder
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         Order order = list.get(position);
-        Locale locale = new Locale("en", "US");
-        NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-        double price = Double.parseDouble(order.getPrice()) * order.getQuantity();
-        holder.priceItem.setText(fmt.format(price));
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+
+        double price = Double.parseDouble(order.getPrice()) * Integer.parseInt(order.getQuantity());
+        String replacedNumber = decimalFormat.format(price).replace(",", ".");
+
+        holder.priceItem.setText(replacedNumber);
         holder.nameItem.setText(order.getProductName());
         holder.quantityItem.setText(String.valueOf(order.getQuantity()));
         Glide.with(holder.imageItem.getContext()).load(order.getImage()).into(holder.imageItem);
@@ -96,7 +99,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.Holder
 
     public class Holder extends RecyclerView.ViewHolder {
         CircleImageView imageItem;
-        TextView nameItem, priceItem, quantityItem, tru, cong;
+        TextView nameItem, priceItem, quantityItem, tru;
         ImageView deleteitem;
 
         public Holder(@NonNull View itemView) {
@@ -106,7 +109,6 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.Holder
             priceItem = itemView.findViewById(R.id.priceincart);
             quantityItem = itemView.findViewById(R.id.soluongitem);
             tru = itemView.findViewById(R.id.tru);
-            cong = itemView.findViewById(R.id.cong);
             deleteitem = itemView.findViewById(R.id.deleteitem);
         }
     }

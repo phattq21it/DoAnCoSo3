@@ -1,5 +1,7 @@
 package com.example.myapplication.fragment;
 
+import static com.example.myapplication.fragment.CartFragment.countCart;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.SearchManager;
@@ -30,9 +32,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Adapter.CartItemAdapter;
 import com.example.myapplication.Adapter.CategoriAdapter;
 import com.example.myapplication.Adapter.ItemRecyclerAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
+import com.example.myapplication.DatabaseHelper.DbHelper;
+import com.example.myapplication.Interface.model.Order;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.Interface.model.Category;
@@ -48,6 +53,7 @@ import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragMent extends Fragment {
     private RecyclerView recyclerNew,recyclerBanChay,rcvcategory,rcvAllItem;
@@ -55,7 +61,7 @@ public class HomeFragMent extends Fragment {
     CategoriAdapter categoriAdapter;
     ArrayList<Category> categoryArrayList;
     DatabaseReference databaseReference;
-
+    List<Order> cart= new ArrayList<>();
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -114,8 +120,18 @@ public class HomeFragMent extends Fragment {
         edtsearch= view.findViewById(R.id.edtsearch);
         mainActivity= (MainActivity) getActivity();
 
-        hideKeyboard(mainActivity);
 
+        cart= new DbHelper(getContext()).getAllOrder();
+
+        int countc=0;
+        for(Order order : cart) {
+            if (order != null && order.getPrice() != null && Integer.parseInt(order.getQuantity()) >=1) {
+                int quantity = Integer.parseInt(order.getQuantity());
+                countc+=quantity;
+            }
+        }
+        mainActivity.setCountProductInCart(countc);
+        hideKeyboard(mainActivity);
         //search
 
         imgsearch.setOnClickListener(new View.OnClickListener() {

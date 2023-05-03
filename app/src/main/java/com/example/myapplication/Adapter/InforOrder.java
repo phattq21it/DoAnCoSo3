@@ -19,6 +19,7 @@ import com.example.myapplication.fragment.ReviewFragment;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class InforOrder extends FirebaseRecyclerAdapter<Request,InforOrder.DriverItemViewHolder> {
@@ -39,9 +40,11 @@ public class InforOrder extends FirebaseRecyclerAdapter<Request,InforOrder.Drive
                     sb.append(",");
                 }
             }
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+        String replacedNumber = decimalFormat.format(Integer.parseInt(model.getTotal())).replace(",", ".");
             holder.ten.setText(sb);
             holder.thoigiandat.setText(model.getTime());
-            holder.tongtien.setText(model.getTotal());
+            holder.tongtien.setText(replacedNumber+"đ");
             holder.btnDanhgia.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

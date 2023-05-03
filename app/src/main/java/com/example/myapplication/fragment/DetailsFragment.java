@@ -1,5 +1,7 @@
 package com.example.myapplication.fragment;
 
+    import static com.example.myapplication.fragment.CartFragment.countCart;
+
     import android.annotation.SuppressLint;
     import android.os.Bundle;
 
@@ -35,8 +37,11 @@ import android.widget.TextView;
 
     import org.w3c.dom.Comment;
 
+    import java.text.DecimalFormat;
+    import java.text.DecimalFormatSymbols;
     import java.util.ArrayList;
     import java.util.List;
+    import java.util.Locale;
 
 public class DetailsFragment extends Fragment {
 
@@ -133,14 +138,16 @@ public class DetailsFragment extends Fragment {
                     } else {
                         Order order= new Order();
                         order.setProductName(name);
-                        order.setQuantity(count);
+                        order.setQuantity(String.valueOf(count));
                         order.setPrice(String.valueOf(price));
                         order.setDiscount("1");
                         order.setPhone(Common.currentUser.getPhone());
                         order.setImage(image);
                         dbHelper.insertData(order);
                             Toast.makeText(getContext(),"Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
-                                              }
+
+                        mainActivity.setCountProductInCart(countCart+count);
+                    }
                 }
             });
             btntang.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +164,10 @@ public class DetailsFragment extends Fragment {
             });
 
             nameholder.setText(name);
-            priceholder.setText(price);
+            DecimalFormat decimalFormat = new DecimalFormat("###,###.###");
+            decimalFormat.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.getDefault()));
+            String replacedNumber = decimalFormat.format(Integer.parseInt(price)).replace(",", ".");
+            priceholder.setText(replacedNumber);
             txtmota.setText(description);
             txtluotban.setText(String.valueOf(soluotban)+" Lượt bán");
             Glide.with(getContext()).load(image).into(imageholder);
