@@ -3,17 +3,21 @@ package com.example.adminapp.model;
 
 public class Request {
     private String key,name,address, total,time;
+    long currentTimeMillis;
 
 
     public Request() {
     }
 
-    public Request( String key,String name, String address, String total,  String time) {
+
+
+    public Request(String key, String name, String address, String total, String time, long currentTimeMillis) {
         this.key = key;
         this.name = name;
         this.address = address;
         this.total = total;
         this.time = time;
+        this.currentTimeMillis = currentTimeMillis;
     }
 
     public String getTime() {
@@ -54,6 +58,13 @@ public class Request {
 
     public void setTotal(String total) {
         this.total = total;
+    }
+    public long getCurrentTimeMillis() {
+        return currentTimeMillis;
+    }
+
+    public void setCurrentTimeMillis(long currentTimeMillis) {
+        this.currentTimeMillis = currentTimeMillis;
     }
 
 
