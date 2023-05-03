@@ -32,7 +32,9 @@ public class InforOrderAdapter extends FirebaseRecyclerAdapter<Request, InforOrd
         holder.ten.setText(model.getName());
         holder.thoigiandat.setText(model.getTime());
         holder.tongtien.setText(model.getTotal());
-        holder.madonhang.setText(model.getKey());
+
+        String maDHtext = String.valueOf(model.getCurrentTimeMillis()); // hoặc Long.toString(myLong);
+        holder.madonhang.setText(maDHtext);
 
 
     }

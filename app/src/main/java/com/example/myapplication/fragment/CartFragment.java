@@ -90,8 +90,8 @@ public class CartFragment extends Fragment {
     }
     private void showArlertDialog() {
         AlertDialog.Builder alertDialog= new AlertDialog.Builder(getContext());
-        alertDialog.setTitle("One more step!");
-        alertDialog.setMessage("Enter your address");
+        alertDialog.setTitle("Bạn sẽ thanh toán khi nhận được hàng");
+        alertDialog.setMessage("Xác nhận lại địa chỉ giao hàng");
 
 
         final EditText edtAddress= new EditText(getContext());
@@ -99,7 +99,7 @@ public class CartFragment extends Fragment {
 
         edtAddress.setLayoutParams(lp);
         alertDialog.setView(edtAddress);
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
