@@ -59,13 +59,9 @@ public class    AdminActivity extends AppCompatActivity {
                         break;
                     case 1:
                         Log.d(String.valueOf(position), String.valueOf(position));
-                        replaceFragment(new CategoriesFragment());
-                        break;
-                    case 2:
-                        Log.d(String.valueOf(position), String.valueOf(position));
                         replaceFragment(new ManagerFragment());
                         break;
-                    case 3:
+                    case 2:
                         Log.d(String.valueOf(position), String.valueOf(position));
                         replaceFragment(new AccountFragment());
                         break;

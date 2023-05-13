@@ -1,5 +1,7 @@
 package com.example.myapplication.Adapter;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import com.example.myapplication.Common.Common;
 import com.example.myapplication.Interface.model.Drink;
 import com.example.myapplication.Interface.model.Order;
 import com.example.myapplication.Interface.model.Request;
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -36,6 +39,7 @@ import java.util.List;
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holderr> {
     List<Order> orders;
 
+
     public ReviewAdapter(List<Order> orders) {
         this.orders = orders;
     }
@@ -46,14 +50,15 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holderr> {
         return new Holderr(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_review,parent,false));
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull Holderr holder, int position) {
         Order order=orders.get(position);
         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
         String replacedNumber = decimalFormat.format(Integer.parseInt(order.getPrice())).replace(",", ".");
+        Log.d("hihiahahaha",replacedNumber );
         holder.rvgia.setText(replacedNumber+"đ");
         holder.rvten.setText(order.getProductName());
-        holder.rvgia.setText(order.getPrice());
 
 
         holder.btnRv.setOnClickListener(new View.OnClickListener() {

@@ -188,6 +188,4 @@ public class HomeFragMent extends Fragment {
         fragmentTransaction.replace(R.id.framlayoutman, fragment);
         fragmentTransaction.commit();
     }
-
-
 }
