@@ -36,6 +36,7 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
     @Override
     protected void onBindViewHolder(@NonNull DriverItemViewHolder holder, int position, @NonNull Drink model) {
         holder.name.setText(model.getName());
+
         holder.price.setText(model.getPrice());
         Glide.with(holder.image.getContext()).load(model.getImage()).into(holder.image);
 
@@ -69,7 +70,7 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
         private TextView price;
         private TextView name;
         private ImageView image, cart;
-
+        TextView soluongsanpham,doanhthuhomnay,sanphammuanhieu;
 
         public DriverItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,6 +78,7 @@ public class ItemRecyclerAdapter extends FirebaseRecyclerAdapter<Drink, ItemRecy
             this.price = itemView.findViewById(R.id.txtPrice);
             this.name = itemView.findViewById(R.id.txtName);
             this.image = itemView.findViewById(R.id.imageview);
+
         }
     }
 }

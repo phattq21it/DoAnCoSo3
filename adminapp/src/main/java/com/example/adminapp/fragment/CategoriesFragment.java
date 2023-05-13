@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,8 +24,18 @@ import com.example.adminapp.Adapter.ItemRecyclerAdapter;
 import com.example.adminapp.AdminActivity;
 import com.example.adminapp.R;
 import com.example.adminapp.model.Drink;
+import com.example.adminapp.model.Request;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class CategoriesFragment extends Fragment {
     private RecyclerView recyclerView,recyclerView2;
@@ -113,46 +124,77 @@ public class CategoriesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=  inflater.inflate(R.layout.fragment_categoriesad,container,false);
-        recyclerView = view.findViewById(R.id.rcv_category_list1);
-        recyclerView2 = view.findViewById(R.id.rcv_category_list2);
+
 
         adminactivity= (AdminActivity) getActivity();
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormatDesosanh = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = dateFormat.format(date);
+        String dateStringDeSoSanh = dateFormatDesosanh.format(date);
+        TextView ngayhomnay=view.findViewById(R.id.tvNgayHomNay);
+        ngayhomnay.setText(dateString);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ordersRef = database.getReference("Request");
+        Query query = ordersRef.orderByChild("time").startAt(dateStringDeSoSanh);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int orderCount = (int) snapshot.getChildrenCount();
+                String soluong = Integer.toString(orderCount);
+                int tongtien = 0;
+                TextView soluongdonhang=view.findViewById(R.id.tvSoLuongSanPham);
+                soluongdonhang.setText(soluong);
+                for (DataSnapshot orderSnapshot : snapshot.getChildren()) {
+                    Request order = orderSnapshot.getValue(Request.class);
+                    int orderAmount = Integer.parseInt(order.getTotal().toString());
+                    tongtien += orderAmount;
+                }
+                TextView doanhthuhomnay=view.findViewById(R.id.tvDoanhThuHomNay);
+                doanhthuhomnay.setText(Integer.toString(tongtien)+"đ");
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference productsRef = database.getReference("Item");
+                Query query = productsRef.orderByChild("quantityPurchased");
+                query.limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            // Lấy sản phẩm có lượt bán cao nhất
+                            for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                                String productName = productSnapshot.child("name").getValue(String.class);
+                                // Sử dụng tên sản phẩm theo ý muốn
+                                TextView sanphammuanhieu=view.findViewById(R.id.tvSanPhamMuaNhieu);
+                                sanphammuanhieu.setText(productName);
+
+                            }
+                        } else {
+                            // Không có sản phẩm nào trong bảng
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
 
-        //slider
-//        sliderView= view.findViewById(R.id.image_slider_category);
-//        SliderAdapter sliderAdapter= new SliderAdapter(images);
-//        sliderView.setSliderAdapter(sliderAdapter);
-//        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
-//        sliderView.setSliderTransformAnimation(SliderAnimations.CUBEINDEPTHTRANSFORMATION);
-//        sliderView.startAutoCycle();
-        //list product
-        GridLayoutManager gridLayoutManager= new GridLayoutManager(getContext(),2);
-        GridLayoutManager gridLayoutManager2= new GridLayoutManager(getContext(),2);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView2.setLayoutManager(gridLayoutManager2);
 
-        FirebaseRecyclerOptions<Drink> options =
-                new FirebaseRecyclerOptions.Builder<Drink>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item"), Drink.class)
-                        .build();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        TextView doanhthuhomnay=view.findViewById(R.id.tvDoanhThuHomNay);
+        TextView sanphammuanhieu=view.findViewById(R.id.tvSanPhamMuaNhieu);
 
 
-        itemRecycleAdapter = new ItemRecyclerAdapter(options);
-        recyclerView.setAdapter(itemRecycleAdapter);
-        recyclerView2.setAdapter(itemRecycleAdapter);
-
-        //setlistener
-//        itemRecycleAdapter.setData(new ItemRecyclerAdapter.IClickAddToCartListener() {
-//            @SuppressLint("ResourceAsColor")
-//            @Override
-//            public void onClickAddToCart(ImageView imageView, Drink drink) {
-//                adminactivity.setCountProductInCart(adminactivity.getmCountProduct()+1);
-////                if(imageView.)
-//                imageView.setEnabled(false);
-//                imageView.setBackgroundColor(com.nex3z.notificationbadge.R.color.red);
-//            }
-//        });
 
         return view;
 
@@ -165,16 +207,16 @@ public class CategoriesFragment extends Fragment {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
-    @Override
-    public void onStart() {
-        super.onStart();
-        itemRecycleAdapter.startListening();
-    }
-    @Override
-    public void onStop() {
-        super.onStop();
-        itemRecycleAdapter.stopListening();
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        itemRecycleAdapter.startListening();
+//    }
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        itemRecycleAdapter.stopListening();
+//    }
     private void replaceFragment(Fragment fragment) {
 
         adminactivity= (AdminActivity) getActivity();
