@@ -32,16 +32,18 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<ManageCategori
     @Override
     public ManageCategoriesAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_manager,parent,false);
+
         return new ManageCategoriesAdapter.Holder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ManageCategoriesAdapter.Holder holder, int position) {
-        Categories categories=mListCategories.get(position);
-        if(categories==null){
-            return;
-        }
-        holder.txtNameCategory.setText(categories.getName());
+//        Categories categories=mListCategories.get(position);
+//        if(categories==null){
+//            return;
+//        }
+//        holder.txtNameCategory.setText(categories.getName());
+
     }
 
     @Override
@@ -52,36 +54,14 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<ManageCategori
         return 0;
     }
 
-    //    Context context;
-//
-//    public ManagerRecycleAdapter(Context context,@NonNull FirebaseRecyclerOptions<Drink> options) {
-//
-//        super(options);
-//        this.context=context;
-//    }
-//
-//    @Override
-//    protected void onBindViewHolder(@NonNull Holder holder, int position, @NonNull Drink model) {
-////        Toast.makeText(context, "Hihi", Toast.LENGTH_SHORT).show();
-////        holder.txtDrink.setText(model.getName());
-//    }
-//
-//    @NonNull
-//    @Override
-//    public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_manager, parent, false);
-//        return new Holder(view);
-//    }
-//
+
     public class Holder extends RecyclerView.ViewHolder{
-        TextView txtNameCategory;
-        ImageView imgEdit,imgDelete;
+
+
         public Holder(@NonNull View itemView) {
             super(itemView);
 
-            txtNameCategory=itemView.findViewById(R.id.txtuser);
-            imgEdit=itemView.findViewById(R.id.edituser);
-            imgDelete=itemView.findViewById(R.id.deleteuser);
+
         }
     }
 }
