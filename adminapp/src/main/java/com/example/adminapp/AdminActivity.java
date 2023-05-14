@@ -37,11 +37,13 @@ public class    AdminActivity extends AppCompatActivity {
         frameLayout = findViewById(R.id.framlayoutman);
 // Create items
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.home_nav, R.drawable.ic_baseline_home_24, R.color.teal_200);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.cart_nav, R.drawable.ic_baseline_home_24, R.color.teal_200);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.manager_nav, R.drawable.manager, R.color.teal_200);
         AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.account_nav, R.drawable.ic_baseline_account_circle_24, R.color.teal_200);
 
 // Add items
         ahBottomNavigation.addItem(item1);
+        ahBottomNavigation.addItem(item2);
         ahBottomNavigation.addItem(item3);
         ahBottomNavigation.addItem(item4);
 
@@ -59,9 +61,13 @@ public class    AdminActivity extends AppCompatActivity {
                         break;
                     case 1:
                         Log.d(String.valueOf(position), String.valueOf(position));
-                        replaceFragment(new ManagerFragment());
+                        replaceFragment(new CategoriesFragment());
                         break;
                     case 2:
+                        Log.d(String.valueOf(position), String.valueOf(position));
+                        replaceFragment(new ManagerFragment());
+                        break;
+                    case 3:
                         Log.d(String.valueOf(position), String.valueOf(position));
                         replaceFragment(new AccountFragment());
                         break;

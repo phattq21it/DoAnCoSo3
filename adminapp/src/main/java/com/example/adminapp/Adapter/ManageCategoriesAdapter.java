@@ -38,11 +38,11 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<ManageCategori
 
     @Override
     public void onBindViewHolder(@NonNull ManageCategoriesAdapter.Holder holder, int position) {
-//        Categories categories=mListCategories.get(position);
-//        if(categories==null){
-//            return;
-//        }
-//        holder.txtNameCategory.setText(categories.getName());
+        Categories categories=mListCategories.get(position);
+        if(categories==null){
+            return;
+        }
+        holder.txtNameCategory.setText(categories.getName());
 
     }
 
@@ -56,11 +56,11 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<ManageCategori
 
 
     public class Holder extends RecyclerView.ViewHolder{
-
+        TextView txtNameCategory;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
-
+            txtNameCategory= itemView.findViewById(R.id.txtuser);
 
         }
     }
