@@ -121,7 +121,7 @@ public class CategoriesFragment extends Fragment {
                         .build();
         FirebaseRecyclerOptions<Drink> optionHaiSan =
                 new FirebaseRecyclerOptions.Builder<Drink>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("type").equalTo("Hải Sản"), Drink.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("type").equalTo("Seafood"), Drink.class)
                         .build();
         FirebaseRecyclerOptions<Drink> optionHotDog =
                 new FirebaseRecyclerOptions.Builder<Drink>()

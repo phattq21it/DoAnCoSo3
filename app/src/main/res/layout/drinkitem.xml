@@ -54,7 +54,7 @@
                     android:textSize="22sp"
                     android:id="@+id/txtPrice"
                     android:text="20000"
-                    android:textColor="@color/black"
+                    android:textColor="@color/Red"
                     android:layout_marginStart="10dp"/>
                 <TextView
                     android:fontFamily="serif"
@@ -63,7 +63,7 @@
                     android:textSize="22sp"
                     android:id="@+id/đd"
                     android:text="đ"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/Red"/>
                 <TextView
                     android:id="@+id/txtdaban"
                     android:gravity="end"
