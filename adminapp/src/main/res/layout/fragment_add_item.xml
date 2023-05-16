@@ -17,7 +17,7 @@
                 android:layout_height="wrap_content"
                 android:text="ID"
                 android:textColor="@color/black"
-                android:textSize="30sp"/>
+                android:textSize="25sp"/>
             <EditText
                 android:id="@+id/edtIdItem"
                 android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="Hình ảnh sản phẩm"
                 android:textColor="@color/black"
-                android:textSize="30sp"/>
+                android:textSize="25sp"/>
             <EditText
                 android:id="@+id/edtImageItem"
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:text="Tên sản phẩm"
             android:textColor="@color/black"
-            android:textSize="30sp"/>
+            android:textSize="25sp"/>
         <EditText
             android:id="@+id/edtNameItem"
             android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="Giá"
                 android:textColor="@color/black"
-                android:textSize="30sp"/>
+                android:textSize="25sp"/>
             <EditText
                 android:id="@+id/edtPriceItem"
                 android:layout_width="match_parent"
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:text="Chọn danh mục"
                 android:textColor="@color/black"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:id="@+id/tvCategory"
 
                 />
@@ -120,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:text="Mô tả"
                 android:textColor="@color/black"
-                android:textSize="30sp"/>
+                android:textSize="25sp"/>
             <EditText
                 android:id="@+id/edtDescriptionItem"
                 android:layout_width="match_parent"
@@ -138,25 +138,29 @@
                 android:layout_height="wrap_content"
                 android:text="Giảm giá"
                 android:textColor="@color/black"
-                android:textSize="30sp"/>
+                android:textSize="25sp"/>
             <EditText
                 android:id="@+id/edtDiscountItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Giá giảm"/>
         </LinearLayout>
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAddItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Thêm"
-            android:textSize="20sp"/>
-        <Button
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:background="@drawable/bgg"/>
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sửa"
             android:textSize="20sp"
-            android:visibility="gone"/>
+            android:textColor="@color/white"
+            android:visibility="gone"
+            android:background="@drawable/bgg"/>
     </LinearLayout>
 
 
