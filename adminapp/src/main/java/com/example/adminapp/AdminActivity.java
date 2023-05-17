@@ -37,7 +37,7 @@ public class    AdminActivity extends AppCompatActivity {
         frameLayout = findViewById(R.id.framlayoutman);
 // Create items
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.home_nav, R.drawable.ic_baseline_home_24, R.color.teal_200);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.cart_nav, R.drawable.ic_baseline_home_24, R.color.teal_200);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.Statistic_navv, R.drawable.graph, R.color.teal_200);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.manager_nav, R.drawable.manager, R.color.teal_200);
         AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.account_nav, R.drawable.ic_baseline_account_circle_24, R.color.teal_200);
 

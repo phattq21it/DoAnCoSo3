@@ -2,6 +2,7 @@
     <string name="app_name">My Application</string>
     <string name="home_nav">Home</string>
     <string name="cart_nav">Cart</string>
+    <string name="Statistic_navv">Statistic</string>
     <string name="account_nav">Account</string>
     <string name="categories_nav">Categories</string>
     <string name="manager_nav">Manager</string>

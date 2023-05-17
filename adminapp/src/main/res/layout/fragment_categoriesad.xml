@@ -4,13 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroud"
     android:gravity="center"
     android:orientation="vertical">
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="THỐNG KÊ "
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+        </CalendarView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -20,47 +36,42 @@
 
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="THỐNG KÊ "
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="15dp"
-                android:padding="8dp"
-                android:layout_margin="8dp"
+                android:layout_marginTop="3dp"
                 android:background="@color/white">
                 <LinearLayout
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:gravity="center">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="Ngày hôm nay :"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:text="Doanh thu ngày :"
+                        android:textSize="25sp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
                     <TextView
+                        android:fontFamily="serif"
                         android:id="@+id/tvNgayHomNay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text=" 15 / 2 /2023"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -69,29 +80,34 @@
                android:layout_height="wrap_content"
                app:cardCornerRadius="0dp"
                app:cardElevation="15dp"
+               android:layout_marginTop="1dp"
                android:padding="8dp"
-               android:layout_margin="8dp"
                android:background="@color/white">
                <LinearLayout
+                   android:padding="10dp"
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
                    android:orientation="horizontal">
 
                    <TextView
+                       android:fontFamily="serif"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_gravity="center_horizontal"
-                       android:text="Số lượng đơn hàng trong ngày :"
+                       android:text="Số lượng đơn hàng :"
                        android:textSize="20sp"
-                       android:textStyle="bold" />
+                       android:textStyle="bold"
+                       android:textColor="@color/black" />
                    <TextView
+                       android:fontFamily="serif"
                        android:id="@+id/tvSoLuongSanPham"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_gravity="center_horizontal"
                        android:text=" 15"
                        android:textSize="20sp"
-                       android:textStyle="bold" />
+                       android:textStyle="bold"
+                       android:textColor="@color/black"/>
                </LinearLayout>
 
            </androidx.cardview.widget.CardView>
@@ -101,60 +117,67 @@
                 app:cardCornerRadius="0dp"
                 app:cardElevation="15dp"
                 android:padding="8dp"
-                android:layout_margin="8dp"
                 android:background="@color/white">
                 <LinearLayout
+                    android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:fontFamily="serif"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="Doanh thu hôm nay :"
+                        android:text="Tổng doanh thu :"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
                     <TextView
+                        android:fontFamily="serif"
                         android:id="@+id/tvDoanhThuHomNay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text=" 15"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="15dp"
-                android:padding="8dp"
-                android:layout_margin="8dp"
                 android:background="@color/white">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
                     <TextView
+                        android:fontFamily="serif"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="Được mua nhiều nhất :"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
                     <TextView
+                        android:fontFamily="serif"
                         android:id="@+id/tvSanPhamMuaNhieu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text=" Cơm gà"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -166,7 +189,4 @@
 
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
-
 </LinearLayout>

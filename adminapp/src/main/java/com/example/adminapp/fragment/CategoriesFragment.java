@@ -4,12 +4,15 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CalendarView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,11 +39,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class CategoriesFragment extends Fragment {
     private RecyclerView recyclerView,recyclerView2;
     ItemRecyclerAdapter itemRecycleAdapter;
-
+    TextView soluongdonhang,ngayhomnay,doanhthuhomnay,sanphammuanhieu;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -129,50 +133,71 @@ public class CategoriesFragment extends Fragment {
         adminactivity= (AdminActivity) getActivity();
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
+        CalendarView calendarView = view.findViewById(R.id.calendarView);
+        ngayhomnay=view.findViewById(R.id.tvNgayHomNay);
+        soluongdonhang=view.findViewById(R.id.tvSoLuongSanPham);
+        sanphammuanhieu=view.findViewById(R.id.tvSanPhamMuaNhieu);
+        doanhthuhomnay=view.findViewById(R.id.tvDoanhThuHomNay);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        SimpleDateFormat dateFormatDesosanh = new SimpleDateFormat("yyyy-MM-dd");
-        String dateString = dateFormat.format(date);
-        String dateStringDeSoSanh = dateFormatDesosanh.format(date);
-        TextView ngayhomnay=view.findViewById(R.id.tvNgayHomNay);
-        ngayhomnay.setText(dateString);
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ordersRef = database.getReference("Request");
-        Query query = ordersRef.orderByChild("time").startAt(dateStringDeSoSanh);
-        query.addValueEventListener(new ValueEventListener() {
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int orderCount = (int) snapshot.getChildrenCount();
-                String soluong = Integer.toString(orderCount);
-                int tongtien = 0;
-                TextView soluongdonhang=view.findViewById(R.id.tvSoLuongSanPham);
-                soluongdonhang.setText(soluong);
-                for (DataSnapshot orderSnapshot : snapshot.getChildren()) {
-                    Request order = orderSnapshot.getValue(Request.class);
-                    int orderAmount = Integer.parseInt(order.getTotal().toString());
-                    tongtien += orderAmount;
-                }
-                TextView doanhthuhomnay=view.findViewById(R.id.tvDoanhThuHomNay);
-                doanhthuhomnay.setText(Integer.toString(tongtien)+"đ");
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                Calendar selectedDate = Calendar.getInstance();
+                selectedDate.set(year, month, dayOfMonth);
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
+                SimpleDateFormat dateFormatDesosanh = new SimpleDateFormat("yyyy-MM-dd");
+                String date1 = dateFormat.format(selectedDate.getTime());
+                String dateStringDeSoSanh = dateFormatDesosanh.format(selectedDate.getTime());
+
+                ngayhomnay.setText(date1);
+
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference productsRef = database.getReference("Item");
-                Query query = productsRef.orderByChild("quantityPurchased");
-                query.limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+                DatabaseReference ordersRef = database.getReference("Request");
+                Query query = ordersRef.orderByChild("time").startAt(dateStringDeSoSanh);
+                query.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            // Lấy sản phẩm có lượt bán cao nhất
-                            for (DataSnapshot productSnapshot : snapshot.getChildren()) {
-                                String productName = productSnapshot.child("name").getValue(String.class);
-                                // Sử dụng tên sản phẩm theo ý muốn
-                                TextView sanphammuanhieu=view.findViewById(R.id.tvSanPhamMuaNhieu);
-                                sanphammuanhieu.setText(productName);
+                        int orderCount = (int) snapshot.getChildrenCount();
+                        String soluong = Integer.toString(orderCount);
+                        Toast.makeText(adminactivity, soluong, Toast.LENGTH_SHORT).show();
+                        int tongtien = 0;
+                        soluongdonhang.setText(soluong);
+                        for (DataSnapshot orderSnapshot : snapshot.getChildren()) {
+                            Request order = orderSnapshot.getValue(Request.class);
+                            int orderAmount = Integer.parseInt(order.getTotal().toString());
+                            tongtien += orderAmount;
+                        }
+
+                        doanhthuhomnay.setText(Integer.toString(tongtien)+"đ");
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference productsRef = database.getReference("Item");
+                        Query query = productsRef.orderByChild("quantityPurchased");
+                        query.limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    // Lấy sản phẩm có lượt bán cao nhất
+                                    for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                                        String productName = productSnapshot.child("name").getValue(String.class);
+                                        // Sử dụng tên sản phẩm theo ý muốn
+                                        sanphammuanhieu.setText(productName);
+
+                                    }
+                                } else {
+                                    // Không có sản phẩm nào trong bảng
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
                             }
-                        } else {
-                            // Không có sản phẩm nào trong bảng
-                        }
+                        });
+
+
+
                     }
 
                     @Override
@@ -181,18 +206,11 @@ public class CategoriesFragment extends Fragment {
                     }
                 });
 
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
-        TextView doanhthuhomnay=view.findViewById(R.id.tvDoanhThuHomNay);
-        TextView sanphammuanhieu=view.findViewById(R.id.tvSanPhamMuaNhieu);
+
+
 
 
 
