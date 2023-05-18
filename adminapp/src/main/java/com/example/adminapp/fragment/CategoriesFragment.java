@@ -36,6 +36,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,10 +47,13 @@ public class CategoriesFragment extends Fragment {
     private RecyclerView recyclerView,recyclerView2;
     ItemRecyclerAdapter itemRecycleAdapter;
     TextView soluongdonhang,ngayhomnay,doanhthuhomnay,sanphammuanhieu;
+    Calendar selectedDate;
+    Date date1;
+    String ngaychon;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
+    private int orderCount = 0;
     private String mParam1;
     private String mParam2;
     RecyclerView recview;
@@ -139,72 +144,91 @@ public class CategoriesFragment extends Fragment {
         sanphammuanhieu=view.findViewById(R.id.tvSanPhamMuaNhieu);
         doanhthuhomnay=view.findViewById(R.id.tvDoanhThuHomNay);
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
+        SimpleDateFormat dateFormatDesosanh = new SimpleDateFormat("yyyy-MM-dd");
+
+        selectedDate = Calendar.getInstance();
+        date1= selectedDate.getTime();
+        ngaychon= dateFormat.format(date1);
+        String dateStart = dateFormatDesosanh.format(selectedDate.getTime())+" 00:00:00";
+        String dateEnd = dateFormatDesosanh.format(selectedDate.getTime())+" 23:59:99";
+        doanhthu(dateStart,dateEnd);
+        ngayhomnay.setText(ngaychon);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                Calendar selectedDate = Calendar.getInstance();
+
+
                 selectedDate.set(year, month, dayOfMonth);
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
-                SimpleDateFormat dateFormatDesosanh = new SimpleDateFormat("yyyy-MM-dd");
-                String date1 = dateFormat.format(selectedDate.getTime());
-                String dateStringDeSoSanh = dateFormatDesosanh.format(selectedDate.getTime());
+                ngaychon= dateFormat.format(selectedDate.getTime());
+                String dateStart = dateFormatDesosanh.format(selectedDate.getTime())+" 00:00:00";
+                String dateEnd = dateFormatDesosanh.format(selectedDate.getTime())+" 23:59:99";
 
-                ngayhomnay.setText(date1);
+                orderCount = 0;
+                ngayhomnay.setText(ngaychon);
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference ordersRef = database.getReference("Request");
-                Query query = ordersRef.orderByChild("time").startAt(dateStringDeSoSanh);
-                query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        int orderCount = (int) snapshot.getChildrenCount();
-                        String soluong = Integer.toString(orderCount);
-                        Toast.makeText(adminactivity, soluong, Toast.LENGTH_SHORT).show();
-                        int tongtien = 0;
-                        soluongdonhang.setText(soluong);
-                        for (DataSnapshot orderSnapshot : snapshot.getChildren()) {
-                            Request order = orderSnapshot.getValue(Request.class);
-                            int orderAmount = Integer.parseInt(order.getTotal().toString());
-                            tongtien += orderAmount;
-                        }
-
-                        doanhthuhomnay.setText(Integer.toString(tongtien)+"đ");
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference productsRef = database.getReference("Item");
-                        Query query = productsRef.orderByChild("quantityPurchased");
-                        query.limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists()) {
-                                    // Lấy sản phẩm có lượt bán cao nhất
-                                    for (DataSnapshot productSnapshot : snapshot.getChildren()) {
-                                        String productName = productSnapshot.child("name").getValue(String.class);
-                                        // Sử dụng tên sản phẩm theo ý muốn
-                                        sanphammuanhieu.setText(productName);
-
-                                    }
-                                } else {
-                                    // Không có sản phẩm nào trong bảng
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                doanhthu(dateStart,dateEnd);
+//                FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                DatabaseReference ordersRef = database.getReference("Request");
+//                Query query = ordersRef.orderByChild("time").startAt(dateStart).endAt(dateEnd);
+//
+//                query.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                        orderCount = (int) snapshot.getChildrenCount();
+//
+//                        String soluong = Integer.toString(orderCount);
+//
+//
+//                        int tongtien =0;
+//                        soluongdonhang.setText(soluong);
+//                        for (DataSnapshot orderSnapshot : snapshot.getChildren()) {
+//                            Request order = orderSnapshot.getValue(Request.class);
+//                            int orderAmount = Integer.parseInt(order.getTotal().toString());
+//                            tongtien += orderAmount;
+//                        }
+//                        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+//                        String replacedNumber = decimalFormat.format(tongtien).replace(",", ".");
+//                        doanhthuhomnay.setText(replacedNumber+"đ");
+//
+//                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                        DatabaseReference productsRef = database.getReference("Item");
+//                        Query productquery = productsRef.orderByChild("quantityPurchased");
+//                        productquery.limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                if (snapshot.exists()) {
+//                                    // Lấy sản phẩm có lượt bán cao nhất
+//                                    for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+//                                        String productName = productSnapshot.child("name").getValue(String.class);
+//                                        // Sử dụng tên sản phẩm theo ý muốn
+//                                        sanphammuanhieu.setText(productName);
+//
+//                                    }
+//                                } else {
+//                                    // Không có sản phẩm nào trong bảng
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                            }
+//                        });
+//
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
 
             }
         });
@@ -217,7 +241,66 @@ public class CategoriesFragment extends Fragment {
         return view;
 
     }
+    public void doanhthu(String dateStart,String dateEnd){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ordersRef = database.getReference("Request");
+        Query query = ordersRef.orderByChild("time").startAt(dateStart).endAt(dateEnd);
 
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                orderCount = (int) snapshot.getChildrenCount();
+
+                String soluong = Integer.toString(orderCount);
+
+
+                int tongtien =0;
+                soluongdonhang.setText(soluong);
+                for (DataSnapshot orderSnapshot : snapshot.getChildren()) {
+                    Request order = orderSnapshot.getValue(Request.class);
+                    int orderAmount = Integer.parseInt(order.getTotal().toString());
+                    tongtien += orderAmount;
+                }
+                DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+                String replacedNumber = decimalFormat.format(tongtien).replace(",", ".");
+                doanhthuhomnay.setText(replacedNumber+"đ");
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference productsRef = database.getReference("Item");
+                Query productquery = productsRef.orderByChild("quantityPurchased");
+                productquery.limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            // Lấy sản phẩm có lượt bán cao nhất
+                            for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                                String productName = productSnapshot.child("name").getValue(String.class);
+                                // Sử dụng tên sản phẩm theo ý muốn
+                                sanphammuanhieu.setText(productName);
+
+                            }
+                        } else {
+                            // Không có sản phẩm nào trong bảng
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     public static void hideKeyboard(Activity activity) {
         View view = activity.findViewById(android.R.id.content);
         if (view != null) {

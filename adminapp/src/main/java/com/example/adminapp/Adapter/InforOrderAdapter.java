@@ -18,6 +18,8 @@ import com.example.adminapp.model.Request;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
+import java.text.DecimalFormat;
+
 public class InforOrderAdapter extends FirebaseRecyclerAdapter<Request, InforOrderAdapter.DriverItemViewHolder> {
 
 
@@ -31,7 +33,10 @@ public class InforOrderAdapter extends FirebaseRecyclerAdapter<Request, InforOrd
         holder.diachi.setText(model.getAddress());
         holder.ten.setText(model.getName());
         holder.thoigiandat.setText(model.getTime());
-        holder.tongtien.setText(model.getTotal());
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+        String replacedNumber = decimalFormat.format(Integer.parseInt(model.getTotal())).replace(",", ".");
+
+        holder.tongtien.setText(replacedNumber);
 
         String maDHtext = String.valueOf(model.getCurrentTimeMillis()); // hoặc Long.toString(myLong);
         holder.madonhang.setText(maDHtext);

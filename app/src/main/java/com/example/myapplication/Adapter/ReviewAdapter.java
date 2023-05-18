@@ -56,7 +56,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holderr> {
         Order order=orders.get(position);
         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
         String replacedNumber = decimalFormat.format(Integer.parseInt(order.getPrice())).replace(",", ".");
-        Log.d("hihiahahaha",replacedNumber );
         holder.rvgia.setText(replacedNumber+"đ");
         holder.rvten.setText(order.getProductName());
 

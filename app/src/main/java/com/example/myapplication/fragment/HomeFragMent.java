@@ -163,11 +163,11 @@ public class HomeFragMent extends Fragment {
 
         FirebaseRecyclerOptions<Drink> OptionNew =
                 new FirebaseRecyclerOptions.Builder<Drink>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("created_at").limitToFirst(5), Drink.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("created_at").limitToLast(5), Drink.class)
                         .build();
         FirebaseRecyclerOptions<Drink> optionBanChay =
                 new FirebaseRecyclerOptions.Builder<Drink>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("quantityPurchased").startAt(1),Drink.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Item").orderByChild("quantityPurchased").startAt(5),Drink.class)
                         .build();
         FirebaseRecyclerOptions<Drink> optionAllitem =
                 new FirebaseRecyclerOptions.Builder<Drink>()
