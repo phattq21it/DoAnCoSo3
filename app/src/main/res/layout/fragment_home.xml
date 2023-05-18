@@ -36,7 +36,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_toLeftOf="@+id/imgsearch1"
-                        android:background="@color/white"/>
+                        android:background="@drawable/bgedtsearch"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/imgsearch1"

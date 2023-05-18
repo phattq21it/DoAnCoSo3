@@ -36,7 +36,7 @@ public class InforOrderAdapter extends FirebaseRecyclerAdapter<Request, InforOrd
         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
         String replacedNumber = decimalFormat.format(Integer.parseInt(model.getTotal())).replace(",", ".");
 
-        holder.tongtien.setText(replacedNumber);
+        holder.tongtien.setText(replacedNumber+"đ");
 
         String maDHtext = String.valueOf(model.getCurrentTimeMillis()); // hoặc Long.toString(myLong);
         holder.madonhang.setText(maDHtext);
